@@ -7,3 +7,7 @@
 2a cosa fatta: nel main si è fatta una prima bozza di come creare il vettore, si è ipotizzato che sia un vettore denso composto da interi compresi tra 1 e 5 per il momento, questo si può cambiare più avanti. 
 
 3a cosa fatta: prima implementazione di un prodotto y = Ax con conversione csr, forse va tolto dal main e messo in una classe apposita con tutti i prodotti nel formato csr quindi normale, openMP e CUDA... discutiamone poi, ho notato solo dopo che nelle slide ci stava il prodotto già fatto ho perso un pomeriggio a cercare di capire come farlo quindi lo scriveremo nel readme: la differenza tra irp e irp+1 ci da il numero di valori presenti in una riga, quindi per fare il prodotto riga * vettore x sfruttiamo questo, j = irp[i], j < irp[i+1] itera su tutti gli elementi appartenenti alla i-esima riga, fa quindi il prodotto y[i] += csr->AS[j] * x[csr->JA[j]], quindi moltiplichiamo soltanto i valori non nulli per evitare di fare iterazioni a vuoto moltiplicando per zero.
+
+4a cosa fatta: aggiunto timer per la versione senza parallelizzazione, clock tiene conto solo di esecuzione standard quindi non si può riutilizzare ma va bene tenerlo come benchmark, siccome il timer va misurato solo sul calcolo effettivo del prodotto vettore matrice è stato messo all'interno della funzione che effettua il prodotto e viene ritornata una struct che ha il vettore risultato e i cicli di clock all'inizio e alla fine dell'operazione, così tagliamo fuori l'overhead di trasporto
+
+5a cosa fatta:

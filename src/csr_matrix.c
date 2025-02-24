@@ -3,6 +3,7 @@
 #include <string.h>
 #include "../include/csr_matrix.h"
 
+
 // Funzione per leggere una matrice MatrixMarket e convertirla in CSR
 CSRMatrix* read_matrix_market(const char *filename) {
     FILE *file = fopen(filename, "r");
@@ -19,8 +20,7 @@ CSRMatrix* read_matrix_market(const char *filename) {
             while (fgetc(file) != '\n'); // Salta l'intera riga
         }
     } while (ch == '%');
-
-    ungetc(ch, file); // Rimettiamo l'ultimo carattere se non era '%'
+    ungetc(ch, file);
 
     // Legge dimensioni della matrice
     int M, N, NZ;

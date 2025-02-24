@@ -2,17 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include "../include/csr_matrix.h"
-
-// Funzione per il prodotto matrice-vettore in CSR
-double *csr_matrtimesvect(CSRMatrix *csr, int *x) {
-    double *y = (double *)calloc(csr->M, sizeof(double));
-    for (int i = 0; i < csr->M; i++) {
-        for (int j = csr->IRP[i]; j < csr->IRP[i + 1]; j++) {
-            y[i] += csr->AS[j] * x[csr->JA[j]];
-        }
-    }
-    return y;
-}
+#include "../include/matrix_analysis.h"
+#include "../include/matrmult.h"
 
 void generate_random_vector(int *x, int size) {
     for (int i = 0; i < size; i++) {
@@ -33,8 +24,8 @@ int main() {
         return 1;
     }
 
-    printf("\nConversione in CSR completata con successo!\n\n");
-    print_csr(csr);  // Stampa la matrice convertita in CSR
+    //printf("\nConversione in CSR completata con successo!\n\n");
+    //print_csr(csr);  // Stampa la matrice convertita in CSR
 
     // Genera il vettore di input con numeri casuali tra 1 e 5, denso ma è da cambiare
     int *x = (int *)malloc(csr->N * sizeof(int));
@@ -46,17 +37,26 @@ int main() {
 
     generate_random_vector(x, csr->N);
 
-    printf("\nVettore di input generato:\n");
+    /*printf("\nVettore di input generato:\n");
     for (int i = 0; i < csr->N; i++) {
         printf("x[%d] = %d\n", i, x[i]);
+    }*/
+
+    double *y = (double *)calloc(csr->M, sizeof(double));
+    if (!y) {
+        printf("Errore di allocazione per il vettore y.\n");
+        free(x);
+        free_csr(csr);
+        return 1;
     }
 
-    double *y = csr_matrtimesvect(csr, x);
+    double execution_time = csr_matrtimesvect(csr, x, y);
+    printf("Il tempo di esecuzione senza parallelizzazione è: %f secondi\n", execution_time);
 
-    printf("\nVettore y risultante:\n");
+    /*printf("\nVettore y risultante:\n");
     for (int i = 0; i < csr->M; i++) {
         printf("y[%d] = %.1f\n", i, y[i]);  
-    }
+    }*/
 
     // Libera la memoria allocata
     free(x);
