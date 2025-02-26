@@ -9,7 +9,7 @@
 #include "../include/matrmult.h"
 #include "../include/openMP_prim.h"
 
-#define MATRIX_DIR "test_matrix/"  // 📂 Cartella con le matrici
+#define MATRIX_DIR "test_matrix/"  
 
 void generate_random_vector(int *x, int size) {
     for (int i = 0; i < size; i++) {
@@ -28,24 +28,20 @@ int main() {
         return 1;
     }
 
-    // Inizializza il generatore di numeri casuali
     srand(time(NULL));
 
-    // 🔄 Scansiona tutti i file nella cartella
     while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_name[0] == '.') continue;  // Ignora file nascosti "." e ".."
+        if (entry->d_name[0] == '.') continue;
 
         char filename[256];
         snprintf(filename, sizeof(filename), "%s%s", MATRIX_DIR, entry->d_name);
 
-        // 📖 Legge la matrice e converte in CSR
         CSRMatrix *csr = read_matrix_market(filename);
         if (!csr) {
             printf("%s - Errore nella lettura del file\n", filename);
             continue;
         }
 
-        // 🛠️ Genera il vettore di input della dimensione corretta
         int *x = (int *)malloc(csr->N * sizeof(int));
         if (!x) {
             printf("%s - Errore di allocazione per il vettore x\n", filename);
@@ -54,7 +50,6 @@ int main() {
         }
         generate_random_vector(x, csr->N);
 
-        // ⚡ Esegui il prodotto matrice-vettore
         double *y = (double *)calloc(csr->M, sizeof(double));
         if (!y) {
             printf("%s - Errore di allocazione per il vettore y\n", filename);
@@ -68,8 +63,12 @@ int main() {
 
         for (int i = 0; i < (sizeof(thread_counts)/sizeof(int)); i++) {
             int num_threads = thread_counts[i];
-            int *row_partition = (int *)malloc(num_threads * sizeof(int));
 
+            if (csr->M < num_threads) {
+                continue;
+            }
+
+            int *row_partition = (int *)malloc(num_threads * sizeof(int));
             if (!row_partition) {
                 printf("%s - Errore di allocazione per row_partition\n", filename);
                 free(x);
@@ -78,22 +77,14 @@ int main() {
                 continue;
             }
 
-            // 🔄 Bilancia il carico tra i thread
             balance_load(csr, num_threads, row_partition);
-
-            // ⏳ Esegui il prodotto matrice-vettore con OpenMP
-            double execution_time = csr_matvec_openmp(csr, x, y, num_threads, row_partition);
-
-            printf("%s - Thread: %d - Tempo di esecuzione: %f secondi\n", filename, num_threads, execution_time);
+            execution_time = csr_matvec_openmp(csr, x, y, num_threads, row_partition);
 
             save_results_to_json("results.json", filename, num_threads, execution_time);
 
-
             free(row_partition);
         }
-        
 
-        // 🔄 Libera la memoria prima di passare al prossimo file
         free(x);
         free(y);
         free_csr(csr);
