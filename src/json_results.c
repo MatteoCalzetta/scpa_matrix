@@ -8,7 +8,7 @@
 void save_results_to_json(const char *filename, const char *matrix_name, int num_threads, double execution_time) {
     FILE *file = fopen(JSON_FILE, "a");  // Apriamo in modalità append
     if (!file) {
-        printf("❌ Errore: impossibile aprire %s\n", JSON_FILE);
+        printf("Errore: impossibile aprire %s\n", JSON_FILE);
         return;
     }
 
