@@ -79,12 +79,13 @@ int main() {
 
             balance_load(csr, num_threads, row_partition);
             execution_time = csr_matvec_openmp(csr, x, y, num_threads, row_partition);
+            float exec_flop =  2*(sizeof(csr->AS)/sizeof(float))/execution_time;           
 
-            save_results_to_json("results.json", filename, num_threads, execution_time);
+            save_results_to_json("results.json", filename, num_threads, exec_flop);
 
             free(row_partition);
         }
-
+        
         free(x);
         free(y);
         free_csr(csr);
