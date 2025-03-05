@@ -30,8 +30,7 @@ CSRMatrix* read_matrix_market(const char *filename) {
     sscanf(header, "%d %d %d", &M, &N, &NZ);
 
     // Se la matrice è simmetrica, dobbiamo contare gli elementi duplicati
-    int extra_nz = is_symmetric ? NZ : 0;
-    int total_nz = NZ + extra_nz;
+    int total_nz = is_symmetric ? (2 * NZ) : NZ;
 
     // **Allocazione degli array temporanei**
     int *row_indices = (int *)malloc(total_nz * sizeof(int));
@@ -40,11 +39,7 @@ CSRMatrix* read_matrix_market(const char *filename) {
 
     if (!row_indices || !col_indices || !values) {
         printf("Errore di allocazione memoria.\n");
-        fclose(file);
-        free(row_indices);
-        free(col_indices);
-        free(values);
-        return NULL;
+        goto cleanup;
     }
 
     // **Legge gli elementi della matrice**
@@ -77,10 +72,7 @@ CSRMatrix* read_matrix_market(const char *filename) {
     CSRMatrix *csr = (CSRMatrix *)malloc(sizeof(CSRMatrix));
     if (!csr) {
         printf("Errore di allocazione della struttura CSR.\n");
-        free(row_indices);
-        free(col_indices);
-        free(values);
-        return NULL;
+        goto cleanup;
     }
 
     csr->M = M;
@@ -92,11 +84,7 @@ CSRMatrix* read_matrix_market(const char *filename) {
 
     if (!csr->AS || !csr->JA || !csr->IRP) {
         printf("Errore di allocazione degli array CSR.\n");
-        free_csr(csr);
-        free(row_indices);
-        free(col_indices);
-        free(values);
-        return NULL;
+        goto cleanup;
     }
 
     // **Conta gli elementi per riga per costruire IRP**
@@ -108,31 +96,31 @@ CSRMatrix* read_matrix_market(const char *filename) {
         csr->IRP[i] += csr->IRP[i - 1];
 
     // **Riempie AS e JA**
-    int *row_offset = (int *)malloc(M * sizeof(int));
-    if (!row_offset) {
-        printf("Errore di allocazione row_offset.\n");
-        free_csr(csr);
-        free(row_indices);
-        free(col_indices);
-        free(values);
-        return NULL;
-    }
-    memcpy(row_offset, csr->IRP, M * sizeof(int));
-
     for (int i = 0; i < csr->NZ; i++) {
         int row = row_indices[i];
-        int pos = row_offset[row]++;
+        int pos = csr->IRP[row]++;
         csr->JA[pos] = col_indices[i];
         csr->AS[pos] = values[i];
     }
+
+    // **Ripristina IRP**
+    for (int i = M; i > 0; i--)
+        csr->IRP[i] = csr->IRP[i - 1];
+    csr->IRP[0] = 0;
 
     // **Pulizia memoria temporanea**
     free(row_indices);
     free(col_indices);
     free(values);
-    free(row_offset);
 
     return csr;
+
+cleanup:
+    free(row_indices);
+    free(col_indices);
+    free(values);
+    free_csr(csr);
+    return NULL;
 }
 
 // **Funzione per stampare la matrice in formato CSR**
@@ -166,7 +154,6 @@ void print_csr(CSRMatrix *csr) {
 // **Funzione per liberare la memoria della struttura CSR**
 void free_csr(CSRMatrix *csr) {
     if (!csr) return;
-
     free(csr->AS);
     free(csr->JA);
     free(csr->IRP);
