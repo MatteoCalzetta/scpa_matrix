@@ -3,13 +3,17 @@
 #include <time.h>
 #include <dirent.h>
 #include <string.h>
-#include <unistd.h> 
+#include <unistd.h>
+#include <math.h>
 #include "../include/json_results.h"
 #include "../include/csr_matrix.h"
 #include "../include/matrmult.h"
 #include "../include/openMP_prim.h"
+#include "../include/hll_matrix.h"
+
 
 #define MATRIX_DIR "test_matrix/"  
+
 
 void generate_random_vector(int *x, int size) {
     for (int i = 0; i < size; i++) {
@@ -41,6 +45,9 @@ int main() {
             printf("%s - Errore nella lettura del file\n", filename);
             continue;
         }
+
+        HLLMatrix *hll = convert_csr_to_hll(csr);
+        //print_hll_matrix(hll);
 
         int *x = (int *)malloc(csr->N * sizeof(int));
         if (!x) {
@@ -79,9 +86,8 @@ int main() {
 
             balance_load(csr, num_threads, row_partition);
             execution_time = csr_matvec_openmp(csr, x, y, num_threads, row_partition);
-            float exec_flop =  2*(sizeof(csr->AS)/sizeof(float))/execution_time;           
-
-            save_results_to_json("results.json", filename, num_threads, exec_flop);
+            float exec_flop =  2 * (sizeof(csr->AS) / sizeof(float)) / (execution_time * pow(10, 9));
+            save_results_to_json("results.json", filename, num_threads, execution_time);
 
             free(row_partition);
         }
