@@ -46,8 +46,8 @@ int main() {
             continue;
         }
 
-        HLLMatrix *hll = convert_csr_to_hll(csr);
-        print_hll_matrix(hll);
+        //HLLMatrix *hll = convert_csr_to_hll(csr);
+        //print_hll_matrix(hll);
 
         int *x = (int *)malloc(csr->N * sizeof(int));
         if (!x) {
