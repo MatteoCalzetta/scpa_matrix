@@ -46,7 +46,7 @@ int main() {
             continue;
         }
 
-        HLLMatrix *hll = convert_csr_to_hll(csr);
+        //HLLMatrix *hll = convert_csr_to_hll(csr);
         //print_hll_matrix(hll);
 
         int *x = (int *)malloc(csr->N * sizeof(int));
@@ -66,7 +66,7 @@ int main() {
         }
 
         double execution_time = csr_matrtimesvect(csr, x, y);
-        printf("%s - Tempo di esecuzione: %f secondi\n", filename, execution_time);
+        //printf("%s - Tempo di esecuzione: %f secondi\n", filename, execution_time);
 
         for (int i = 0; i < (sizeof(thread_counts)/sizeof(int)); i++) {
             int num_threads = thread_counts[i];
