@@ -119,7 +119,7 @@ void print_csr(CSRMatrix *csr) {
 
     printf("\nAS (valori non nulli):\n");
     for (int i = 0; i < csr->NZ; i++) {
-        printf("%.2f ", csr->AS[i]);
+        printf("%.10f ", csr->AS[i]);
     }
     printf("\n");
 
