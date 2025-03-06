@@ -19,7 +19,7 @@ void balance_load(CSRMatrix *csr, int num_threads, int *thr_partition) {
     int thread_id = 0;
     thr_partition[0] = 0;
 
-    printf("Numero medio di nnz per thread: %.2f\n", target_workload);
+    //printf("Numero medio di nnz per thread: %.2f\n", target_workload);
 
     // 2️⃣ Suddivisione migliorata
     for (int i = 0; i < csr->M; i++) {

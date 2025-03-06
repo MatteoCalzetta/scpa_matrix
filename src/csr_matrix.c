@@ -10,7 +10,8 @@ CSRMatrix *read_matrix_market(const char *filename) {
         return NULL;
     }
 
-    printf("Matrice in conversione: %s", filename);
+    printf("ciaooooooooooo\n");
+    printf("Matrice in conversione: %s \n", filename);
 
     MM_typecode matcode;
     if (mm_read_banner(file, &matcode) != 0) {
@@ -101,8 +102,41 @@ CSRMatrix *read_matrix_market(const char *filename) {
     csr->JA = JA;
     csr->IRP = IRP;
 
+    print_csr(csr);
+
     return csr;
 }
+
+void print_csr(CSRMatrix *csr) {
+    if (!csr) {
+        printf("La matrice CSR è vuota!\n");
+        return;
+    }
+
+    printf("Matrice in formato CSR:\n");
+    printf("Dimensioni: %d x %d\n", csr->M, csr->N);
+    printf("Numero di elementi non nulli: %d\n", csr->NZ);
+
+    printf("\nAS (valori non nulli):\n");
+    for (int i = 0; i < csr->NZ; i++) {
+        printf("%.2f ", csr->AS[i]);
+    }
+    printf("\n");
+
+    printf("\nJA (indici di colonna):\n");
+    for (int i = 0; i < csr->NZ; i++) {
+        printf("%d ", csr->JA[i]);
+    }
+    printf("\n");
+
+    printf("\nIRP (puntatori di riga):\n");
+    for (int i = 0; i <= csr->M; i++) {
+        printf("%d ", csr->IRP[i]);
+    }
+    printf("\n");
+}
+
+
 
 void free_csr(CSRMatrix *csr) {
     if (!csr) return;

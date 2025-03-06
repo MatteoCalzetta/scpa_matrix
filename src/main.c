@@ -51,8 +51,8 @@ int main() {
             continue;
         }
 
-        //HLLMatrix *hll = convert_csr_to_hll(csr);
-        //print_hll_matrix(hll);
+        HLLMatrix *hll = convert_csr_to_hll(csr);
+        print_hll_matrix(hll);
 
         int *x = (int *)malloc(csr->N * sizeof(int));
         if (!x) {
@@ -70,6 +70,8 @@ int main() {
             continue;
         }
 
+        /*
+        
         double execution_time = csr_matrtimesvect(csr, x, y);
         //printf("%s - Tempo di esecuzione: %f secondi\n", filename, execution_time);
 
@@ -96,7 +98,9 @@ int main() {
 
             free(row_partition);
         }
-        
+        */
+
+
         free(x);
         free(y);
         free_csr(csr);
