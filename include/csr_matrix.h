@@ -2,10 +2,10 @@
 #define CSR_MATRIX_H
 
 typedef struct {
-    int M, N, NZ;   // Numero di righe, colonne e valori non zero
-    double *AS;     // Valori non nulli
-    int *JA;        // Indici delle colonne
-    int *IRP;       // Puntatori di riga
+    int M, N, NZ;
+    double *AS;
+    int *JA;
+    int *IRP;
 } CSRMatrix;
 
 CSRMatrix* read_matrix_market(const char *filename);

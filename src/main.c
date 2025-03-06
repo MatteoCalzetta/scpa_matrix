@@ -40,7 +40,12 @@ int main() {
         char filename[256];
         snprintf(filename, sizeof(filename), "%s%s", MATRIX_DIR, entry->d_name);
 
+
+        //chiama funzione che converte matrici da formato market a formato csr
+        //CSRMatrix *csr = read_matrix_market(filename);
         CSRMatrix *csr = read_matrix_market(filename);
+
+
         if (!csr) {
             printf("%s - Errore nella lettura del file\n", filename);
             continue;

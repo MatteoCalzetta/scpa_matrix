@@ -17,7 +17,7 @@ ifeq ($(UNAME_S), Darwin)
 # Puoi anche aggiungere eventuali altre configurazioni specifiche per Apple
 endif
 
-SRC = src/main.c src/csr_matrix.c src/matrmult.c src/matrix_analysis.c src/openMP_prim.c src/json_results.c src/hll_matrix.c
+SRC = src/main.c src/csr_matrix.c src/matrmult.c src/matrix_analysis.c src/openMP_prim.c src/json_results.c src/hll_matrix.c src/mmio.c
 OUT = progetto.out
 
 all:
