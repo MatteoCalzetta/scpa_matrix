@@ -43,7 +43,7 @@ void balance_load(CSRMatrix *csr, int num_threads, int *thr_partition) {
     free(nnz_per_thread_count);
 }
 
-double csr_matvec_openmp(CSRMatrix *csr, int *x, double *y, int num_threads, int *row_partition) {
+double csr_matvec_openmp(CSRMatrix *csr, double *x, double *y, int num_threads, int *row_partition) {
     double start_time = omp_get_wtime(); // Misura il tempo totale
 
     #pragma omp parallel num_threads(num_threads)

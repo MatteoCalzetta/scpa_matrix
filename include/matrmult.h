@@ -3,5 +3,5 @@
 
 #include "csr_matrix.h"
 
-double csr_matrtimesvect(CSRMatrix *csr, int *x, double *y);
+double csr_matrtimesvect(CSRMatrix *csr, double *x, double *y);
 #endif

@@ -26,7 +26,7 @@ double csr_matrtimesvect(CSRMatrix *csr, int *x, double *y) {
 
 
 // Funzione per il prodotto matrice-vettore BASE in CSR
-double csr_matrtimesvect(CSRMatrix *csr, int *x, double *y) {
+double csr_matrtimesvect(CSRMatrix *csr, double *x, double *y) {
     clock_t start, end;
     double cpu_time_used;
 

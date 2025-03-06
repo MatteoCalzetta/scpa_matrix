@@ -15,7 +15,7 @@
 #define MATRIX_DIR "test_matrix/"  
 
 
-void generate_random_vector(int *x, int size) {
+void generate_random_vector(double *x, int size) {
     for (int i = 0; i < size; i++) {
         x[i] = (rand() % 5) + 1; 
     }
@@ -55,7 +55,7 @@ int main() {
         HLLMatrix *hll = convert_csr_to_hll(csr);
         //print_hll_matrix(hll);
 
-        int *x = (int *)malloc(csr->N * sizeof(int));
+        double *x = (double *)malloc(csr->N * sizeof(double));
         if (!x) {
             printf("%s - Errore di allocazione per il vettore x\n", filename);
             free_csr(csr);
@@ -74,7 +74,7 @@ int main() {
         double execution_time = csr_matrtimesvect(csr, x, y);
         //printf("%s - Tempo di esecuzione: %f secondi\n", filename, execution_time);
         
-        /*
+        
 
         for (int i = 0; i < (sizeof(thread_counts)/sizeof(int)); i++) {
             int num_threads = thread_counts[i];
@@ -98,8 +98,9 @@ int main() {
             save_results_to_json("results.json", filename, num_threads, execution_time);
 
             free(row_partition);
+            row_partition = NULL;
         }
-        */
+        
 
 
 
