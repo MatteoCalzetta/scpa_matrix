@@ -102,7 +102,7 @@ CSRMatrix *read_matrix_market(const char *filename) {
     csr->JA = JA;
     csr->IRP = IRP;
 
-    print_csr(csr);
+    //print_csr(csr);
 
     return csr;
 }

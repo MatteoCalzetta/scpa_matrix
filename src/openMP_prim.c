@@ -26,13 +26,9 @@ void balance_load(CSRMatrix *csr, int num_threads, int *thr_partition) {
         current_workload += row_nnz[i];
         nnz_per_thread_count[thread_id] += row_nnz[i];  
 
-        // Stampa del carico accumulato fino a questo punto
-        printf("Thread %d: accumulati %d nnz prima della verifica\n", thread_id, (int)current_workload);
-
+    
         // Se il thread ha accumulato abbastanza lavoro e ci sono ancora thread disponibili
         if (current_workload >= target_workload && thread_id < num_threads - 1) {
-            printf("Thread %d supera la soglia con %d nnz e passa il controllo a Thread %d\n",
-                   thread_id, (int)current_workload, thread_id + 1);
             thr_partition[thread_id + 1] = i + 1;  // Il prossimo thread partirà da qui
             thread_id++;
             current_workload = 0.0;
@@ -42,11 +38,6 @@ void balance_load(CSRMatrix *csr, int num_threads, int *thr_partition) {
     // 3️⃣ Ultimo thread prende le righe rimanenti
     thr_partition[num_threads] = csr->M;  
 
-    // Stampa del numero di elementi non zero assegnati a ciascun thread
-    printf("Distribuzione finale degli nnz tra i thread:\n");
-    for (int i = 0; i < num_threads; i++) {
-        printf("Thread %d: %d nnz\n", i, nnz_per_thread_count[i]);
-    }
 
     free(row_nnz);
     free(nnz_per_thread_count);
@@ -55,9 +46,7 @@ void balance_load(CSRMatrix *csr, int num_threads, int *thr_partition) {
 double csr_matvec_openmp(CSRMatrix *csr, int *x, double *y, int num_threads, int *row_partition) {
     double start_time = omp_get_wtime(); // Misura il tempo totale
 
-    omp_set_num_threads(num_threads);
-
-    #pragma omp parallel
+    #pragma omp parallel num_threads(num_threads)
     {
         int thread_id = omp_get_thread_num();
         int start_row = row_partition[thread_id];
