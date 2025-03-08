@@ -10,9 +10,9 @@
 #include "../include/matrmult.h"
 #include "../include/openMP_prim.h"
 #include "../include/hll_matrix.h"
+#include "../CUDA_include/cudacsr.h"
 
-
-#define MATRIX_DIR "test_matrix/"  
+#define MATRIX_DIR "../build/test_matrix/"  
 
 
 void generate_random_vector(double *x, int size) {
@@ -71,11 +71,18 @@ int main() {
             continue;
         }
         
-        double execution_time = csr_matrtimesvect(csr, x, y);
+        //double execution_time = csr_matrtimesvect(csr, x, y);
+
+        double execution_time = csr_matvec_cuda(csr, x, y);
+        printf("Tempo di esecuzione: %.10f secondi\n", execution_time);
+
+        double flops = (2.0 * csr->NZ) / execution_time;
+        printf("FLOP: %.10f\n", flops);
+
         //printf("%s - Tempo di esecuzione: %f secondi\n", filename, execution_time);
         
         
-
+        /*
         for (int i = 0; i < (sizeof(thread_counts)/sizeof(int)); i++) {
             int num_threads = thread_counts[i];
 
@@ -100,6 +107,8 @@ int main() {
             free(row_partition);
             row_partition = NULL;
         }
+        
+        */
         
 
 

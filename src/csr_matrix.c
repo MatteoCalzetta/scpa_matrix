@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "mmio.h"
+#include "../include/mmio.h"
 #include "../include/csr_matrix.h"
 
 CSRMatrix *read_matrix_market(const char *filename) {
