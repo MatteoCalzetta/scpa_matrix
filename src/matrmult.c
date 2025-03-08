@@ -42,7 +42,5 @@ double csr_matrtimesvect(CSRMatrix *csr, double *x, double *y) {
 
     cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;  // Calcola il tempo in secondi
 
-    printf("Fattooooo \n");
-
     return cpu_time_used;
 }

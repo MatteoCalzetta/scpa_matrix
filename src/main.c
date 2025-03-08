@@ -1,19 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <dirent.h>
-#include <string.h>
-#include <unistd.h>
 #include <math.h>
+#include <string.h>
 #include "../include/json_results.h"
 #include "../include/csr_matrix.h"
 #include "../include/matrmult.h"
 #include "../include/openMP_prim.h"
 #include "../include/hll_matrix.h"
 #include "../CUDA_include/cudacsr.h"
+#include "../include/matrix.h"  // Inclusione della lista delle matrici
 
 #define MATRIX_DIR "../build/test_matrix/"  
-
 
 void generate_random_vector(double *x, int size) {
     for (int i = 0; i < size; i++) {
@@ -23,41 +21,25 @@ void generate_random_vector(double *x, int size) {
 
 int main() {
     int thread_counts[] = {2, 4, 8, 16, 32, 40};
-
-    struct dirent *entry;
-    DIR *dir = opendir(MATRIX_DIR);
-
-    if (!dir) {
-        printf("Errore: impossibile aprire la cartella %s\n", MATRIX_DIR);
-        return 1;
-    }
-
     srand(time(NULL));
 
-    while ((entry = readdir(dir)) != NULL) {
-        if (entry->d_name[0] == '.') continue;
-
+    for (int i = 0; i < num_matrices; i++) {
         char filename[256];
-        snprintf(filename, sizeof(filename), "%s%s", MATRIX_DIR, entry->d_name);
+        snprintf(filename, sizeof(filename), "%s%s", MATRIX_DIR, matrix_filenames[i]);
 
-
-        //chiama funzione che converte matrici da formato market a formato csr
-        //CSRMatrix *csr = read_matrix_market(filename);
+        // Legge la matrice e converte in formato CSR
         CSRMatrix *csr = read_matrix_market(filename);
-
-
         if (!csr) {
-            printf("%s - Errore nella lettura del file\n", filename);
+            printf("Errore: impossibile leggere il file %s\n", filename);
             continue;
         }
 
-        printf("PASTORE TEDESCO\n");
         HLLMatrix *hll = convert_csr_to_hll(csr);
-        //print_hll_matrix(hll);
+        // print_hll_matrix(hll);
 
         double *x = (double *)malloc(csr->N * sizeof(double));
         if (!x) {
-            printf("%s - Errore di allocazione per il vettore x\n", filename);
+            printf("Errore: allocazione fallita per il vettore x (file: %s)\n", filename);
             free_csr(csr);
             continue;
         }
@@ -65,26 +47,23 @@ int main() {
 
         double *y = (double *)calloc(csr->M, sizeof(double));
         if (!y) {
-            printf("%s - Errore di allocazione per il vettore y\n", filename);
+            printf("Errore: allocazione fallita per il vettore y (file: %s)\n", filename);
             free(x);
             free_csr(csr);
             continue;
         }
         
-        //double execution_time = csr_matrtimesvect(csr, x, y);
+        double execution_time = csr_matrtimesvect(csr, x, y);
+        printf("[Seriale] Matrice: %s | Tempo: %.10f s\n", matrix_filenames[i], execution_time);
 
-        double execution_time = csr_matvec_cuda(csr, x, y);
-        printf("Tempo di esecuzione: %.10f secondi\n", execution_time);
+        double execution_time_cuda = csr_matvec_cuda(csr, x, y);
+        printf("[CUDA] Matrice: %s | Tempo: %.10f s\n", matrix_filenames[i], execution_time_cuda);
 
-        double flops = (2.0 * csr->NZ) / execution_time;
-        printf("FLOP: %.10f\n", flops);
+        double flops = (2.0 * csr->NZ) / execution_time_cuda;
+        printf("[CUDA] Matrice: %s | FLOPS: %.10f\n", matrix_filenames[i], flops);
 
-        //printf("%s - Tempo di esecuzione: %f secondi\n", filename, execution_time);
-        
-        
-        /*
-        for (int i = 0; i < (sizeof(thread_counts)/sizeof(int)); i++) {
-            int num_threads = thread_counts[i];
+        for (int j = 0; j < (sizeof(thread_counts)/sizeof(int)); j++) {
+            int num_threads = thread_counts[j];
 
             if (csr->M < num_threads) {
                 continue;
@@ -92,7 +71,7 @@ int main() {
 
             int *row_partition = (int *)malloc(num_threads * sizeof(int));
             if (!row_partition) {
-                printf("%s - Errore di allocazione per row_partition\n", filename);
+                printf("Errore: allocazione fallita per row_partition (file: %s, threads: %d)\n", filename, num_threads);
                 free(x);
                 free(y);
                 free_csr(csr);
@@ -101,17 +80,14 @@ int main() {
 
             balance_load(csr, num_threads, row_partition);
             execution_time = csr_matvec_openmp(csr, x, y, num_threads, row_partition);
-            float exec_flop =  2 * (sizeof(csr->AS) / sizeof(float)) / (execution_time * pow(10, 9));
+            double exec_flop = 2.0 * csr->NZ / (execution_time * 1e9);
+            printf("[OpenMP] Matrice: %s | Threads: %d | FLOPS: %.10f | Tempo: %.10f s\n", 
+                   matrix_filenames[i], num_threads, exec_flop, execution_time);
+
             save_results_to_json("results.json", filename, num_threads, execution_time);
 
             free(row_partition);
-            row_partition = NULL;
         }
-        
-        */
-        
-
-
 
         free(x);
         free(y);
@@ -119,6 +95,5 @@ int main() {
         free_hll(hll);
     }
 
-    closedir(dir);
     return 0;
 }

@@ -70,8 +70,6 @@ HLLMatrix *convert_csr_to_hll(CSRMatrix *csr) {
 
     hll->hackOffsets[num_hacks] = offset;
 
-    printf("FATTOOOHLL\n");
-
     free(maxNR_per_hack);
     return hll;
 }
