@@ -1,3 +1,7 @@
+//PER COMPILARE: "cmake .." -> "make -j$(nproc)" nella cartella /build
+//PER RICOMPILARE: "rm -rf CMakeCache.txt cmake_install.cmake CMakeFiles/ libcuda_kernels.a progetto.out Makefile"
+//                  poi rieseguire comandi PER COMPILARE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -78,8 +82,8 @@ int main() {
             results[i].openmp_results[results[i].num_openmp].flops = 2.0 * csr->NZ / (results[i].openmp_results[results[i].num_openmp].time * 1e9);
             results[i].num_openmp++;
             
-            printf("[OpenMP] Matrice: %s | Threads: %d | FLOPS: %.10f | Tempo: %.10f s\n", 
-                   matrix_filenames[i], thread_counts[j], results[i].openmp_results[results[i].num_openmp-1].flops, results[i].openmp_results[results[i].num_openmp-1].time);
+            printf("[OpenMP] Matrice: %s | Threads: %d | FLOPS: %.10f | Tempo: %.10f s | NZ: %d\n", 
+                   matrix_filenames[i], thread_counts[j], results[i].openmp_results[results[i].num_openmp-1].flops, results[i].openmp_results[results[i].num_openmp-1].time, csr->NZ);
             
             free(row_partition);
         }
