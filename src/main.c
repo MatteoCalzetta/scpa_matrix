@@ -23,6 +23,15 @@ void generate_random_vector(double *x, int size) {
     }
 }
 
+double compute_norm(double *store, double *y, int M) {
+    double norm = 0.0;
+    for (int i = 0; i < M; i++) {
+        double diff = store[i] - y[i];
+        norm += diff * diff;
+    }
+    return sqrt(norm);
+}
+
 int main() {
     int thread_counts[] = {2, 4, 8, 16, 32, 40};
     srand(time(NULL));
@@ -44,6 +53,7 @@ int main() {
         
         double *x = (double *)malloc(csr->N * sizeof(double));
         double *y = (double *)calloc(csr->M, sizeof(double));
+        double *store = (double *)calloc(csr->M, sizeof(double));
         if (!x || !y) {
             printf("Errore: allocazione fallita per i vettori x o y (file: %s)\n", filename);
             free_csr(csr);
@@ -56,6 +66,7 @@ int main() {
         // **Esecuzione Serial**
         results[i].serial.time = csr_matrtimesvect(csr, x, y);
         printf("[Seriale] Matrice: %s | Tempo: %.10f s\n", matrix_filenames[i], results[i].serial.time);
+        memcpy(store, y, csr->M * sizeof(double));
 
         // **Esecuzione CUDA**
         results[i].cuda.time = csr_matvec_cuda(csr, x, y);
@@ -77,6 +88,10 @@ int main() {
             }
 
             balance_load(csr, thread_counts[j], row_partition);
+
+            double norm_value = compute_norm(store, y, csr->M);
+            printf("Norma L2 tra seriale e openmp: %f\n", norm_value);
+
             results[i].openmp_results[results[i].num_openmp].threads = thread_counts[j];
             results[i].openmp_results[results[i].num_openmp].time = csr_matvec_openmp(csr, x, y, thread_counts[j], row_partition);
             results[i].openmp_results[results[i].num_openmp].flops = 2.0 * csr->NZ / (results[i].openmp_results[results[i].num_openmp].time * 1e9);
