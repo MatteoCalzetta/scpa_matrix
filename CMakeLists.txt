@@ -5,6 +5,12 @@ project(progetto LANGUAGES C CXX CUDA)
 set(CMAKE_CUDA_ARCHITECTURES 75)
 
 # Opzioni di compilazione
+
+add_compile_options(-O3) # Optimization Flag
+add_compile_options(-march=native) # Optimization Flag
+#add_compile_options(-ffast-math) # Optimization Flag
+#add_compile_options(-funroll-loops) # Optimization Flag
+
 set(CMAKE_CXX_FLAGS "-O3 -fopenmp -lm")
 set(CMAKE_CUDA_FLAGS "-O3 -arch=sm_75 --compiler-options -fopenmp")
 
