@@ -20,6 +20,7 @@ CSRMatrix *read_matrix_market(const char *filename) {
     int is_sparse = mm_is_sparse(matcode);
     int is_symmetric = mm_is_symmetric(matcode);
     int is_pattern = mm_is_pattern(matcode);
+    int is_array = mm_is_array(matcode);
 
     if (!mm_is_matrix(matcode) || !mm_is_real(matcode)) {
         printf("Formato non supportato! Deve essere una matrice reale.\n");
@@ -34,16 +35,22 @@ CSRMatrix *read_matrix_market(const char *filename) {
             fclose(file);
             return NULL;
         }
+    } else if (is_array) {
+        if (mm_read_mtx_array_size(file, &M, &N) != 0) {
+            printf("Errore nella lettura della dimensione della matrice in formato array!\n");
+            fclose(file);
+            return NULL;
+        }
+        NZ = M * N;
     } else {
-        printf("Formato non supportato! La matrice deve essere in formato coordinate.\n");
+        printf("Formato non supportato! La matrice deve essere in formato coordinate o array.\n");
         fclose(file);
         return NULL;
     }
 
-    int maxNZ = is_symmetric ? NZ * 2 : NZ;
     int *IRP = calloc(M + 1, sizeof(int));
-    int *JA = malloc(maxNZ * sizeof(int));
-    double *AS = malloc(maxNZ * sizeof(double));
+    int *JA = malloc(NZ * sizeof(int));
+    double *AS = malloc(NZ * sizeof(double));
 
     if (!IRP || !JA || !AS) {
         printf("Errore di allocazione per CSR!\n");
@@ -52,64 +59,79 @@ CSRMatrix *read_matrix_market(const char *filename) {
         return NULL;
     }
 
-    int *I = malloc(maxNZ * sizeof(int));
-    int *J = malloc(maxNZ * sizeof(int));
-    double *values = is_pattern ? NULL : malloc(maxNZ * sizeof(double));
-
-    if (!I || !J || (!is_pattern && !values)) {
-        printf("Errore di allocazione della memoria!\n");
-        free(I); free(J); free(values);
-        free(IRP); free(JA); free(AS);
-        fclose(file);
-        return NULL;
-    }
-
     int count = 0;
-    for (int i = 0; i < NZ; i++) {
-        int row, col;
-        double val = 1.0;  // Default per pattern
-        if (is_pattern) {
-            fscanf(file, "%d %d", &row, &col);
-        } else {
-            fscanf(file, "%d %d %lf", &row, &col, &val);
+    if (is_array) {
+        for (int i = 0; i < M; i++) {
+            IRP[i] = count;
+            for (int j = 0; j < N; j++) {
+                double val;
+                fscanf(file, "%lf", &val);
+                if (val != 0.0) {
+                    JA[count] = j;
+                    AS[count] = val;
+                    count++;
+                }
+            }
         }
-        row--; col--;
+        IRP[M] = count;
+    } else {
+        int *I = malloc(NZ * sizeof(int));
+        int *J = malloc(NZ * sizeof(int));
+        double *values = is_pattern ? NULL : malloc(NZ * sizeof(double));
 
-        I[count] = row;
-        J[count] = col;
-        if (!is_pattern) values[count] = val;
-        count++;
+        if (!I || !J || (!is_pattern && !values)) {
+            printf("Errore di allocazione della memoria!\n");
+            free(I); free(J); free(values);
+            free(IRP); free(JA); free(AS);
+            fclose(file);
+            return NULL;
+        }
 
-        if (is_symmetric && row != col) {
-            I[count] = col;
-            J[count] = row;
+        for (int i = 0; i < NZ; i++) {
+            int row, col;
+            double val = 1.0;
+            if (is_pattern) {
+                fscanf(file, "%d %d", &row, &col);
+            } else {
+                fscanf(file, "%d %d %lf", &row, &col, &val);
+            }
+            row--; col--;
+
+            I[count] = row;
+            J[count] = col;
             if (!is_pattern) values[count] = val;
             count++;
+
+            if (is_symmetric && row != col) {
+                I[count] = col;
+                J[count] = row;
+                if (!is_pattern) values[count] = val;
+                count++;
+            }
         }
-    }
-    fclose(file);
+        fclose(file);
 
-    for (int i = 0; i < count; i++) {
-        IRP[I[i] + 1]++;
-    }
+        for (int i = 0; i < count; i++) {
+            IRP[I[i] + 1]++;
+        }
+        for (int i = 1; i <= M; i++) {
+            IRP[i] += IRP[i - 1];
+        }
 
-    for (int i = 1; i <= M; i++) {
-        IRP[i] += IRP[i - 1];
-    }
+        int *row_fill = calloc(M, sizeof(int));
+        for (int i = 0; i < count; i++) {
+            int row = I[i];
+            int pos = IRP[row] + row_fill[row];
+            JA[pos] = J[i];
+            AS[pos] = is_pattern ? 1.0 : values[i];
+            row_fill[row]++;
+        }
 
-    int *row_fill = calloc(M, sizeof(int));
-    for (int i = 0; i < count; i++) {
-        int row = I[i];
-        int pos = IRP[row] + row_fill[row];
-        JA[pos] = J[i];
-        AS[pos] = is_pattern ? 1.0 : values[i];
-        row_fill[row]++;
+        free(I);
+        free(J);
+        free(values);
+        free(row_fill);
     }
-
-    free(I);
-    free(J);
-    free(values);
-    free(row_fill);
 
     CSRMatrix *csr = (CSRMatrix *)malloc(sizeof(CSRMatrix));
     if (!csr) {
@@ -127,6 +149,7 @@ CSRMatrix *read_matrix_market(const char *filename) {
 
     return csr;
 }
+
 
 
 void print_csr(CSRMatrix *csr) {
