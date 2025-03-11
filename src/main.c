@@ -53,6 +53,7 @@ int main() {
         
         double *x = (double *)malloc(csr->N * sizeof(double));
         double *y = (double *)calloc(csr->M, sizeof(double));
+        double *y2 = (double *)calloc(csr->M, sizeof(double));
         double *store = (double *)calloc(csr->M, sizeof(double));
         if (!x || !y) {
             printf("Errore: allocazione fallita per i vettori x o y (file: %s)\n", filename);
@@ -69,9 +70,12 @@ int main() {
         memcpy(store, y, csr->M * sizeof(double));
 
         // **Esecuzione CUDA**
-        results[i].cuda.time = csr_matvec_cuda(csr, x, y);
+        results[i].cuda.time = csr_matvec_cuda(csr, x, y2);
         results[i].cuda.flops = (2.0 * csr->NZ) / results[i].cuda.time;
         printf("[CUDA] Matrice: %s | Tempo: %.10f s | FLOPS: %.10f\n", matrix_filenames[i], results[i].cuda.time, results[i].cuda.flops);
+        //double norm_value = compute_norm(store, y2, csr->M);
+        //printf("Norma L2 tra seriale e CUDA: %f\n\n", norm_value);
+
 
         // **Esecuzione OpenMP**
         results[i].num_openmp = 0;
