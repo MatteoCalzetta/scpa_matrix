@@ -19,6 +19,7 @@ static const char *matrix_filenames[] = {
     "olm1000.mtx",
     "rdist2.mtx",
     "west2021.mtx"
+    //"test_matrix.mtx"
 };
 
 static const int num_matrices = sizeof(matrix_filenames) / sizeof(matrix_filenames[0]);

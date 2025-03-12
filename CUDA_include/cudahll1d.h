@@ -1,9 +1,16 @@
-#ifndef HLL_CUDA_PRODUCT_H
-#define HLL_CUDA_PRODUCT_H
+#ifndef CUDAHLL1D_H
+#define CUDAHLL1D_H
 
 #include "../include/hll_matrix.h"
 
-// Funzione principale per la moltiplicazione matrice-vettore con HLL in CUDA
-void hll_matrix_vector_cuda(const HLLMatrix *hll, const double *x, double *result);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#endif // HLL_CUDA_PRODUCT_H
+void spmvHLL_CUDA(HLLMatrix *hll, const double *h_x, double *h_y);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

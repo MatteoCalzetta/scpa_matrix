@@ -1,3 +1,6 @@
+#ifndef HLL_MATRIX_H
+#define HLL_MATRIX_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,3 +20,5 @@ typedef struct {
 HLLMatrix *convert_csr_to_hll(CSRMatrix *csr);
 void print_hll_matrix(HLLMatrix *hll);
 void free_hll(HLLMatrix *hll);
+
+#endif  // HLL_MATRIX_H

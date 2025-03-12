@@ -1,16 +1,10 @@
 #include <cuda_runtime.h>
 #include <stdio.h>
+#include "../include/hll_matrix.h"
+#include "../CUDA_include/cudahll1d.h"
+
 
 #define HACK_SIZE 32
-
-// Struttura per la matrice HLL
-typedef struct {
-    int M, N;
-    int num_hacks;
-    int *hackOffsets;
-    int *JA;
-    double *AS;
-} HLLMatrix;
 
 // Kernel per trasporre la matrice HLL
 __global__ void transposeHLLKernel(const int *JA, const double *AS, const int *hackOffsets,
