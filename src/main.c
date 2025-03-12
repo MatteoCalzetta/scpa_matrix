@@ -13,6 +13,8 @@
 #include "../include/openMP_prim.h"
 #include "../include/hll_matrix.h"
 #include "../CUDA_include/cudacsr.h"
+#include "../CUDA_include/cudahll1d.h"
+
 #include "../include/matrix.h"
 
 #define MATRIX_DIR "../build/test_matrix/"  
@@ -75,6 +77,12 @@ int main() {
         printf("[CUDA] Matrice: %s | Tempo: %.10f s | FLOPS: %.10f\n", matrix_filenames[i], results[i].cuda.time, results[i].cuda.flops);
         //double norm_value = compute_norm(store, y2, csr->M);
         //printf("Norma L2 tra seriale e CUDA: %f\n\n", norm_value);
+
+        //chiamata cuda hll
+        spmvHLL_CUDA(hll, x, y);
+        double norm_value = compute_norm(store, y, csr->M);
+        printf("Norma L2 tra seriale e cuda hll: %f\n", norm_value);
+
 
 
         // **Esecuzione OpenMP**
