@@ -1,9 +1,9 @@
 import random
 
 # Parametri della matrice
-rows = 20
-cols = 20
-nnz_per_row = 5  # Numero di elementi non nulli per riga
+rows = 6   
+cols = 6
+nnz_per_row = 2  # Numero di elementi non nulli per riga
 total_nnz = rows * nnz_per_row
 
 # Scegli il tipo di matrice
