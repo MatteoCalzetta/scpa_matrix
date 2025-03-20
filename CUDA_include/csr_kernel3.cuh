@@ -36,6 +36,9 @@ __global__ void spmv_csr_warps_shmem_ridpar(int M, const int *IRP, const int *JA
         shared_sum[warp_id][lane] = sum;
         __syncthreads();
 
+        // Lettura dalla shared memory per la riduzione
+        sum = shared_sum[warp_id][lane];
+
         // Riduzione parallela con __shfl_sync
         for (int offset = 16; offset > 0; offset /= 2) {
             sum += __shfl_sync(0xFFFFFFFF, sum, lane + offset);
