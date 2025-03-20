@@ -101,6 +101,66 @@ int main() {
         printf("Norma L2 tra seriale e CUDA HLL: %.4f\n\n", cuda_norm);*/
 
 
+        double *y2 = (double *)calloc(csr->M, sizeof(double));
+
+        /*
+        // CUDA Thread per riga kernel0
+        results[i].cuda.time = spmv_csr_threads(csr, x, y2);
+        results[i].cuda.flops = (2.0 * csr->NZ) / results[i].cuda.time;
+        printf("[CUDA] Matrice: %s | Tempo: %.10f s | FLOPS: %.10f\n", matrix_filenames[i], results[i].cuda.time, results[i].cuda.flops);
+        double norm_value = compute_norm(store, y2, csr->M);
+        printf("Norma L2 tra seriale e CUDA: %f\n\n", norm_value);
+        */
+
+        
+        // CUDA Warp per riga con __shfl_sync kernel1
+        results[i].cuda.time = spmv_csr_warps(csr, x, y2);
+        results[i].cuda.flops = (2.0 * csr->NZ) / results[i].cuda.time;
+        printf("[CUDA] Matrice: %s | Tempo: %.10f s | FLOPS: %.10f\n", matrix_filenames[i], results[i].cuda.time, results[i].cuda.flops);
+        double norm_value = compute_norm(serial_csr, y2, csr->M);
+        printf("Norma L2 tra seriale e CUDA: %f\n\n", norm_value);
+        
+
+        
+        /*
+        // CUDA Warp per riga con shared_memory kernel2
+        results[i].cuda.time = spmv_csr_warps_shmem(csr, x, y2);
+        results[i].cuda.flops = (2.0 * csr->NZ) / results[i].cuda.time;
+        printf("[CUDA] Matrice: %s | Tempo: %.10f s | FLOPS: %.10f\n", matrix_filenames[i], results[i].cuda.time, results[i].cuda.flops);
+        double norm_value = compute_norm(serial_csr, y2, csr->M);
+        printf("Norma L2 tra seriale e CUDA: %f\n\n", norm_value);
+        */
+
+        /*
+        // CUDA Warp per riga con shared_memory e rid parall kernel3
+        results[i].cuda.time = spmv_csr_warps_shmem_ridpar(csr, x, y2);
+        results[i].cuda.flops = (2.0 * csr->NZ) / results[i].cuda.time;
+        printf("[CUDA] Matrice: %s | Tempo: %.10f s | FLOPS: %.10f\n", matrix_filenames[i], results[i].cuda.time, results[i].cuda.flops);
+        double norm_value = compute_norm(serial_csr, y2, csr->M);
+        printf("Norma L2 tra seriale e CUDA: %f\n\n", norm_value);
+        */
+
+        
+        /*
+        // PROVA K4
+        results[i].cuda.time = spmv_csr_warps_shmem_ridpar_launcher(csr, x, y2);
+        results[i].cuda.flops = (2.0 * csr->NZ) / results[i].cuda.time;
+        printf("[CUDA] Matrice: %s | Tempo: %.10f s | FLOPS: %.10f\n", matrix_filenames[i], results[i].cuda.time, results[i].cuda.flops);
+        double norm_value = compute_norm(serial_csr, y2, csr->M);
+        printf("Norma L2 tra seriale e CUDA: %f\n\n", norm_value);
+        */
+
+
+        /*
+        // PROVA K5
+        results[i].cuda.time = spmv_csr_gpu_texture(csr, x, y2);
+        results[i].cuda.flops = (2.0 * csr->NZ) / results[i].cuda.time;
+        printf("[CUDA] Matrice: %s | Tempo: %.10f s | FLOPS: %.10f\n", matrix_filenames[i], results[i].cuda.time, results[i].cuda.flops);
+        double norm_value = compute_norm(serial_csr, y2, csr->M);
+        printf("Norma L2 tra seriale e CUDA: %f\n\n", norm_value);
+        */
+
+
         
 
         for (int i = 0; i < hll->num_blocks; i++) {

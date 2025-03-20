@@ -29,6 +29,7 @@ endif()
 
 # Aggiunge i path ai CUDA Samples (se necessario)
 set(CUDA_SAMPLES_PATH /home/mcalzetta/cuda-samples/Common)
+set(CUDA_SAMPLES_PATH /home/alori/cuda-samples/Common)
 include_directories(${CUDA_SAMPLES_PATH})
 
 # File sorgenti (C, C++ e CUDA)

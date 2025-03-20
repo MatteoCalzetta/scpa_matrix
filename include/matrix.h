@@ -1,6 +1,8 @@
 #ifndef MATRIX_LIST_H
 #define MATRIX_LIST_H
 
+
+
 static const char *matrix_filenames[] = {
     "adder_dcop_32.mtx",
     "af_1_k101.mtx",
@@ -31,8 +33,7 @@ static const char *matrix_filenames[] = {
     "thermal2.mtx",
     "thermomech_TK.mtx",
     "webbase-1M.mtx",
-    "west2021.mtx",
-    "test_matrix.mtx"
+    "west2021.mtx"
 };
 
 static const int num_matrices = sizeof(matrix_filenames) / sizeof(matrix_filenames[0]);

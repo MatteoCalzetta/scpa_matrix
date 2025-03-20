@@ -1,129 +1,343 @@
 #include <cuda_runtime.h>
 #include <stdio.h>
-#include "../CUDA_include/cudacsr.h"
-#include "../include/csr_matrix.h"
 #include <cuda.h>
 #include <iostream>
 
-/*
-__global__ void spmv_csr_kernel(int M, int N, const int *IRP, const int *JA, 
-                                    const double *AS, const double *x, double *y) {
-    // Indici 2D per organizzare i thread
-    int row = blockIdx.x * blockDim.x + threadIdx.x;  // Indice della riga
-    int col = threadIdx.y;  // Indice della colonna per ciascun thread
+#include "../CUDA_include/cudacsr.h"
+#include "../include/csr_matrix.h"
+#include "../CUDA_include/csr_kernel0.cuh"
+#include "../CUDA_include/csr_kernel1.cuh"
+#include "../CUDA_include/csr_kernel2.cuh"
+#include "../CUDA_include/csr_kernel3.cuh"
+#include "../CUDA_include/csr_kernel4.cuh"
+#include "../CUDA_include/csr_kernel5.cuh"
 
-    if (row < M) {
-        // Variabile per accumulare il risultato del prodotto per la riga
-        double sum = 0.0;
-        
-        // Otteniamo l'inizio e la fine della riga nella matrice CSR
-        int row_start = IRP[row];
-        int row_end = IRP[row + 1];
-        
-        // Verifica se la colonna che questo thread deve calcolare è valida
-        if (col < (row_end - row_start)) {
-            int index = row_start + col;  // Indice dell'elemento non zero nella riga
-            
-            // Calcoliamo il prodotto matrice-vettore
-            sum += AS[index] * x[JA[index]];
-        }
-        
-        // Somma parziale tra i thread del blocco (riduzione intra-blocco)
-        __shared__ double shared_sum[32];  // Un array condiviso per la riduzione
-        shared_sum[threadIdx.x] = sum;
-        
-        // Sincronizzazione tra i thread del blocco
-        __syncthreads();
-        
-        // Riduzione in shared memory per ottenere la somma finale per la riga
-        if (threadIdx.x < 16) {
-            shared_sum[threadIdx.x] += shared_sum[threadIdx.x + 16];
-        }
-        if (threadIdx.x < 8) {
-            shared_sum[threadIdx.x] += shared_sum[threadIdx.x + 8];
-        }
-        if (threadIdx.x < 4) {
-            shared_sum[threadIdx.x] += shared_sum[threadIdx.x + 4];
-        }
-        if (threadIdx.x < 2) {
-            shared_sum[threadIdx.x] += shared_sum[threadIdx.x + 2];
-        }
-        if (threadIdx.x < 1) {
-            shared_sum[threadIdx.x] += shared_sum[threadIdx.x + 1];
-        }
-        
-        // Solo il thread 0 di ogni blocco scrive il risultato nella memoria globale
-        if (threadIdx.x == 0) {
-            atomicAdd(&y[row], shared_sum[0]);
-        }
-    }
-}
-*/    
+#define WARP_SIZE 32
+
+#include <cuda_runtime.h>
+#include <cstdio>
 
 
+//PROVA K5
+double spmv_csr_gpu_texture(CSRMatrix *csr, const double *x, double *y) {
+    int M = csr->M;
+    int NZ = csr->NZ;
 
-/*
-__global__ void spmv_csr_kernel(int M, const int *IRP, const int *JA, 
-                                      const double *AS, const double *x, double *y) {
-    // Indice della riga assegnata a questo warp
-    int row = blockIdx.x; // Ogni blocco gestisce una riga
-    
-    if (row < M) {
-        // Otteniamo l'inizio e la fine della riga nella matrice CSR
-        int row_start = IRP[row];
-        int row_end = IRP[row + 1];
-        
-        // Numero di elementi non zero nella riga
-        int num_elements = row_end - row_start;
-        
-        // Ogni thread del warp eseguirà un calcolo per un elemento della riga
-        // Inizializza la somma parziale
-        double sum = 0.0;
+    cudaEvent_t start, stop;
+    float elapsedTime;
 
-        // Calcoliamo un elemento della riga per thread
-        // I thread sono distribuiti tra gli elementi della riga
-        for (int j = row_start + threadIdx.x; j < row_end; j += 32) {
-            sum += AS[j] * x[JA[j]];  // Prodotto matrice-vettore
-        }
+    int *d_IRP, *d_JA;
+    double *d_AS, *d_y;
+    float *d_x;  // Texture usa float invece di double
 
-        // Riduzione tra i thread del warp (32 thread)
-        // Eseguiamo una riduzione in parallelo all'interno del warp
-        for (int offset = 16; offset > 0; offset /= 2) {
-            sum += __shfl_down_sync(0xFFFFFFFF, sum, offset);
-        }
+    cudaStream_t stream;
+    cudaStreamCreate(&stream);
 
-        // Solo il thread 0 del warp aggiorna il risultato
-        if (threadIdx.x == 0) {
-            atomicAdd(&y[row], sum);
-        }
-    }
-}
-*/
+    // Allocazione memoria sulla GPU
+    cudaMalloc(&d_IRP, (M + 1) * sizeof(int));
+    cudaMalloc(&d_JA, NZ * sizeof(int));
+    cudaMalloc(&d_AS, NZ * sizeof(double));
+    cudaMalloc(&d_y, M * sizeof(double));
+    cudaMalloc(&d_x, csr->N * sizeof(float));  // Texture usa float
 
+    // Convertire double in float prima di copiarlo
+    float *h_x = (float*)malloc(csr->N * sizeof(float));
+    for (int i = 0; i < csr->N; i++) h_x[i] = (float)x[i];
 
-// Kernel CUDA per prodotto matrice-vettore in formato CSR
-__global__ void spmv_csr_kernel(int M, const int *IRP, const int *JA, 
-                                const double *AS, const double *x, double *y) {
-    int row = blockIdx.x * blockDim.x + threadIdx.x;
-    if (row < M) {
-        double sum = 0.0;
-        int row_start = IRP[row];
-        int row_end = IRP[row + 1];
-        for (int j = row_start; j < row_end; j++) {
-            //y[row] += AS[j] * x[JA[j]];
-            sum += AS[j] * x[JA[j]];
-        }
-        y[row] = sum;
-    }
+    cudaMemcpy(d_IRP, csr->IRP, (M + 1) * sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_JA, csr->JA, NZ * sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_AS, csr->AS, NZ * sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_x, h_x, csr->N * sizeof(float), cudaMemcpyHostToDevice);
+    free(h_x);
+
+    // Creazione texture object
+    cudaResourceDesc resDesc = {};
+    resDesc.resType = cudaResourceTypeLinear;
+    resDesc.res.linear.devPtr = d_x;
+    resDesc.res.linear.desc.f = cudaChannelFormatKindFloat;
+    resDesc.res.linear.desc.x = 32;
+    resDesc.res.linear.sizeInBytes = csr->N * sizeof(float);
+
+    cudaTextureDesc texDesc = {};
+    texDesc.readMode = cudaReadModeElementType;
+
+    cudaTextureObject_t tex_x;
+    cudaCreateTextureObject(&tex_x, &resDesc, &texDesc, nullptr);
+
+    // Configurazione kernel: 1 warp per riga
+    int warp_size = 32;
+    int num_warps_per_block = 8;  // Numero di warp per blocco
+    dim3 block_dim(warp_size, num_warps_per_block);
+    dim3 grid_dim((M + num_warps_per_block - 1) / num_warps_per_block);
+
+    cudaEventCreate(&start);
+    cudaEventCreate(&stop);
+
+    // Avvia il cronometro
+    cudaEventRecord(start, stream);
+
+    spmv_csr_warp_texture<<<grid_dim, block_dim, 0, stream>>>(M, d_IRP, d_JA, d_AS, tex_x, d_y);
+
+    cudaEventRecord(stop, stream);
+
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&elapsedTime, start, stop);
+
+    // Copia il risultato dalla GPU alla CPU
+    cudaMemcpyAsync(y, d_y, M * sizeof(double), cudaMemcpyDeviceToHost, stream);
+
+    // Distruggere il texture object
+    cudaDestroyTextureObject(tex_x);
+
+    // Sincronizzare lo stream prima di liberare memoria
+    cudaStreamSynchronize(stream);
+
+    // Libera memoria sulla GPU
+    cudaFree(d_IRP);
+    cudaFree(d_JA);
+    cudaFree(d_AS);
+    cudaFree(d_x);
+    cudaFree(d_y);
+
+    cudaStreamDestroy(stream);
+
+    return elapsedTime / 1000;  // Restituisce il tempo in secondi
 }
 
 
-// Funzione per eseguire SpMV in CUDA con trasferimenti asincroni
-double csr_matvec_cuda(CSRMatrix *h_mat, double *h_x, double *h_y) {
+//PROV K4
+double spmv_csr_warps_shmem_ridpar_launcher(CSRMatrix *csr, double *x, double *y) {
+    int M = csr->M;
+    int NZ = csr->NZ;
+
+    // Creazione eventi CUDA per misurare il tempo
+    cudaEvent_t start, stop;
+    float elapsedTime;
+
+    // Puntatori per la memoria sulla GPU
+    int *d_IRP, *d_JA;
+    double *d_AS, *d_x, *d_y;
+
+    // Creazione di uno stream CUDA per l'asincronia
+    cudaStream_t stream;
+    cudaStreamCreate(&stream);
+
+    // Allocazione memoria sulla GPU
+    cudaMalloc(&d_IRP, (M + 1) * sizeof(int));
+    cudaMalloc(&d_JA, NZ * sizeof(int));
+    cudaMalloc(&d_AS, NZ * sizeof(double));
+    cudaMalloc(&d_x, csr->N * sizeof(double));
+    cudaMalloc(&d_y, M * sizeof(double));
+
+    // Copia dei dati dalla CPU alla GPU
+    cudaMemcpyAsync(d_IRP, csr->IRP, (M + 1) * sizeof(int), cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_JA, csr->JA, NZ * sizeof(int), cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_AS, csr->AS, NZ * sizeof(double), cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_x, x, csr->N * sizeof(double), cudaMemcpyHostToDevice, stream);
+    cudaMemset(d_y, 0, M * sizeof(double));  // Inizializza d_y a zero
+
+    // Creazione degli eventi CUDA per il timing
+    cudaEventCreate(&start);
+    cudaEventCreate(&stop);
+
+    // Configurazione del kernel
+    int warps_per_block = 4;  // Numero di warps per blocco
+    dim3 block_dim(32, warps_per_block);  // 32 thread per warp, più warps nel blocco
+    dim3 grid_dim((M + warps_per_block - 1) / warps_per_block);  // Numero di blocchi
+
+    // Avvia il cronometro prima dell'esecuzione del kernel
+    cudaEventRecord(start, stream);
+
+    // Lancio del kernel
+    spmv_csr_warps_shmem_ridpar2<<<grid_dim, block_dim, 0, stream>>>(M, d_IRP, d_JA, d_AS, d_x, d_y);
+
+    // Ferma il cronometro
+    cudaEventRecord(stop, stream);
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&elapsedTime, start, stop);
+
+    // Copia il risultato dalla GPU alla CPU in modo asincrono
+    cudaMemcpyAsync(y, d_y, M * sizeof(double), cudaMemcpyDeviceToHost, stream);
+
+    // Sincronizza lo stream prima di liberare memoria
+    cudaStreamSynchronize(stream);
+
+    // Libera memoria sulla GPU
+    cudaFree(d_IRP);
+    cudaFree(d_JA);
+    cudaFree(d_AS);
+    cudaFree(d_x);
+    cudaFree(d_y);
+
+    // Distrugge lo stream CUDA
+    cudaStreamDestroy(stream);
+
+    return elapsedTime / 1000;  // Restituisce il tempo in secondi
+}
+
+
+
+
+
+//kernel3
+double spmv_csr_warps_shmem_ridpar(CSRMatrix *csr, double *x, double *y) {
+    int M = csr->M;
+    int NZ = csr->NZ;
+
+    // Creazione eventi CUDA per misurare il tempo
+    cudaEvent_t start, stop;
+    float elapsedTime;
+
+    // Puntatori per la memoria sulla GPU
+    int *d_IRP, *d_JA;
+    double *d_AS, *d_x, *d_y;
+
+    // Creazione di uno stream CUDA per l'asincronia
+    cudaStream_t stream;
+    cudaStreamCreate(&stream);
+
+    // Allocazione memoria sulla GPU
+    cudaMalloc(&d_IRP, (M + 1) * sizeof(int));
+    cudaMalloc(&d_JA, NZ * sizeof(int));
+    cudaMalloc(&d_AS, NZ * sizeof(double));
+    cudaMalloc(&d_x, csr->N * sizeof(double));
+    cudaMalloc(&d_y, M * sizeof(double));
+
+    // Copia dei dati dalla CPU alla GPU
+    cudaMemcpyAsync(d_IRP, csr->IRP, (M + 1) * sizeof(int), cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_JA, csr->JA, NZ * sizeof(int), cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_AS, csr->AS, NZ * sizeof(double), cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_x, x, csr->N * sizeof(double), cudaMemcpyHostToDevice, stream);
+
+    // Creazione degli eventi CUDA per il timing
+    cudaEventCreate(&start);
+    cudaEventCreate(&stop);
+
+    int warps_per_block = 4;  // Numero di warps per blocco
+    dim3 block_dim(32, warps_per_block);  // 32 thread per warp, più warps nel blocco
+    dim3 grid_dim((M + warps_per_block - 1) / warps_per_block);  // Numero di blocchi
+
+    size_t shared_mem_size = warps_per_block * 32 * sizeof(double);  // Allocazione della shared memory
+
+    // Avvia il cronometro prima dell'esecuzione del kernel
+    cudaEventRecord(start, stream);
+
+    // Lancio del kernel con shared memory
+    spmv_csr_warps_shmem_ridpar<<<grid_dim, block_dim, shared_mem_size>>>(M, d_IRP, d_JA, d_AS, d_x, d_y);
+
+    // Ferma il cronometro
+    cudaEventRecord(stop, stream);
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&elapsedTime, start, stop);
+
+    // Stampa il tempo di esecuzione
+    printf("Tempo di esecuzione: %.10f ms\n", elapsedTime);
+
+    // Copia il risultato dalla GPU alla CPU in modo asincrono
+    cudaMemcpyAsync(y, d_y, M * sizeof(double), cudaMemcpyDeviceToHost, stream);
+
+    // Sincronizza lo stream prima di liberare memoria
+    cudaStreamSynchronize(stream);
+
+    // Libera memoria sulla GPU
+    cudaFree(d_IRP);
+    cudaFree(d_JA);
+    cudaFree(d_AS);
+    cudaFree(d_x);
+    cudaFree(d_y);
+
+    // Distrugge lo stream CUDA
+    cudaStreamDestroy(stream);
+
+    return elapsedTime / 1000;  // Restituisce il tempo in secondi
+}
+
+
+
+
+//kernel2
+double spmv_csr_warps_shmem(CSRMatrix *csr, double *x, double *y) {
+    int M = csr->M;
+    int NZ = csr->NZ;
+
+    // Creazione eventi CUDA per misurare il tempo
+    cudaEvent_t start, stop;
+    float elapsedTime;
+
+    // Puntatori per la memoria sulla GPU
+    int *d_IRP, *d_JA;
+    double *d_AS, *d_x, *d_y;
+
+    // Creazione di uno stream CUDA per l'asincronia
+    cudaStream_t stream;
+    cudaStreamCreate(&stream);
+
+    // Allocazione memoria sulla GPU
+    cudaMalloc(&d_IRP, (M + 1) * sizeof(int));
+    cudaMalloc(&d_JA, NZ * sizeof(int));
+    cudaMalloc(&d_AS, NZ * sizeof(double));
+    cudaMalloc(&d_x, csr->N * sizeof(double));
+    cudaMalloc(&d_y, M * sizeof(double));
+
+    // Copia dei dati dalla CPU alla GPU
+    cudaMemcpyAsync(d_IRP, csr->IRP, (M + 1) * sizeof(int), cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_JA, csr->JA, NZ * sizeof(int), cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_AS, csr->AS, NZ * sizeof(double), cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_x, x, csr->N * sizeof(double), cudaMemcpyHostToDevice, stream);
+
+    // Creazione degli eventi CUDA per il timing
+    cudaEventCreate(&start);
+    cudaEventCreate(&stop);
+
+    int warps_per_block = 4;  // Numero di warps per blocco
+    dim3 block_dim(32, warps_per_block);  // 32 thread per warp, più warps nel blocco
+    dim3 grid_dim((M + warps_per_block - 1) / warps_per_block);  // Numero di blocchi
+
+    // Allocazione memoria condivisa per la riduzione
+    size_t shared_mem_size = warps_per_block * WARP_SIZE * sizeof(double);
+
+    // Avvia il cronometro prima dell'esecuzione del kernel
+    cudaEventRecord(start, stream);
+
+    // Lancio del kernel
+    spmv_csr_warps_shmem<<<grid_dim, block_dim, shared_mem_size>>>(M, d_IRP, d_JA, d_AS, d_x, d_y);
+
+    // Ferma il cronometro
+    cudaEventRecord(stop, stream);
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&elapsedTime, start, stop);
+
+    // Stampa il tempo di esecuzione
+    printf("Tempo di esecuzione: %.10f ms\n", elapsedTime);
+
+    // Copia il risultato dalla GPU alla CPU in modo asincrono
+    cudaMemcpyAsync(y, d_y, M * sizeof(double), cudaMemcpyDeviceToHost, stream);
+
+    // Sincronizza lo stream prima di liberare memoria
+    cudaStreamSynchronize(stream);
+
+    // Libera memoria sulla GPU
+    cudaFree(d_IRP);
+    cudaFree(d_JA);
+    cudaFree(d_AS);
+    cudaFree(d_x);
+    cudaFree(d_y);
+
+    // Distrugge lo stream CUDA
+    cudaStreamDestroy(stream);
+
+    return elapsedTime / 1000;  // Restituisce il tempo in secondi
+}
+
+
+
+// FAI VARIARE GRANDEZZA WARP PER BLOCCO E INDAGA, DIVERSE GRANDEZZE DIVERSI ERRORI NORMA
+//kernel1
+double spmv_csr_warps(CSRMatrix *h_mat, double *h_x, double *h_y) {
     int M = h_mat->M;
     int NZ = h_mat->NZ;
 
-    // Creazione eventi CUDA per misurare il tempo
+    // Creazione eventi CUDA per il timing
     cudaEvent_t start, stop;
     float elapsedTime;
 
@@ -142,40 +356,42 @@ double csr_matvec_cuda(CSRMatrix *h_mat, double *h_x, double *h_y) {
     cudaMalloc(&d_x, h_mat->N * sizeof(double));
     cudaMalloc(&d_y, M * sizeof(double));
 
+    
+    // Copia dati dalla CPU alla GPU in modo asincrono
+    cudaMemcpy(d_IRP, h_mat->IRP, (M + 1) * sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_JA, h_mat->JA, NZ * sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_AS, h_mat->AS, NZ * sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemcpy(d_x, h_x, h_mat->N * sizeof(double), cudaMemcpyHostToDevice);
+    
+    
+    /*
     // Copia dati dalla CPU alla GPU in modo asincrono
     cudaMemcpyAsync(d_IRP, h_mat->IRP, (M + 1) * sizeof(int), cudaMemcpyHostToDevice, stream);
     cudaMemcpyAsync(d_JA, h_mat->JA, NZ * sizeof(int), cudaMemcpyHostToDevice, stream);
     cudaMemcpyAsync(d_AS, h_mat->AS, NZ * sizeof(double), cudaMemcpyHostToDevice, stream);
     cudaMemcpyAsync(d_x, h_x, h_mat->N * sizeof(double), cudaMemcpyHostToDevice, stream);
+    */
 
+    // Configurazione della griglia CUDA
+    dim3 blockDim(WARP_SIZE, 8);  // 4 warps per blocco (128 thread)
+    dim3 gridDim((M + blockDim.y - 1) / blockDim.y);
 
-    //TODO  numero stream, blocchi di thread, warp per riga in base al num i NZ, preporc dinamico per 
-    //      per avere num ponderati 
-
-    // Configurazione griglia CUDA
-    //int threads_per_block = 128;
-    //int num_blocks = (M + threads_per_block - 1) / threads_per_block;
-
-    int threads_per_block = 32;  // Ogni warp ha 32 thread
-    int num_blocks = M;  // Un blocco per ogni riga
-
+    // Creazione degli eventi CUDA per il timing
     cudaEventCreate(&start);
     cudaEventCreate(&stop);
 
     // Avvia il cronometro prima dell'esecuzione del kernel
     cudaEventRecord(start, stream);
 
-    // Lancio del kernel CUDA con lo stesso stream
-    spmv_csr_kernel<<<num_blocks, threads_per_block, 0, stream>>>(M, d_IRP, d_JA, d_AS, d_x, d_y);
+    // Lancio del kernel con lo stream
+    spmv_csr_warps<<<gridDim, blockDim, 0, stream>>>(M, d_IRP, d_JA, d_AS, d_x, d_y);
 
     // Ferma il cronometro
     cudaEventRecord(stop, stream);
     cudaEventSynchronize(stop);
-
-    // Calcola il tempo trascorso in millisecondi
     cudaEventElapsedTime(&elapsedTime, start, stop);
 
-    // Stampa il tempo in millisecondi
+    // Stampa il tempo di esecuzione
     printf("Tempo di esecuzione: %.10f ms\n", elapsedTime);
 
     // Copia il risultato dalla GPU alla CPU in modo asincrono
@@ -194,5 +410,68 @@ double csr_matvec_cuda(CSRMatrix *h_mat, double *h_x, double *h_y) {
     // Distrugge lo stream CUDA
     cudaStreamDestroy(stream);
 
-    return elapsedTime / 1000;  // Converte ms in secondi
+    return elapsedTime / 1000; // Converte ms in secondi
+}
+
+
+
+
+//kernel0
+double spmv_csr_threads(CSRMatrix *h_mat, double *h_x, double *h_y) {
+    int M = h_mat->M;
+    int NZ = h_mat->NZ;
+
+    // Creazione variabili per GPU
+    cudaEvent_t start, stop;
+    float elapsedTime;
+    int *d_IRP, *d_JA;
+    double *d_AS, *d_x, *d_y;
+
+    //Allocazione variabili e spostamento da host a gpu
+    cudaStream_t stream;
+    cudaStreamCreate(&stream);
+
+    cudaMalloc(&d_IRP, (M + 1) * sizeof(int));
+    cudaMalloc(&d_JA, NZ * sizeof(int));
+    cudaMalloc(&d_AS, NZ * sizeof(double));
+    cudaMalloc(&d_x, h_mat->N * sizeof(double));
+    cudaMalloc(&d_y, M * sizeof(double));
+
+    cudaMemcpyAsync(d_IRP, h_mat->IRP, (M + 1) * sizeof(int), cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_JA, h_mat->JA, NZ * sizeof(int), cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_AS, h_mat->AS, NZ * sizeof(double), cudaMemcpyHostToDevice, stream);
+    cudaMemcpyAsync(d_x, h_x, h_mat->N * sizeof(double), cudaMemcpyHostToDevice, stream);
+
+    // Configurazione della griglia CUDA
+    int threads_per_block = 256;
+    int num_blocks = (M + threads_per_block - 1) / threads_per_block;
+
+    //Cronometro
+    cudaEventCreate(&start);
+    cudaEventCreate(&stop);
+    cudaEventRecord(start, stream);
+
+    spmv_csr_threads<<<num_blocks, threads_per_block, 0, stream>>>(M, d_IRP, d_JA, d_AS, d_x, d_y);
+
+    cudaEventRecord(stop, stream);
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&elapsedTime, start, stop);
+
+    printf("Tempo di esecuzione: %.10f ms\n", elapsedTime);
+
+    //Copia del risultato
+    cudaMemcpyAsync(h_y, d_y, M * sizeof(double), cudaMemcpyDeviceToHost, stream);
+
+    cudaStreamSynchronize(stream);
+
+    //Free variabili GPU
+    cudaFree(d_IRP);
+    cudaFree(d_JA);
+    cudaFree(d_AS);
+    cudaFree(d_x);
+    cudaFree(d_y);
+
+    cudaStreamDestroy(stream);
+
+    return elapsedTime / 1000; //elapsedTime è nativamente in ms
 }
