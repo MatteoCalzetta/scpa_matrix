@@ -6,36 +6,15 @@
 #include <helper_cuda.h>
 #include <helper_timer.h>
 #include "../include/matrix.h"
+#include "../CUDA_include/hll_kernel0.cuh"
+#include "../CUDA_include/hll_kernel1.cuh"
+#include "../CUDA_include/hll_kernel2.cuh"
+
 
 
 #define HACK_SIZE 32
 #define WARP_SIZE 32
 #define THREADS_PER_BLOCK 128
-
-
-__global__ void matvec_Hll_cuda_SH(const HLLMatrix *d_hll_matrix, const double *d_x, double *d_y, int M) {
-    int global_row = blockIdx.x * blockDim.x + threadIdx.x;
-
-    if (global_row >= M) return;
-
-    int block_id = global_row / HACK_SIZE;
-    int local_row = global_row % HACK_SIZE;
-
-    if (block_id >= d_hll_matrix->num_blocks) return;
-
-    const HLLBlock *block = &d_hll_matrix->blocks[block_id];
-    int row_offset = local_row * block->max_nz_per_row;
-
-    double sum = 0.0;
-
-    for (int j = 0; j < block->max_nz_per_row; j++) {
-        int col_idx = block->JA[row_offset + j];
-        double value = block->AS[row_offset + j];
-        sum += value * d_x[col_idx];
-    }
-
-    d_y[global_row] = sum;
-}
 
 void configure_grid_warp(int M, int sm_count, int *blocks, int *threads) {
     *threads = min(THREADS_PER_BLOCK, M);
@@ -50,6 +29,123 @@ void configure_grid_warp(int M, int sm_count, int *blocks, int *threads) {
     }
 }
 
+matrixPerformance parallel_hll_cuda_v2(HLLMatrix *hllMatrixHost, double *x_h, double *y_h) {
+    double *d_y;
+    double *d_x;
+    int M = hllMatrixHost->M;
+
+    cudaDeviceReset();
+    size_t free_mem, total_mem;
+    cudaMemGetInfo(&free_mem, &total_mem);
+
+    // NOTA: y_h è passato dal main (deve essere allocato lì con dimensione M)
+
+    // Allocazione della struttura HLL sulla GPU
+    HLLMatrix *d_hll_matrix;
+    cudaMalloc(&d_hll_matrix, sizeof(HLLMatrix));
+    cudaMemcpy(d_hll_matrix, hllMatrixHost, sizeof(HLLMatrix), cudaMemcpyHostToDevice);
+
+    HLLBlock *d_blocks;
+    cudaMalloc(&d_blocks, hllMatrixHost->num_blocks * sizeof(HLLBlock));
+    cudaMemcpy(&d_hll_matrix->blocks, &d_blocks, sizeof(HLLBlock *), cudaMemcpyHostToDevice);
+
+    // Trasferimento di ciascun blocco sulla GPU
+    for (int i = 0; i < hllMatrixHost->num_blocks; i++) {
+        HLLBlock *block = &hllMatrixHost->blocks[i];
+
+        int *d_JA;
+        double *d_AS;
+        int rows_in_block = (i == hllMatrixHost->num_blocks - 1) ?
+                            (hllMatrixHost->M % HACK_SIZE) : HACK_SIZE;
+        if (rows_in_block == 0)
+            rows_in_block = HACK_SIZE;
+
+        size_t JA_size = block->max_nz_per_row * rows_in_block * sizeof(int);
+        size_t AS_size = block->max_nz_per_row * rows_in_block * sizeof(double);
+
+        cudaMalloc(&d_JA, JA_size);
+        cudaMemcpy(d_JA, block->JA, JA_size, cudaMemcpyHostToDevice);
+
+        cudaMalloc(&d_AS, AS_size);
+        cudaMemcpy(d_AS, block->AS, AS_size, cudaMemcpyHostToDevice);
+
+        HLLBlock d_block = *block;
+        d_block.JA = d_JA;
+        d_block.AS = d_AS;
+
+        cudaMemcpy(&d_blocks[i], &d_block, sizeof(HLLBlock), cudaMemcpyHostToDevice);
+    }
+
+    // Timer per misurare le prestazioni
+    StopWatchInterface* timer = nullptr;
+    sdkCreateTimer(&timer);
+
+    // Trasferimento del vettore x sulla GPU
+    cudaMalloc((void **)&d_x, hllMatrixHost->N * sizeof(double));
+    cudaMemcpy(d_x, x_h, hllMatrixHost->N * sizeof(double), cudaMemcpyHostToDevice);
+
+    // Alloca il vettore y sulla GPU (il risultato verrà copiato in y_h passato dal main)
+    cudaMalloc((void **)&d_y, M * sizeof(double));
+    cudaMemset(d_y, 0, M * sizeof(double));
+
+    // Configurazione dinamica del kernel:
+    // Se M >= 1024, usiamo 32 warps per blocco (32x32=1024 thread per blocco)
+    // Altrimenti, calcoliamo il numero necessario per coprire M righe.
+    int warps_per_block;
+    if (M >= 1024) {
+        warps_per_block = 32;
+    } else {
+        warps_per_block = (M + WARP_SIZE - 1) / WARP_SIZE;
+        if (warps_per_block < 1)
+            warps_per_block = 1;
+    }
+    // Configura il blocco 2D: blockDim.x = WARP_SIZE (32 thread per warp),
+    // blockDim.y = warps_per_block (numero di righe per blocco)
+    dim3 blockDim(WARP_SIZE, warps_per_block);
+    // Ogni blocco elabora warps_per_block righe, quindi il numero di blocchi necessari è:
+    int grid_x = (M + warps_per_block - 1) / warps_per_block;
+    dim3 gridDim(grid_x);
+
+    // Lancia il kernel
+    sdkResetTimer(&timer);
+    sdkStartTimer(&timer);
+    printf("Prima di chiamare il kernel\n");
+    matvec_Hll_cuda_warp<<<gridDim, blockDim>>>(d_hll_matrix, d_x, d_y, M);
+    cudaError_t err = cudaGetLastError();
+    if(err != cudaSuccess) {
+        printf("Errore nel lancio del kernel: %s\n", cudaGetErrorString(err));
+    }
+    cudaDeviceSynchronize();
+    printf("Dopo aver chiamato il kernel\n");
+    sdkStopTimer(&timer);
+
+    matrixPerformance node = {0};
+    node.seconds = sdkGetTimerValue(&timer) / 1000.0f; // ms -> s
+
+    // Copia il risultato dal device all'area y_h passata dal main
+    cudaMemcpy(y_h, d_y, M * sizeof(double), cudaMemcpyDeviceToHost);
+
+    // Pulizia: libera la memoria allocata per i blocchi trasferiti
+    for (int i = 0; i < hllMatrixHost->num_blocks; i++) {
+        HLLBlock temp_block;
+        cudaMemcpy(&temp_block, &d_blocks[i], sizeof(HLLBlock), cudaMemcpyDeviceToHost);
+        cudaFree(temp_block.JA);
+        cudaFree(temp_block.AS);
+    }
+    cudaFree(d_blocks);
+    cudaFree(d_hll_matrix);
+    cudaFree(d_x);
+    cudaFree(d_y);
+
+    sdkDeleteTimer(&timer);
+    
+    // Ora y_h contiene il vettore risultato, gestito dal main
+    return node;
+}
+
+
+
+//kernel 0
 matrixPerformance parallel_hll_cuda_v1(HLLMatrix *hllMatrixHost, double *x_h) {
     double *d_y;
     double *d_x;
@@ -145,70 +241,8 @@ matrixPerformance parallel_hll_cuda_v1(HLLMatrix *hllMatrixHost, double *x_h) {
     return node;
 }
 
-// Kernel per il prodotto matrice-vettore usando shared memory
-// su una matrice HLL in formato column-major.
-__global__ void matvec_Hll_cuda_shared(const HLLMatrix *d_hll_matrix, 
-                                       const double *d_x, 
-                                       double *d_y, 
-                                       int M) {
-    // Ogni blocco CUDA elabora un blocco HLL.
-    int block_id = blockIdx.x;
-    if (block_id >= d_hll_matrix->num_blocks)
-        return;
-    
-    // Determina il numero di righe nel blocco:
-    int rows_in_block = HACK_SIZE;
-    if (block_id == d_hll_matrix->num_blocks - 1) {
-        int rem = M % HACK_SIZE;
-        if (rem != 0)
-            rows_in_block = rem;
-    }
-    
-    // La configurazione 2D del blocco:
-    //   blockDim.x = rows_in_block (un thread per riga)
-    //   blockDim.y = T, dove T è il numero di thread per riga per la riduzione (ad esempio, 32)
-    int local_row = threadIdx.x;   // indice della riga all'interno del blocco HLL
-    int thread_col = threadIdx.y;  // indice per la riduzione (colonna del tile)
-    int global_row = block_id * HACK_SIZE + local_row;
-    if (global_row >= M)
-        return;
-    
-    const HLLBlock *block = &d_hll_matrix->blocks[block_id];
-    int max_nz_per_row = block->max_nz_per_row;
-    
-    // Allocazione dinamica della shared memory:
-    // La shared memory è organizzata come una matrice di dimensione (rows_in_block x blockDim.y)
-    extern __shared__ double shared_sum[];
-    int sm_idx = local_row * blockDim.y + thread_col;
-    shared_sum[sm_idx] = 0.0;
-    __syncthreads();
-    
-    // Ogni thread carica il prodotto se il suo thread_col è minore di max_nz_per_row.
-    if (thread_col < max_nz_per_row) {
-        // Dati in formato column-major: l'elemento della riga local_row e colonna thread_col è:
-        //    index = thread_col * rows_in_block + local_row
-        int index = thread_col * rows_in_block + local_row;
-        int col = block->JA[index];
-        double val = block->AS[index];
-        shared_sum[sm_idx] = val * d_x[col];
-    }
-    __syncthreads();
-    
-    // Riduzione lungo la dimensione y per ogni riga.
-    for (int stride = blockDim.y / 2; stride > 0; stride /= 2) {
-        if (thread_col < stride) {
-            shared_sum[sm_idx] += shared_sum[local_row * blockDim.y + thread_col + stride];
-        }
-        __syncthreads();
-    }
-    
-    // Il thread con thread_col == 0 scrive il risultato finale per la riga globale.
-    if (thread_col == 0) {
-        d_y[global_row] = shared_sum[local_row * blockDim.y];
-    }
-}
 
-
+//kernel 1
 matrixPerformance parallel_hll_cuda_shared(HLLMatrix *hllMatrixHost, double *x_h, double *y_h) {
     double *d_y;
     double *d_x;

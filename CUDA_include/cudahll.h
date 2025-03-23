@@ -13,6 +13,8 @@ struct matrixPerformance parallel_hll_cuda_v1(HLLMatrix *hllMatrixHost, double *
 void calculate_nz_stats(const int *nz_per_row, int start_row, int end_row, int *max_nz, int *total_nz);
 struct matrixPerformance parallel_hll_cuda_shared(HLLMatrix *hllMatrixHost, double *x_h, double *y_h);
 //void matvec_Hll_cuda_shared(const HLLMatrix *d_hll_matrix, const double *d_x, double *d_y, int M);
+struct matrixPerformance parallel_hll_cuda_v2(HLLMatrix *hllMatrixHost, double *x_h, double *y_h);
+
 
 #ifdef __cplusplus
 }
