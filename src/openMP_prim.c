@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/csr_matrix.h"
+#include "../include/hll_matrix.h"
 #include "../include/openMP_prim.h"
 
 /*void balance_load(CSRMatrix *csr, int num_threads, int *thr_partition) {
@@ -92,3 +93,45 @@ void csr_matvec_openmp(CSRMatrix *csr, double *x, double *y, int num_threads, in
     }
 }*/
 
+
+
+
+void hll_matvec_openmp(HLLMatrix *hll_matrix, double *x, double *y, int num_threads) {
+
+    #pragma omp parallel for schedule(guided) num_threads(num_threads)
+
+    for (int blockID = 0; blockID < hll_matrix->num_blocks; blockID++) {
+        int start_row = blockID * HackSize;
+        int end_row = (blockID + 1) * HackSize;
+        if (end_row > hll_matrix->M) end_row = hll_matrix->M;  // Protezione extra
+
+        int max_nz_per_row = hll_matrix->blocks[blockID].max_nz_per_row;
+        int row_offset = 0;  // Offset iniziale della riga
+
+        // Iteriamo sulle righe del blocco
+        for (int i = start_row; i < end_row; i++) {
+            double sum = 0.0;
+
+            // Scorriamo gli elementi non nulli della riga
+            for (int j = 0; j < max_nz_per_row; j++) {
+                int idx = row_offset + j;
+                if (hll_matrix->blocks[blockID].JA[idx] != -1) { // Salta il padding
+                    sum += hll_matrix->blocks[blockID].AS[idx] * x[hll_matrix->blocks[blockID].JA[idx]];
+                }
+            }
+            y[i] = sum;
+
+            // Aggiorniamo l'offset per la prossima riga
+            row_offset += max_nz_per_row;
+        }
+    }
+
+    // Stampa il numero totale di thread usati
+    #pragma omp parallel
+    {
+        #pragma omp single
+        {
+            printf("Total threads used: %d\n", omp_get_num_threads());
+        }
+    }
+}

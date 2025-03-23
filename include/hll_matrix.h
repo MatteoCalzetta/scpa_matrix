@@ -29,5 +29,6 @@ HLLMatrix *convert_csr_to_hll(const CSRMatrix *csr);
 void print_hll_matrix_csr(const HLLMatrix *hll_matrix);
 void free_hll_matrix(HLLMatrix *hll_matrix);
 void convert_block_to_column_major(HLLBlock *block, int rows_in_block);
+void hll_matvec_openmp(HLLMatrix *hll_matrix, double *x, double *y, int num_threads);
 
 #endif // HLL_MATRIX_H

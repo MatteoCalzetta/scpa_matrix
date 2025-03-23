@@ -60,10 +60,16 @@ int main() {
         //print_hll_matrix_csr(hll);
 
         double *x = (double *)malloc(csr->N * sizeof(double));
+
+        double *y2 = (double *)calloc(csr->M, sizeof(double));
+
         double *serial_csr = (double *)calloc(csr->M, sizeof(double));
         double *serial_hll = (double *)calloc(csr->M, sizeof(double));
         double *omp_csr = (double *)calloc(csr->M, sizeof(double));
         double *cuda_hll = (double *)calloc(csr->M, sizeof(double));
+
+        double *omp_hll = (double *)calloc(csr->M, sizeof(double));
+
         double *serial_static_hll = (double *)calloc(csr->M, sizeof(double));
         double *hll_cuda_k2 = (double *)calloc(csr->M, sizeof(double));
 
@@ -106,7 +112,6 @@ int main() {
         printf("Norma L2 tra seriale e CUDA HLL: %.4f\n\n", cuda_norm);*/
 
 
-        double *y2 = (double *)calloc(csr->M, sizeof(double));
 
         /*
         // CUDA Thread per riga kernel0
@@ -193,6 +198,31 @@ int main() {
         // **Esecuzione OpenMP**
         results[i].num_openmp = 0;
         for (int j = 0; j < (sizeof(thread_counts) / sizeof(int)); j++) {
+
+
+            /*
+            if (hll->M < thread_counts[j]) continue;
+            
+
+            results[i].openmp_results[results[i].num_openmp].threads = thread_counts[j];
+            omp_set_num_threads(thread_counts[j]);
+            memset(omp_hll, 0, hll->M * sizeof(double));
+            double start_time = omp_get_wtime();
+            hll_matvec_openmp(hll, x, omp_hll, thread_counts[j]);
+            double end_time = omp_get_wtime();
+            double norm_value = compute_norm(serial_csr, omp_hll, hll->M);
+            printf("Norma L2 tra seriale e hll: %f\n", norm_value);
+            results[i].openmp_results[results[i].num_openmp].time = end_time-start_time;
+            results[i].openmp_results[results[i].num_openmp].flops = (2.0 * csr->NZ) / (results[i].openmp_results[results[i].num_openmp].time * 1e9);
+            results[i].num_openmp++;
+            
+            printf("[OpenMP] Matrice: %s | Threads: %d | FLOPS: %.10f | Tempo: %.10f s | NZ: %d\n", 
+                   matrix_filenames[i], thread_counts[j], results[i].openmp_results[results[i].num_openmp-1].flops, results[i].openmp_results[results[i].num_openmp-1].time, csr->NZ);
+            */
+
+
+
+
             if (csr->M < thread_counts[j]) continue;
             
             int *row_partition = (int *)malloc((thread_counts[j]+1) * sizeof(int));
