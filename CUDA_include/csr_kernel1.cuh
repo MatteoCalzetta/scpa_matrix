@@ -5,8 +5,6 @@
 #include <cuda.h>
 #include <iostream>
 
-//TODO FARE KERNEL SEPARATO PER __shfl_sync, di base ho maggiore prestazione con quella non down
-
 /*
     Kernel1
         Ogni warp è responsabile della computazione di una riga della matrice:
@@ -20,56 +18,29 @@
 */
 
 #define WARP_SIZE 32
-/*
+
+
 __global__ void spmv_csr_warps(int M, const int *IRP, const int *JA, 
                               const double *AS, const double *x, double *y) {
     int row = blockIdx.x * blockDim.y + threadIdx.y; // Ogni warp lavora su una riga
-    int lane = threadIdx.x;  // Indice del thread all'interno del warp
+    int lane = threadIdx.x;  // ID Thread = Indice del thread all'interno del warp
 
     if (row < M) {
         double sum = 0.0;
         int row_start = IRP[row];
         int row_end = IRP[row + 1];
 
-        // Ogni thread nel warp processa alcuni elementi della riga
+        // Ogni thread nel warp processa elementi della riga
         for (int j = row_start + lane; j < row_end; j += WARP_SIZE) {
             sum += AS[j] * x[JA[j]];
         }
 
-        // Riduzione in serie: somma i contributi di tutti i thread nel warp
-        for (int offset = WARP_SIZE / 2; offset > 0; offset /= 2) {
-            sum += __shfl_down_sync(0xFFFFFFFF, sum, offset);
-        }
-
-        // Il primo thread del warp scrive il risultato nella memoria globale
-        if (lane == 0) {
-            y[row] = sum;
-        }
-    }
-}
-*/
-
-__global__ void spmv_csr_warps(int M, const int *IRP, const int *JA, 
-                              const double *AS, const double *x, double *y) {
-    int row = blockIdx.x * blockDim.y + threadIdx.y; // Ogni warp lavora su una riga
-    int lane = threadIdx.x;  // Indice del thread all'interno del warp
-
-    if (row < M) {
-        double sum = 0.0;
-        int row_start = IRP[row];
-        int row_end = IRP[row + 1];
-
-        // Ogni thread nel warp processa alcuni elementi della riga
-        for (int j = row_start + lane; j < row_end; j += WARP_SIZE) {
-            sum += AS[j] * x[JA[j]];
-        }
-
-        // Riduzione in serie usando __shfl_sync per sommare i contributi di tutti i thread nel warp
+        // Riduzione usando __shfl_sync
         for (int offset = WARP_SIZE / 2; offset > 0; offset /= 2) {
             sum += __shfl_sync(0xFFFFFFFF, sum, lane + offset);
         }
 
-        // Il primo thread del warp scrive il risultato nella memoria globale
+        // Primo thread del warp unico a scrivere il risultato
         if (lane == 0) {
             y[row] = sum;
         }

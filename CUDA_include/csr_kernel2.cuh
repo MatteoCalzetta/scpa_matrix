@@ -18,7 +18,7 @@
 __global__ void spmv_csr_warps_shmem(int M, const int *IRP, const int *JA, 
                                      const double *AS, const double *x, double *y) {
     int row = blockIdx.x * blockDim.y + threadIdx.y;  // Ogni warp prende una riga
-    int lane = threadIdx.x;  // Indice del thread nel warp (0-31)
+    int lane = threadIdx.x;  // ID Thread = Indice del thread nel warp
     extern __shared__ double shared_sum[];  // Memoria condivisa per la riduzione
 
     if (row < M) {
@@ -26,16 +26,16 @@ __global__ void spmv_csr_warps_shmem(int M, const int *IRP, const int *JA,
         int row_start = IRP[row];
         int row_end = IRP[row + 1];
 
-        // Ogni thread nel warp processa alcuni elementi della riga
+        // Ogni thread nel warp processa elementi della riga
         for (int j = row_start + lane; j < row_end; j += WARP_SIZE) {
             sum += AS[j] * x[JA[j]];
         }
 
-        // Scrittura nella memoria condivisa per una riduzione numericamente più stabile
+        // Scrittura risultato parziale all'interno della memoria condivisa
         shared_sum[lane + threadIdx.y * WARP_SIZE] = sum;
         __syncthreads();
 
-        // Riduzione stabile con memoria condivisa
+        // Riduzione coalescente con memoria condivisa
         for (int offset = WARP_SIZE / 2; offset > 0; offset /= 2) {
             if (lane < offset) {
                 shared_sum[lane + threadIdx.y * WARP_SIZE] += shared_sum[lane + threadIdx.y * WARP_SIZE + offset];
@@ -43,9 +43,9 @@ __global__ void spmv_csr_warps_shmem(int M, const int *IRP, const int *JA,
             __syncthreads();
         }
 
-        // Il primo thread del warp scrive il risultato nella memoria globale
+        // Primo thread del warp unico a scrivere il risultato
         if (lane == 0) {
-            y[row] = shared_sum[threadIdx.y * WARP_SIZE];  // Salva il valore della riga
+            y[row] = shared_sum[threadIdx.y * WARP_SIZE];  
         }
     }
 }

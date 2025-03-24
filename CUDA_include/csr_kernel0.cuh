@@ -21,7 +21,6 @@ __global__ void spmv_csr_threads(int M, const int *IRP, const int *JA,
         int row_start = IRP[row];
         int row_end = IRP[row + 1];
         for (int j = row_start; j < row_end; j++) {
-            //y[row] += AS[j] * x[JA[j]];
             sum += AS[j] * x[JA[j]];
         }
         y[row] = sum;

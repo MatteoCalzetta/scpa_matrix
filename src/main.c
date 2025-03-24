@@ -154,10 +154,10 @@ int main() {
 
         // Kernel 4
         memset(y2, 0, csr->M * sizeof(double));
-        double k4_time = spmv_csr_warps_shmem_ridpar_launcher(csr, x, y2);
+        double k4_time = spmv_csr_warps_cachel2(csr, x, y2);
         double k4_flops = (2.0 * csr->NZ)/(k4_time * 1e9);
         idx_csr = results[i].num_cuda_csr++;
-        strcpy(results[i].cuda_csr[idx_csr].kernel_name, "kernel4_shmem_ridpar_launcher");
+        strcpy(results[i].cuda_csr[idx_csr].kernel_name, "kernel4_cachel2");
         results[i].cuda_csr[idx_csr].time   = k4_time;
         results[i].cuda_csr[idx_csr].gflops = k4_flops;
 
