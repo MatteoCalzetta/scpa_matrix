@@ -214,7 +214,7 @@ int main() {
         results[i].num_cuda_hll = 0;
 
         // v1: kernel row major, un thread per riga.
-        /*struct matrixPerformance r_v1 = parallel_hll_cuda_v1(hll, x);
+        struct matrixPerformance r_v1 = parallel_hll_cuda_v1(hll, x);
         double v1_gflops = (2.0 * csr->NZ)/(r_v1.seconds * 1e9);
         int idx_hll = results[i].num_cuda_hll++;
         strcpy(results[i].cuda_hll[idx_hll].kernel_name, "hll_v1");
@@ -227,8 +227,8 @@ int main() {
         idx_hll = results[i].num_cuda_hll++;
         strcpy(results[i].cuda_hll[idx_hll].kernel_name, "hll_v2");
         results[i].cuda_hll[idx_hll].time   = r_v2.seconds;
-        results[i].cuda_hll[idx_hll].gflops = v2_gflops;*/
-
+        results[i].cuda_hll[idx_hll].gflops = v2_gflops;
+                    
         // v3 kernel column-major, un thread per riga (accessi coalescenti op)
         memset(cuda_hll, 0, csr->M * sizeof(double));
         struct matrixPerformance r_hll_col = parallel_hll_column_cuda(hll_column, x, cuda_hll);
