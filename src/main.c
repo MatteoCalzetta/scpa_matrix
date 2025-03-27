@@ -24,6 +24,28 @@
 extern const char *matrix_filenames[]; 
 extern const int num_matrices;
 
+void spmv_serial_hll_column(const HLLMatrix *hll, const double *x, double *y) {
+    for (int b = 0; b < hll->num_blocks; b++) {
+        const HLLBlock *block = &hll->blocks[b];
+        int rows = block->rows_in_block;
+        int max_nz = block->max_nz_per_row;
+
+        for (int r = 0; r < rows; r++) {
+            double sum = 0.0;
+            for (int c = 0; c < max_nz; c++) {
+                int idx = c * rows + r;  // ← column-major access
+                int col = block->JA[idx];
+                double val = block->AS[idx];
+                if (col >= 0) {
+                    sum += val * x[col];
+                }
+            }
+            int global_row = b * HACK_SIZE + r;
+            y[global_row] = sum;
+        }
+    }
+}
+
 void generate_random_vector(double *x, int size) {
     for (int i = 0; i < size; i++) {
         x[i] = (rand() % 5) + 1;
@@ -62,6 +84,10 @@ int main() {
 
         // Converte in HLL
         HLLMatrix *hll = convert_csr_to_hll(csr);
+        HLLMatrix *hll_column = convert_csr_to_hll_column_major(csr);
+
+
+
 
         // Alloca vettori
         double *x          = (double *)malloc(csr->N * sizeof(double));
@@ -81,6 +107,8 @@ int main() {
         }
         generate_random_vector(x, csr->N);
 
+        for (int i = 0; i < csr->N; i++) x[i] = 1.0;
+
         // Salviamo il nome
         snprintf(results[i].matrix_name, sizeof(results[i].matrix_name),
                  "%s", matrix_filenames[i]);
@@ -97,6 +125,13 @@ int main() {
 
         printf("[SERIAL CSR] %s | Tempo: %.5f s | GFLOPS: %.5f\n",
                matrix_filenames[i], time_csr_serial, flops_csr_serial);
+
+        double *y = (double *)calloc(csr->M, sizeof(double));
+        spmv_serial_hll_column(hll_column, x, y);
+        double norm_hll_col_vs_csr = compute_norm(serial_csr, y, csr->M);
+        printf("Norma L2 (CSR vs HLL_column) = %.4f\n\n", norm_hll_col_vs_csr);
+
+
 
         double time_hll_serial = matvec_Hll_serial(hll, x, serial_hll);
         double flops_hll_serial = (2.0 * csr->NZ)/(time_hll_serial * 1e9);
@@ -154,10 +189,10 @@ int main() {
 
         // Kernel 4
         memset(y2, 0, csr->M * sizeof(double));
-        double k4_time = spmv_csr_warps_cachel2(csr, x, y2);
+        double k4_time = spmv_csr_warps_shmem_ridpar(csr, x, y2);
         double k4_flops = (2.0 * csr->NZ)/(k4_time * 1e9);
         idx_csr = results[i].num_cuda_csr++;
-        strcpy(results[i].cuda_csr[idx_csr].kernel_name, "kernel4_cachel2");
+        strcpy(results[i].cuda_csr[idx_csr].kernel_name, "kernel4_shmem_ridpar_launcher");
         results[i].cuda_csr[idx_csr].time   = k4_time;
         results[i].cuda_csr[idx_csr].gflops = k4_flops;
 
@@ -178,47 +213,36 @@ int main() {
          */
         results[i].num_cuda_hll = 0;
 
-        // v1
-        struct matrixPerformance r_v1 = parallel_hll_cuda_v1(hll, x);
+        // v1: kernel row major, un thread per riga.
+        /*struct matrixPerformance r_v1 = parallel_hll_cuda_v1(hll, x);
         double v1_gflops = (2.0 * csr->NZ)/(r_v1.seconds * 1e9);
         int idx_hll = results[i].num_cuda_hll++;
         strcpy(results[i].cuda_hll[idx_hll].kernel_name, "hll_v1");
         results[i].cuda_hll[idx_hll].time   = r_v1.seconds;
         results[i].cuda_hll[idx_hll].gflops = v1_gflops;
 
-        // v2
+        // v2 kernel row major, un warp per riga.
         struct matrixPerformance r_v2 = parallel_hll_cuda_v2(hll, x, hll_cuda_k2);
         double v2_gflops = (2.0 * csr->NZ)/(r_v2.seconds * 1e9);
         idx_hll = results[i].num_cuda_hll++;
         strcpy(results[i].cuda_hll[idx_hll].kernel_name, "hll_v2");
         results[i].cuda_hll[idx_hll].time   = r_v2.seconds;
-        results[i].cuda_hll[idx_hll].gflops = v2_gflops;
+        results[i].cuda_hll[idx_hll].gflops = v2_gflops;*/
 
-        // Shared
-        // Prima preparo la matrice in colonnare
-        for (int blk = 0; blk < hll->num_blocks; blk++) {
-            int rows_in_block = HACK_SIZE;
-            if (blk == hll->num_blocks - 1) {
-                int r = hll->M % HACK_SIZE;
-                if (r != 0) {
-                    rows_in_block = r;
-                }
-            }
-            convert_block_to_column_major(&hll->blocks[blk], rows_in_block);
-        }
-        double *serial_static_hll = (double*)calloc(csr->M, sizeof(double));
-        matvec_Hll_serial_column_major(hll, x, serial_static_hll);
+        // v3 kernel column-major, un thread per riga (accessi coalescenti op)
+        memset(cuda_hll, 0, csr->M * sizeof(double));
+        struct matrixPerformance r_hll_col = parallel_hll_column_cuda(hll_column, x, cuda_hll);
+        double gflops_hll_col = (2.0 * csr->NZ) / (r_hll_col.seconds * 1e9);
+        printf("[CUDA HLL Column] %s | GFLOPS: %.5f\n", matrix_filenames[i], gflops_hll_col);
 
-        // v3 (chiamiamola "hll_shared")
-        struct matrixPerformance r_shared = parallel_hll_cuda_shared(hll, x, cuda_hll);
-        double shared_gflops = (2.0 * csr->NZ)/(r_shared.seconds * 1e9);
-        idx_hll = results[i].num_cuda_hll++;
-        strcpy(results[i].cuda_hll[idx_hll].kernel_name, "hll_v3_shared");
-        results[i].cuda_hll[idx_hll].time   = r_shared.seconds;
-        results[i].cuda_hll[idx_hll].gflops = shared_gflops;
+        double norm_cuda_vs_serial = compute_norm(serial_csr, cuda_hll, csr->M);
+        printf("Norma L2 (CSR seriale vs CUDA HLL column) = %.4f\n\n", norm_cuda_vs_serial);
 
-        free(serial_static_hll);
-
+        int idx_hll_col = results[i].num_cuda_hll++;
+        strcpy(results[i].cuda_hll[idx_hll_col].kernel_name, "hll_column_basic");
+        results[i].cuda_hll[idx_hll_col].time   = r_hll_col.seconds;
+        results[i].cuda_hll[idx_hll_col].gflops = gflops_hll_col;
+        
         /*
          * ===========================================================
          *             4) CHIAMATE OPENMP
@@ -277,9 +301,10 @@ int main() {
         free(cuda_hll);
         free(hll_cuda_k2);
         free(y2);
-
+        free(y);
         free_csr(csr);
         free_hll_matrix(hll);
+        free_hll_matrix_col(hll_column);
     }
 
     // Scriviamo tutto

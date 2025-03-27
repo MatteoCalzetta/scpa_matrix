@@ -12,6 +12,7 @@
 typedef struct {
     int *JA;   // Indici delle colonne
     double *AS; // Valori
+    int rows_in_block;    
     int max_nz_per_row;  // Numero massimo di non nulli per riga
 } HLLBlock;
 
@@ -30,5 +31,9 @@ void print_hll_matrix_csr(const HLLMatrix *hll_matrix);
 void free_hll_matrix(HLLMatrix *hll_matrix);
 void convert_block_to_column_major(HLLBlock *block, int rows_in_block);
 void hll_matvec_openmp(HLLMatrix *hll_matrix, double *x, double *y, int num_threads);
+void print_hll_matrix_column(const HLLMatrix *hll_matrix);
+HLLMatrix *read_matrix_market_to_hll(const char *filename);
+void free_hll_matrix_col(HLLMatrix *hll);
+HLLMatrix *convert_csr_to_hll_column_major(const CSRMatrix *csr);
 
 #endif // HLL_MATRIX_H

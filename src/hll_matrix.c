@@ -1,10 +1,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include "../include/mmio.h"
 #include "../include/csr_matrix.h"
 #include "../include/hll_matrix.h"
 
 #define HackSize 32
+
+typedef struct {
+    int col;
+    double val;
+}Entry;
 
 // Calcola i non-zeri per riga
 void calculate_nz_per_row_csr(const CSRMatrix *csr, int *nz_per_row) {
@@ -105,6 +111,19 @@ void print_hll_matrix_csr(const HLLMatrix *hll_matrix) {
     }
 }
 
+void free_hll_matrix_col(HLLMatrix *hll) {
+    if (!hll) return;
+
+    for (int b = 0; b < hll->num_blocks; b++) {
+        HLLBlock *block = &hll->blocks[b];
+        free(block->JA);
+        free(block->AS);
+    }
+
+    free(hll->blocks);
+    free(hll);
+}
+
 // Free HLL
 void free_hll_matrix(HLLMatrix *hll_matrix) {
     if (!hll_matrix) return;
@@ -116,6 +135,7 @@ void free_hll_matrix(HLLMatrix *hll_matrix) {
     free(hll_matrix);
 }
 
+/*
 void convert_block_to_column_major(HLLBlock *block, int rows_in_block) {
     int total_elements = rows_in_block * block->max_nz_per_row;
     int *new_JA = (int *)malloc(total_elements * sizeof(int));
@@ -145,4 +165,61 @@ void convert_block_to_column_major(HLLBlock *block, int rows_in_block) {
     free(block->AS);
     block->JA = new_JA;
     block->AS = new_AS;
+}*/
+
+HLLMatrix *convert_csr_to_hll_column_major(const CSRMatrix *csr) {
+    int M = csr->M;
+    int N = csr->N;
+
+    HLLMatrix *hll = malloc(sizeof(HLLMatrix));
+    hll->M = M;
+    hll->N = N;
+    hll->num_blocks = (M + HackSize - 1) / HackSize;
+    hll->blocks = malloc(hll->num_blocks * sizeof(HLLBlock));
+
+    int *nz_per_row = calloc(M, sizeof(int));
+    for (int i = 0; i < M; i++) {
+        nz_per_row[i] = csr->IRP[i + 1] - csr->IRP[i];
+    }
+
+    for (int b = 0; b < hll->num_blocks; b++) {
+        int start = b * HackSize;
+        int end = (b + 1) * HackSize;
+        if (end > M) end = M;
+        int rows = end - start;
+
+        int max_nz = 0;
+        for (int i = start; i < end; i++) {
+            if (nz_per_row[i] > max_nz) max_nz = nz_per_row[i];
+        }
+
+        int size = rows * max_nz;
+        int *JA = malloc(size * sizeof(int));
+        double *AS = malloc(size * sizeof(double));
+        for (int i = 0; i < size; i++) {
+            JA[i] = -1;
+            AS[i] = 0.0;
+        }
+
+        for (int i = start; i < end; i++) {
+            int local_row = i - start;
+            int pos = 0;
+            int row_start = csr->IRP[i];
+            int row_end = csr->IRP[i + 1];
+
+            for (int j = row_start; j < row_end && pos < max_nz; j++, pos++) {
+                int idx = pos * rows + local_row; // column-major index
+                JA[idx] = csr->JA[j];
+                AS[idx] = csr->AS[j];
+            }
+        }
+
+        hll->blocks[b].JA = JA;
+        hll->blocks[b].AS = AS;
+        hll->blocks[b].max_nz_per_row = max_nz;
+        hll->blocks[b].rows_in_block = rows;
+    }
+
+    free(nz_per_row);
+    return hll;
 }
