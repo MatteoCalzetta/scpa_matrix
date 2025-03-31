@@ -37,7 +37,6 @@ set(SRC_FILES
     src/main.c
     src/csr_matrix.c
     src/matrmult.c
-    src/matrix_analysis.c
     src/openMP_prim.c
     src/json_results.c
     src/hll_matrix.c

@@ -74,7 +74,7 @@ void csr_matvec_openmp(CSRMatrix *csr, double *x, double *y, int num_threads, in
 
 /*
 void csr_matvec_openmp(CSRMatrix *csr, double *x, double *y, int num_threads, int *row_partition) {
-    #pragma omp parallel for schedule(static) num_threads(num_threads)
+    #pragma omp parallel for schedule(guided) num_threads(num_threads)
     
     for (int i = 0; i < csr->M; i++) {
         double sum = 0.0;
