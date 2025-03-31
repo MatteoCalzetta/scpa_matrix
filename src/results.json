@@ -1,3633 +1,4100 @@
 [
-    {
-      "matrix_name": "adder_dcop_32.mtx",
-      "serial": {
-        "time": 0.00002600,
-        "flops": 0.86507692
-      },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00033101,
-          "gflops": 0.06795002
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00003450,
-          "gflops": 0.65201764
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00002458,
-          "gflops": 0.91520175
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00002442,
-          "gflops": 0.92119921
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00002864,
-          "gflops": 0.78533517
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00003021,
-          "gflops": 0.74457091
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00016700,
-          "gflops": 0.13468263
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00014200,
-          "gflops": 0.15839436
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00008900,
-          "gflops": 0.25271908
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00022607,
-          "flops": 0.09949267
-        },
-        {
-          "threads": 2,
-          "time": 0.00003390,
-          "flops": 0.66347805
-        },
-        {
-          "threads": 4,
-          "time": 0.00022727,
-          "flops": 0.09896733
-        },
-        {
-          "threads": 4,
-          "time": 0.00002955,
-          "flops": 0.76127826
-        },
-        {
-          "threads": 8,
-          "time": 0.00067971,
-          "flops": 0.03309059
-        },
-        {
-          "threads": 8,
-          "time": 0.00002543,
-          "flops": 0.88432967
-        },
-        {
-          "threads": 16,
-          "time": 0.00085701,
-          "flops": 0.02624483
-        },
-        {
-          "threads": 16,
-          "time": 0.00000973,
-          "flops": 2.31189193
-        },
-        {
-          "threads": 32,
-          "time": 0.00073058,
-          "flops": 0.03078667
-        },
-        {
-          "threads": 32,
-          "time": 0.00001437,
-          "flops": 1.56542545
-        },
-        {
-          "threads": 40,
-          "time": 0.00043975,
-          "flops": 0.05114770
-        },
-        {
-          "threads": 40,
-          "time": 0.00003949,
-          "flops": 0.56958965
-        }
-      ]
+  {
+    "matrix_name": "adder_dcop_32.mtx",
+    "serial": {
+      "time": 0.00015000,
+      "flops": 0.14994667
     },
-    {
-      "matrix_name": "af_1_k101.mtx",
-      "serial": {
-        "time": 0.02251800,
-        "flops": 1.55881295
-      },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00174160,
-          "gflops": 20.15465541
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00096230,
-          "gflops": 36.47636041
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00112822,
-          "gflops": 31.11203777
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00091811,
-          "gflops": 38.23210036
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00085782,
-          "gflops": 40.91905550
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00103050,
-          "gflops": 34.06257470
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00177100,
-          "gflops": 19.82007231
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00137600,
-          "gflops": 25.50969987
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00271000,
-          "gflops": 12.95252698
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.01297492,
-          "flops": 2.70532280
-        },
-        {
-          "threads": 2,
-          "time": 0.01110631,
-          "flops": 3.16048743
-        },
-        {
-          "threads": 4,
-          "time": 0.00717429,
-          "flops": 4.89265836
-        },
-        {
-          "threads": 4,
-          "time": 0.00655501,
-          "flops": 5.35489125
-        },
-        {
-          "threads": 8,
-          "time": 0.00654873,
-          "flops": 5.36002556
-        },
-        {
-          "threads": 8,
-          "time": 0.00626831,
-          "flops": 5.59981255
-        },
-        {
-          "threads": 16,
-          "time": 0.00759137,
-          "flops": 4.62385172
-        },
-        {
-          "threads": 16,
-          "time": 0.00647156,
-          "flops": 5.42394118
-        },
-        {
-          "threads": 32,
-          "time": 0.02966961,
-          "flops": 1.18307400
-        },
-        {
-          "threads": 32,
-          "time": 0.01729957,
-          "flops": 2.02903021
-        },
-        {
-          "threads": 40,
-          "time": 0.01467853,
-          "flops": 2.39133976
-        },
-        {
-          "threads": 40,
-          "time": 0.01064371,
-          "flops": 3.29784853
-        }
-      ]
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
     },
-    {
-      "matrix_name": "af23560.mtx",
-      "serial": {
-        "time": 0.00052600,
-        "flops": 1.84127757
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00178131,
+        "gflops": 0.01262665
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00036598,
+        "gflops": 0.06145624
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00005338,
-          "gflops": 18.14508290
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00006144,
-          "gflops": 15.76354223
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00005994,
-          "gflops": 16.15910229
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00005638,
-          "gflops": 17.17707030
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00004461,
-          "gflops": 21.71162065
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00007008,
-          "gflops": 13.82009112
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00011100,
-          "gflops": 8.72533267
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00017400,
-          "gflops": 5.56616090
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00019400,
-          "gflops": 4.99232933
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00080826,
-          "flops": 1.19826487
-        },
-        {
-          "threads": 2,
-          "time": 0.00058836,
-          "flops": 1.64612661
-        },
-        {
-          "threads": 4,
-          "time": 0.00069237,
-          "flops": 1.39883142
-        },
-        {
-          "threads": 4,
-          "time": 0.00036984,
-          "flops": 2.61874018
-        },
-        {
-          "threads": 8,
-          "time": 0.00028332,
-          "flops": 3.41848665
-        },
-        {
-          "threads": 8,
-          "time": 0.00015596,
-          "flops": 6.20988297
-        },
-        {
-          "threads": 16,
-          "time": 0.00040569,
-          "flops": 2.38733172
-        },
-        {
-          "threads": 16,
-          "time": 0.00008719,
-          "flops": 11.10833571
-        },
-        {
-          "threads": 32,
-          "time": 0.01686853,
-          "flops": 0.05741530
-        },
-        {
-          "threads": 32,
-          "time": 0.00011632,
-          "flops": 8.32598230
-        },
-        {
-          "threads": 40,
-          "time": 0.00660970,
-          "flops": 0.14652895
-        },
-        {
-          "threads": 40,
-          "time": 0.00009528,
-          "flops": 10.16491546
-        }
-      ]
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00035840,
+        "gflops": 0.06275670
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00022528,
+        "gflops": 0.09984019
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00032221,
+        "gflops": 0.06980584
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00026346,
+        "gflops": 0.08537289
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00029400,
+        "gflops": 0.07650339
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00013054,
+        "flops": 0.17229938,
+        "speedup": 1.14907109,
+        "efficienza": 0.57453555
+      },
+      {
+        "threads": 4,
+        "time": 0.00002083,
+        "flops": 1.08003225,
+        "speedup": 7.20277598,
+        "efficienza": 1.80069399
+      },
+      {
+        "threads": 8,
+        "time": 0.00001085,
+        "flops": 2.07265715,
+        "speedup": 13.82262904,
+        "efficienza": 1.72782863
+      },
+      {
+        "threads": 16,
+        "time": 0.00001271,
+        "flops": 1.76921000,
+        "speedup": 11.79892851,
+        "efficienza": 0.73743303
+      },
+      {
+        "threads": 32,
+        "time": 0.00001408,
+        "flops": 1.59699792,
+        "speedup": 10.65043965,
+        "efficienza": 0.33282624
+      },
+      {
+        "threads": 40,
+        "time": 0.03500582,
+        "flops": 0.00064252,
+        "speedup": 0.00428500,
+        "efficienza": 0.00010713
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00416711,
+        "flops": 0.00539751,
+        "speedup": 0.10942841,
+        "efficienza": 0.05471421
+      },
+      {
+        "threads": 4,
+        "time": 0.01199257,
+        "flops": 0.00187549,
+        "speedup": 0.03802355,
+        "efficienza": 0.00950589
+      },
+      {
+        "threads": 8,
+        "time": 0.00594298,
+        "flops": 0.00378463,
+        "speedup": 0.07672919,
+        "efficienza": 0.00959115
+      },
+      {
+        "threads": 16,
+        "time": 0.00082010,
+        "flops": 0.02742588,
+        "speedup": 0.55602891,
+        "efficienza": 0.03475181
+      },
+      {
+        "threads": 32,
+        "time": 0.00074184,
+        "flops": 0.03031900,
+        "speedup": 0.61468366,
+        "efficienza": 0.01920886
+      },
+      {
+        "threads": 40,
+        "time": 0.07621530,
+        "flops": 0.00029511,
+        "speedup": 0.00598305,
+        "efficienza": 0.00014958
+      }
+    ]
+  },
+  {
+    "matrix_name": "af_1_k101.mtx",
+    "serial": {
+      "time": 0.02385700,
+      "flops": 1.47132288
     },
-    {
-      "matrix_name": "amazon0302.mtx",
-      "serial": {
-        "time": 0.00749300,
-        "flops": 0.32960817
-      },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00007968,
-          "gflops": 30.99590527
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00039523,
-          "gflops": 6.24887160
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00046774,
-          "gflops": 5.28014024
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00040861,
-          "gflops": 6.04431141
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00039315,
-          "gflops": 6.28193160
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00045834,
-          "gflops": 5.38852250
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00016600,
-          "gflops": 14.87803632
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00073900,
-          "gflops": 3.34202147
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00125800,
-          "gflops": 1.96323842
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00477408,
-          "flops": 0.51732565
-        },
-        {
-          "threads": 2,
-          "time": 0.00328491,
-          "flops": 0.75184782
-        },
-        {
-          "threads": 4,
-          "time": 0.00174865,
-          "flops": 1.41237352
-        },
-        {
-          "threads": 4,
-          "time": 0.00181880,
-          "flops": 1.35789997
-        },
-        {
-          "threads": 8,
-          "time": 0.00095462,
-          "flops": 2.58716477
-        },
-        {
-          "threads": 8,
-          "time": 0.00097340,
-          "flops": 2.53725209
-        },
-        {
-          "threads": 16,
-          "time": 0.00160937,
-          "flops": 1.53460731
-        },
-        {
-          "threads": 16,
-          "time": 0.00083402,
-          "flops": 2.96127846
-        },
-        {
-          "threads": 32,
-          "time": 0.01118954,
-          "flops": 0.22071997
-        },
-        {
-          "threads": 32,
-          "time": 0.00074848,
-          "flops": 3.29970207
-        },
-        {
-          "threads": 40,
-          "time": 0.00569289,
-          "flops": 0.43383163
-        },
-        {
-          "threads": 40,
-          "time": 0.00067616,
-          "flops": 3.65262412
-        }
-      ]
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
     },
-    {
-      "matrix_name": "bcsstk17.mtx",
-      "serial": {
-        "time": 0.00051600,
-        "flops": 1.66143411
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00176214,
+        "gflops": 19.91968268
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00085146,
+        "gflops": 41.22508887
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00006685,
-          "gflops": 12.82461587
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00005910,
-          "gflops": 14.50494028
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00005232,
-          "gflops": 16.38570233
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00004621,
-          "gflops": 18.55306342
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00003424,
-          "gflops": 25.03796605
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00005856,
-          "gflops": 14.63968509
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00011400,
-          "gflops": 7.52017529
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00014800,
-          "gflops": 5.79256732
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00013800,
-          "gflops": 6.21231870
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00099632,
-          "flops": 0.86046829
-        },
-        {
-          "threads": 2,
-          "time": 0.00042709,
-          "flops": 2.00730042
-        },
-        {
-          "threads": 4,
-          "time": 0.00067760,
-          "flops": 1.26519890
-        },
-        {
-          "threads": 4,
-          "time": 0.00033611,
-          "flops": 2.55069097
-        },
-        {
-          "threads": 8,
-          "time": 0.00028874,
-          "flops": 2.96911878
-        },
-        {
-          "threads": 8,
-          "time": 0.00015932,
-          "flops": 5.38093281
-        },
-        {
-          "threads": 16,
-          "time": 0.00041488,
-          "flops": 2.06638068
-        },
-        {
-          "threads": 16,
-          "time": 0.00009120,
-          "flops": 9.40012372
-        },
-        {
-          "threads": 32,
-          "time": 0.01003558,
-          "flops": 0.08542601
-        },
-        {
-          "threads": 32,
-          "time": 0.00011317,
-          "flops": 7.57533615
-        },
-        {
-          "threads": 40,
-          "time": 0.00533465,
-          "flops": 0.16070423
-        },
-        {
-          "threads": 40,
-          "time": 0.00010982,
-          "flops": 7.80648180
-        }
-      ]
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00106317,
+        "gflops": 33.01580596
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00085206,
+        "gflops": 41.19567044
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00079904,
+        "gflops": 43.92939854
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00094378,
+        "gflops": 37.19245701
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00061800,
+        "gflops": 56.79830180
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.01434047,
+        "flops": 2.44771225,
+        "speedup": 1.66361326,
+        "efficienza": 0.83180663
+      },
+      {
+        "threads": 4,
+        "time": 0.01198131,
+        "flops": 2.92967619,
+        "speedup": 1.99118509,
+        "efficienza": 0.49779627
+      },
+      {
+        "threads": 8,
+        "time": 0.00898983,
+        "flops": 3.90456052,
+        "speedup": 2.65377544,
+        "efficienza": 0.33172193
+      },
+      {
+        "threads": 16,
+        "time": 0.00785069,
+        "flops": 4.47111666,
+        "speedup": 3.03884124,
+        "efficienza": 0.18992758
+      },
+      {
+        "threads": 32,
+        "time": 0.00922771,
+        "flops": 3.80390814,
+        "speedup": 2.58536599,
+        "efficienza": 0.08079269
+      },
+      {
+        "threads": 40,
+        "time": 0.00852772,
+        "flops": 4.11614896,
+        "speedup": 2.79758373,
+        "efficienza": 0.06993959
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.01611505,
+        "flops": 2.17817154,
+        "speedup": 2.62065534,
+        "efficienza": 1.31032767
+      },
+      {
+        "threads": 4,
+        "time": 0.01120180,
+        "flops": 3.13354463,
+        "speedup": 3.77010733,
+        "efficienza": 0.94252683
+      },
+      {
+        "threads": 8,
+        "time": 0.00918051,
+        "flops": 3.82346524,
+        "speedup": 4.60018159,
+        "efficienza": 0.57502270
+      },
+      {
+        "threads": 16,
+        "time": 0.00882093,
+        "flops": 3.97932530,
+        "speedup": 4.78770377,
+        "efficienza": 0.29923149
+      },
+      {
+        "threads": 32,
+        "time": 0.01438901,
+        "flops": 2.43945637,
+        "speedup": 2.93501878,
+        "efficienza": 0.09171934
+      },
+      {
+        "threads": 40,
+        "time": 0.01528812,
+        "flops": 2.29598940,
+        "speedup": 2.76240727,
+        "efficienza": 0.06906018
+      }
+    ]
+  },
+  {
+    "matrix_name": "af23560.mtx",
+    "serial": {
+      "time": 0.00048000,
+      "flops": 2.01773333
     },
-    {
-      "matrix_name": "cage4.mtx",
-      "serial": {
-        "time": 0.00000700,
-        "flops": 0.01400000
-      },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00005734,
-          "gflops": 0.00170898
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00003130,
-          "gflops": 0.00313139
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00003181,
-          "gflops": 0.00308099
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00002963,
-          "gflops": 0.00330724
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00002915,
-          "gflops": 0.00336169
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00002989,
-          "gflops": 0.00327891
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00009700,
-          "gflops": 0.00101031
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00010800,
-          "gflops": 0.00090741
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00009700,
-          "gflops": 0.00101031
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00016347,
-          "flops": 0.00059948
-        },
-        {
-          "threads": 2,
-          "time": 0.00000456,
-          "flops": 0.02147703
-        },
-        {
-          "threads": 4,
-          "time": 0.00116899,
-          "flops": 0.00008383
-        },
-        {
-          "threads": 4,
-          "time": 0.00000312,
-          "flops": 0.03138051
-        },
-        {
-          "threads": 8,
-          "time": 0.00012370,
-          "flops": 0.00079222
-        },
-        {
-          "threads": 8,
-          "time": 0.00000286,
-          "flops": 0.03422841
-        }
-      ]
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
     },
-    {
-      "matrix_name": "cant.mtx",
-      "serial": {
-        "time": 0.00495100,
-        "flops": 1.61881761
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00003254,
+        "gflops": 29.76007734
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00004486,
+        "gflops": 21.58773079
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00054605,
-          "gflops": 14.67776858
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00016368,
-          "gflops": 48.96606338
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00017680,
-          "gflops": 45.33238496
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00016710,
-          "gflops": 47.96273943
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00015613,
-          "gflops": 51.33458188
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00019930,
-          "gflops": 40.21538768
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00064800,
-          "gflops": 12.36846520
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00032000,
-          "gflops": 25.04614210
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00040700,
-          "gflops": 19.69229907
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00387551,
-          "flops": 2.06805288
-        },
-        {
-          "threads": 2,
-          "time": 0.00335151,
-          "flops": 2.39138737
-        },
-        {
-          "threads": 4,
-          "time": 0.00283595,
-          "flops": 2.82612710
-        },
-        {
-          "threads": 4,
-          "time": 0.00278494,
-          "flops": 2.87789954
-        },
-        {
-          "threads": 8,
-          "time": 0.00203996,
-          "flops": 3.92889129
-        },
-        {
-          "threads": 8,
-          "time": 0.00202510,
-          "flops": 3.95770608
-        },
-        {
-          "threads": 16,
-          "time": 0.00310314,
-          "flops": 2.58279068
-        },
-        {
-          "threads": 16,
-          "time": 0.00173324,
-          "flops": 4.62415998
-        },
-        {
-          "threads": 32,
-          "time": 0.00909993,
-          "flops": 0.88074999
-        },
-        {
-          "threads": 32,
-          "time": 0.00198756,
-          "flops": 4.03245700
-        },
-        {
-          "threads": 40,
-          "time": 0.00762790,
-          "flops": 1.05071749
-        },
-        {
-          "threads": 40,
-          "time": 0.00209744,
-          "flops": 3.82121908
-        }
-      ]
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00004442,
+        "gflops": 21.80547571
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00005021,
+        "gflops": 19.28999356
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00004144,
+        "gflops": 23.37142747
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00004502,
+        "gflops": 21.51101614
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00002700,
+        "gflops": 35.87081234
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00052003,
+        "flops": 1.86241550,
+        "speedup": 0.92302361,
+        "efficienza": 0.46151180
+      },
+      {
+        "threads": 4,
+        "time": 0.00020484,
+        "flops": 4.72804822,
+        "speedup": 2.34324732,
+        "efficienza": 0.58581183
+      },
+      {
+        "threads": 8,
+        "time": 0.00009956,
+        "flops": 9.72839935,
+        "speedup": 4.82144949,
+        "efficienza": 0.60268119
+      },
+      {
+        "threads": 16,
+        "time": 0.00006519,
+        "flops": 14.85744266,
+        "speedup": 7.36343223,
+        "efficienza": 0.46021451
+      },
+      {
+        "threads": 32,
+        "time": 0.00007320,
+        "flops": 13.23161088,
+        "speedup": 6.55766085,
+        "efficienza": 0.20492690
+      },
+      {
+        "threads": 40,
+        "time": 0.00005048,
+        "flops": 19.18569542,
+        "speedup": 9.50853866,
+        "efficienza": 0.23771347
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00084138,
+        "flops": 1.15109416,
+        "speedup": 1.39650890,
+        "efficienza": 0.69825445
+      },
+      {
+        "threads": 4,
+        "time": 0.00071939,
+        "flops": 1.34629117,
+        "speedup": 1.63332217,
+        "efficienza": 0.40833054
+      },
+      {
+        "threads": 8,
+        "time": 0.00030966,
+        "flops": 3.12761926,
+        "speedup": 3.79443170,
+        "efficienza": 0.47430396
+      },
+      {
+        "threads": 16,
+        "time": 0.00087769,
+        "flops": 1.10347606,
+        "speedup": 1.33873857,
+        "efficienza": 0.08367116
+      },
+      {
+        "threads": 32,
+        "time": 0.01723804,
+        "flops": 0.05618458,
+        "speedup": 0.06816321,
+        "efficienza": 0.00213010
+      },
+      {
+        "threads": 40,
+        "time": 0.00581357,
+        "flops": 0.16659505,
+        "speedup": 0.20211332,
+        "efficienza": 0.00505283
+      }
+    ]
+  },
+  {
+    "matrix_name": "amazon0302.mtx",
+    "serial": {
+      "time": 0.00516900,
+      "flops": 0.47780112
     },
-    {
-      "matrix_name": "cavity10.mtx",
-      "serial": {
-        "time": 0.00008700,
-        "flops": 1.75556322
-      },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00001962,
-          "gflops": 7.78619425
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00003302,
-          "gflops": 4.62493944
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00001290,
-          "gflops": 11.84351649
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00001194,
-          "gflops": 12.79607888
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00001066,
-          "gflops": 14.33314431
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00003245,
-          "gflops": 4.70703860
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00008900,
-          "gflops": 1.71611220
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00013400,
-          "gflops": 1.13980583
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00009200,
-          "gflops": 1.66015214
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00037763,
-          "flops": 0.40444973
-        },
-        {
-          "threads": 2,
-          "time": 0.00008193,
-          "flops": 1.86419940
-        },
-        {
-          "threads": 4,
-          "time": 0.00180977,
-          "flops": 0.08439401
-        },
-        {
-          "threads": 4,
-          "time": 0.00007702,
-          "flops": 1.98312358
-        },
-        {
-          "threads": 8,
-          "time": 0.00035404,
-          "flops": 0.43140329
-        },
-        {
-          "threads": 8,
-          "time": 0.00004615,
-          "flops": 3.30957492
-        },
-        {
-          "threads": 16,
-          "time": 0.00080296,
-          "flops": 0.19021464
-        },
-        {
-          "threads": 16,
-          "time": 0.00002722,
-          "flops": 5.61027945
-        },
-        {
-          "threads": 32,
-          "time": 0.02472583,
-          "flops": 0.00617710
-        },
-        {
-          "threads": 32,
-          "time": 0.00040698,
-          "flops": 0.37528256
-        },
-        {
-          "threads": 40,
-          "time": 0.00577095,
-          "flops": 0.02646600
-        },
-        {
-          "threads": 40,
-          "time": 0.00003567,
-          "flops": 4.28198682
-        }
-      ]
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
     },
-    {
-      "matrix_name": "cop20k_A.mtx",
-      "serial": {
-        "time": 0.00580500,
-        "flops": 0.90416227
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00008211,
+        "gflops": 30.07786751
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00033306,
+        "gflops": 7.41543101
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00037264,
-          "gflops": 14.08507286
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00020483,
-          "gflops": 25.62422656
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00023613,
-          "gflops": 22.22803542
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00021005,
-          "gflops": 24.98791471
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00020118,
-          "gflops": 26.08886243
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00023517,
-          "gflops": 22.31877623
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00035700,
-          "gflops": 14.70213397
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00040400,
-          "gflops": 12.99173697
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00068200,
-          "gflops": 7.69598520
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00608939,
-          "flops": 0.86193546
-        },
-        {
-          "threads": 2,
-          "time": 0.00374927,
-          "flops": 1.39991607
-        },
-        {
-          "threads": 4,
-          "time": 0.00333083,
-          "flops": 1.57578156
-        },
-        {
-          "threads": 4,
-          "time": 0.00238518,
-          "flops": 2.20053531
-        },
-        {
-          "threads": 8,
-          "time": 0.00275028,
-          "flops": 1.90840854
-        },
-        {
-          "threads": 8,
-          "time": 0.00183784,
-          "flops": 2.85588940
-        },
-        {
-          "threads": 16,
-          "time": 0.00235535,
-          "flops": 2.22839897
-        },
-        {
-          "threads": 16,
-          "time": 0.00149117,
-          "flops": 3.51982112
-        },
-        {
-          "threads": 32,
-          "time": 0.00410040,
-          "flops": 1.28003628
-        },
-        {
-          "threads": 32,
-          "time": 0.00160259,
-          "flops": 3.27511009
-        },
-        {
-          "threads": 40,
-          "time": 0.00677877,
-          "flops": 0.77427918
-        },
-        {
-          "threads": 40,
-          "time": 0.00114199,
-          "flops": 4.59608310
-        }
-      ]
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00040352,
+        "gflops": 6.12052422
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00034205,
+        "gflops": 7.22048939
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00033398,
+        "gflops": 7.39482721
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00038061,
+        "gflops": 6.48896993
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00007600,
+        "gflops": 32.49676149
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00306856,
+        "flops": 0.80485795,
+        "speedup": 1.68450410,
+        "efficienza": 0.84225205
+      },
+      {
+        "threads": 4,
+        "time": 0.00178693,
+        "flops": 1.38212056,
+        "speedup": 2.89266913,
+        "efficienza": 0.72316728
+      },
+      {
+        "threads": 8,
+        "time": 0.00095293,
+        "flops": 2.59175844,
+        "speedup": 5.42434565,
+        "efficienza": 0.67804321
+      },
+      {
+        "threads": 16,
+        "time": 0.00082131,
+        "flops": 3.00709417,
+        "speedup": 6.29361053,
+        "efficienza": 0.39335066
+      },
+      {
+        "threads": 32,
+        "time": 0.00067688,
+        "flops": 3.64874681,
+        "speedup": 7.63653880,
+        "efficienza": 0.23864184
+      },
+      {
+        "threads": 40,
+        "time": 0.00066872,
+        "flops": 3.69328217,
+        "speedup": 7.72974780,
+        "efficienza": 0.19324369
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00429066,
+        "flops": 0.57561144,
+        "speedup": 1.06603602,
+        "efficienza": 0.53301801
+      },
+      {
+        "threads": 4,
+        "time": 0.00171910,
+        "flops": 1.43665878,
+        "speedup": 2.66070114,
+        "efficienza": 0.66517528
+      },
+      {
+        "threads": 8,
+        "time": 0.00100913,
+        "flops": 2.44740483,
+        "speedup": 4.53260920,
+        "efficienza": 0.56657615
+      },
+      {
+        "threads": 16,
+        "time": 0.00205589,
+        "flops": 1.20130436,
+        "speedup": 2.22482325,
+        "efficienza": 0.13905145
+      },
+      {
+        "threads": 32,
+        "time": 0.01124220,
+        "flops": 0.21968604,
+        "speedup": 0.40685993,
+        "efficienza": 0.01271437
+      },
+      {
+        "threads": 40,
+        "time": 0.00596662,
+        "flops": 0.41392849,
+        "speedup": 0.76659817,
+        "efficienza": 0.01916495
+      }
+    ]
+  },
+  {
+    "matrix_name": "bcsstk17.mtx",
+    "serial": {
+      "time": 0.00046100,
+      "flops": 1.85965293
     },
-    {
-      "matrix_name": "Cube_Coup_dt0.mtx",
-      "serial": {
-        "time": 0.16338500,
-        "flops": 1.55713369
-      },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.01487149,
-          "gflops": 17.10738579
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00434995,
-          "gflops": 58.48622124
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00448896,
-          "gflops": 56.67510808
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00442374,
-          "gflops": 57.51061965
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00427222,
-          "gflops": 59.55031040
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00460214,
-          "gflops": 55.28125318
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.01496100,
-          "gflops": 17.00503062
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00638900,
-          "gflops": 39.82035842
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.01120200,
-          "gflops": 22.71132710
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.13092412,
-          "flops": 1.94320404
-        },
-        {
-          "threads": 2,
-          "time": 0.11042669,
-          "flops": 2.30390215
-        },
-        {
-          "threads": 4,
-          "time": 0.05977197,
-          "flops": 4.25638083
-        },
-        {
-          "threads": 4,
-          "time": 0.08727426,
-          "flops": 2.91508951
-        },
-        {
-          "threads": 8,
-          "time": 0.05158711,
-          "flops": 4.93170227
-        },
-        {
-          "threads": 8,
-          "time": 0.06596903,
-          "flops": 3.85654123
-        },
-        {
-          "threads": 16,
-          "time": 0.05250780,
-          "flops": 4.84522830
-        },
-        {
-          "threads": 16,
-          "time": 0.05894350,
-          "flops": 4.31620585
-        },
-        {
-          "threads": 32,
-          "time": 0.06767584,
-          "flops": 3.75927799
-        },
-        {
-          "threads": 32,
-          "time": 0.06725762,
-          "flops": 3.78265402
-        },
-        {
-          "threads": 40,
-          "time": 0.09039298,
-          "flops": 2.81451378
-        },
-        {
-          "threads": 40,
-          "time": 0.07716689,
-          "flops": 3.29690988
-        }
-      ]
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
     },
-    {
-      "matrix_name": "dc1.mtx",
-      "serial": {
-        "time": 0.00114900,
-        "flops": 1.33402263
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00003024,
+        "gflops": 28.34986740
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00004515,
+        "gflops": 18.98697618
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00711994,
-          "gflops": 0.21528170
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00035427,
-          "gflops": 4.32659624
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00035162,
-          "gflops": 4.35927822
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00035146,
-          "gflops": 4.36126294
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00036426,
-          "gflops": 4.20800751
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00042704,
-          "gflops": 3.58934025
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.01003900,
-          "gflops": 0.15268374
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00135400,
-          "gflops": 1.13204721
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00062200,
-          "gflops": 2.46429574
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00749343,
-          "flops": 0.20455138
-        },
-        {
-          "threads": 2,
-          "time": 0.00090311,
-          "flops": 1.69723160
-        },
-        {
-          "threads": 4,
-          "time": 0.00741486,
-          "flops": 0.20671905
-        },
-        {
-          "threads": 4,
-          "time": 0.00070362,
-          "flops": 2.17843426
-        },
-        {
-          "threads": 8,
-          "time": 0.00743902,
-          "flops": 0.20604754
-        },
-        {
-          "threads": 8,
-          "time": 0.00053086,
-          "flops": 2.88739209
-        },
-        {
-          "threads": 16,
-          "time": 0.00654007,
-          "flops": 0.23436925
-        },
-        {
-          "threads": 16,
-          "time": 0.00056173,
-          "flops": 2.72868525
-        },
-        {
-          "threads": 32,
-          "time": 0.01187342,
-          "flops": 0.12909435
-        },
-        {
-          "threads": 32,
-          "time": 0.00056853,
-          "flops": 2.69607034
-        },
-        {
-          "threads": 40,
-          "time": 0.01208574,
-          "flops": 0.12682653
-        },
-        {
-          "threads": 40,
-          "time": 0.00063175,
-          "flops": 2.42624441
-        }
-      ]
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00003299,
+        "gflops": 25.98508416
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00003197,
+        "gflops": 26.81743917
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00003632,
+        "gflops": 23.60407390
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00003213,
+        "gflops": 26.68389063
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00003700,
+        "gflops": 23.17026926
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00037875,
+        "flops": 2.26350790,
+        "speedup": 1.21716685,
+        "efficienza": 0.60858343
+      },
+      {
+        "threads": 4,
+        "time": 0.00021597,
+        "flops": 3.96961877,
+        "speedup": 2.13460195,
+        "efficienza": 0.53365049
+      },
+      {
+        "threads": 8,
+        "time": 0.00011120,
+        "flops": 7.70973195,
+        "speedup": 4.14579077,
+        "efficienza": 0.51822385
+      },
+      {
+        "threads": 16,
+        "time": 0.00007431,
+        "flops": 11.53698673,
+        "speedup": 6.20383866,
+        "efficienza": 0.38773992
+      },
+      {
+        "threads": 32,
+        "time": 0.00005416,
+        "flops": 15.82925843,
+        "speedup": 8.51194231,
+        "efficienza": 0.26599820
+      },
+      {
+        "threads": 40,
+        "time": 0.00004323,
+        "flops": 19.82936680,
+        "speedup": 10.66293957,
+        "efficienza": 0.26657349
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00079778,
+        "flops": 1.07461111,
+        "speedup": 1.84262025,
+        "efficienza": 0.92131012
+      },
+      {
+        "threads": 4,
+        "time": 0.00062568,
+        "flops": 1.37018675,
+        "speedup": 2.34943955,
+        "efficienza": 0.58735989
+      },
+      {
+        "threads": 8,
+        "time": 0.00031830,
+        "flops": 2.69340273,
+        "speedup": 4.61833899,
+        "efficienza": 0.57729237
+      },
+      {
+        "threads": 16,
+        "time": 0.00042166,
+        "flops": 2.03317254,
+        "speedup": 3.48625175,
+        "efficienza": 0.21789073
+      },
+      {
+        "threads": 32,
+        "time": 0.02180454,
+        "flops": 0.03931750,
+        "speedup": 0.06741716,
+        "efficienza": 0.00210679
+      },
+      {
+        "threads": 40,
+        "time": 0.00568556,
+        "flops": 0.15078540,
+        "speedup": 0.25854956,
+        "efficienza": 0.00646374
+      }
+    ]
+  },
+  {
+    "matrix_name": "cage4.mtx",
+    "serial": {
+      "time": 0.00000700,
+      "flops": 0.01400000
     },
-    {
-      "matrix_name": "FEM_3D_thermal1.mtx",
-      "serial": {
-        "time": 0.00045600,
-        "flops": 1.88921053
-      },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00015971,
-          "gflops": 5.39395867
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00004915,
-          "gflops": 17.52685402
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00006538,
-          "gflops": 13.17731281
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00005766,
-          "gflops": 14.93965004
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00004554,
-          "gflops": 18.91865681
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00006278,
-          "gflops": 13.72132909
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00011000,
-          "gflops": 7.83163578
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00017200,
-          "gflops": 5.00860423
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00017000,
-          "gflops": 5.06752900
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00075544,
-          "flops": 1.14037313
-        },
-        {
-          "threads": 2,
-          "time": 0.00039404,
-          "flops": 2.18625989
-        },
-        {
-          "threads": 4,
-          "time": 0.00047595,
-          "flops": 1.81003329
-        },
-        {
-          "threads": 4,
-          "time": 0.00031778,
-          "flops": 2.71091562
-        },
-        {
-          "threads": 8,
-          "time": 0.00026472,
-          "flops": 3.25434291
-        },
-        {
-          "threads": 8,
-          "time": 0.00014777,
-          "flops": 5.82979099
-        },
-        {
-          "threads": 16,
-          "time": 0.00082327,
-          "flops": 1.04641624
-        },
-        {
-          "threads": 16,
-          "time": 0.00009271,
-          "flops": 9.29251463
-        },
-        {
-          "threads": 32,
-          "time": 0.01763393,
-          "flops": 0.04885353
-        },
-        {
-          "threads": 32,
-          "time": 0.00011352,
-          "flops": 7.58852547
-        },
-        {
-          "threads": 40,
-          "time": 0.00820589,
-          "flops": 0.10498315
-        },
-        {
-          "threads": 40,
-          "time": 0.00008053,
-          "flops": 10.69826899
-        }
-      ]
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
     },
-    {
-      "matrix_name": "lung2.mtx",
-      "serial": {
-        "time": 0.00066500,
-        "flops": 1.48139549
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00002048,
+        "gflops": 0.00478516
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00001811,
+        "gflops": 0.00541078
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00003405,
-          "gflops": 28.93350556
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00017098,
-          "gflops": 5.76179076
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00019949,
-          "gflops": 4.93828163
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00018259,
-          "gflops": 5.39524129
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00017043,
-          "gflops": 5.78018156
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00020438,
-          "gflops": 4.81998575
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00014000,
-          "gflops": 7.03662838
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00037400,
-          "gflops": 2.63403191
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00059300,
-          "gflops": 1.66126129
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00125741,
-          "flops": 0.78345673
-        },
-        {
-          "threads": 2,
-          "time": 0.00145970,
-          "flops": 0.67488396
-        },
-        {
-          "threads": 4,
-          "time": 0.00071087,
-          "flops": 1.38581221
-        },
-        {
-          "threads": 4,
-          "time": 0.00033892,
-          "flops": 2.90669483
-        },
-        {
-          "threads": 8,
-          "time": 0.00047641,
-          "flops": 2.06783713
-        },
-        {
-          "threads": 8,
-          "time": 0.00021015,
-          "flops": 4.68778603
-        },
-        {
-          "threads": 16,
-          "time": 0.00102441,
-          "flops": 0.96165500
-        },
-        {
-          "threads": 16,
-          "time": 0.00014941,
-          "flops": 6.59332134
-        },
-        {
-          "threads": 32,
-          "time": 0.01681878,
-          "flops": 0.05857310
-        },
-        {
-          "threads": 32,
-          "time": 0.00016449,
-          "flops": 5.98895167
-        },
-        {
-          "threads": 40,
-          "time": 0.00649115,
-          "flops": 0.15176472
-        },
-        {
-          "threads": 40,
-          "time": 0.00012186,
-          "flops": 8.08376775
-        }
-      ]
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00001219,
+        "gflops": 0.00803806
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00000922,
+        "gflops": 0.01063368
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00001024,
+        "gflops": 0.00957031
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00001469,
+        "gflops": 0.00667211
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00001200,
+        "gflops": 0.00816667
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00000368,
+        "flops": 0.02660599,
+        "speedup": 1.90042801,
+        "efficienza": 0.95021400
+      },
+      {
+        "threads": 4,
+        "time": 0.00000302,
+        "flops": 0.03239738,
+        "speedup": 2.31409876,
+        "efficienza": 0.57852469
+      },
+      {
+        "threads": 8,
+        "time": 0.00000402,
+        "flops": 0.02436085,
+        "speedup": 1.74006083,
+        "efficienza": 0.21750760
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00009457,
+        "flops": 0.00103626,
+        "speedup": 0.02114810,
+        "efficienza": 0.01057405
+      },
+      {
+        "threads": 4,
+        "time": 0.00131325,
+        "flops": 0.00007462,
+        "speedup": 0.00152294,
+        "efficienza": 0.00038073
+      },
+      {
+        "threads": 8,
+        "time": 0.00053297,
+        "flops": 0.00018388,
+        "speedup": 0.00375258,
+        "efficienza": 0.00046907
+      }
+    ]
+  },
+  {
+    "matrix_name": "cant.mtx",
+    "serial": {
+      "time": 0.00486700,
+      "flops": 1.64675693
     },
-    {
-      "matrix_name": "mac_econ_fwd500.mtx",
-      "serial": {
-        "time": 0.00238800,
-        "flops": 1.06648995
-      },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00009539,
-          "gflops": 26.69802224
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00031437,
-          "gflops": 8.10126291
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00036848,
-          "gflops": 6.91157696
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00032544,
-          "gflops": 7.82564546
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00031309,
-          "gflops": 8.13438377
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00036458,
-          "gflops": 6.98558817
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00033400,
-          "gflops": 7.62508358
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00068900,
-          "gflops": 3.69633927
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00117800,
-          "gflops": 2.16195075
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.01288936,
-          "flops": 0.19758759
-        },
-        {
-          "threads": 2,
-          "time": 0.00672871,
-          "flops": 0.37849430
-        },
-        {
-          "threads": 4,
-          "time": 0.00252862,
-          "flops": 1.00718175
-        },
-        {
-          "threads": 4,
-          "time": 0.00076001,
-          "flops": 3.35096121
-        },
-        {
-          "threads": 8,
-          "time": 0.00220748,
-          "flops": 1.15370419
-        },
-        {
-          "threads": 8,
-          "time": 0.00055444,
-          "flops": 4.59342335
-        },
-        {
-          "threads": 16,
-          "time": 0.00227813,
-          "flops": 1.11792283
-        },
-        {
-          "threads": 16,
-          "time": 0.00044117,
-          "flops": 5.77279585
-        },
-        {
-          "threads": 32,
-          "time": 0.00489533,
-          "flops": 0.52024696
-        },
-        {
-          "threads": 32,
-          "time": 0.00042440,
-          "flops": 6.00084827
-        },
-        {
-          "threads": 40,
-          "time": 0.00690829,
-          "flops": 0.36865545
-        },
-        {
-          "threads": 40,
-          "time": 0.00029446,
-          "flops": 8.64909453
-        }
-      ]
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
     },
-    {
-      "matrix_name": "mcfe.mtx",
-      "serial": {
-        "time": 0.00003800,
-        "flops": 1.28326316
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00064790,
+        "gflops": 12.37029865
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00015770,
+        "gflops": 50.82415348
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00005754,
-          "gflops": 0.84753889
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00003475,
-          "gflops": 1.40319967
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00001747,
-          "gflops": 2.79097973
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00001638,
-          "gflops": 2.97631811
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00002832,
-          "gflops": 1.72189262
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00003178,
-          "gflops": 1.53461721
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00011100,
-          "gflops": 0.43931528
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00012000,
-          "gflops": 0.40636665
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00008300,
-          "gflops": 0.58751808
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00019879,
-          "flops": 0.24530281
-        },
-        {
-          "threads": 2,
-          "time": 0.00009805,
-          "flops": 0.49733283
-        },
-        {
-          "threads": 4,
-          "time": 0.00158170,
-          "flops": 0.03083018
-        },
-        {
-          "threads": 4,
-          "time": 0.00002394,
-          "flops": 2.03683684
-        },
-        {
-          "threads": 8,
-          "time": 0.00014368,
-          "flops": 0.33939304
-        },
-        {
-          "threads": 8,
-          "time": 0.00001152,
-          "flops": 4.23410058
-        },
-        {
-          "threads": 16,
-          "time": 0.00072126,
-          "flops": 0.06760946
-        },
-        {
-          "threads": 16,
-          "time": 0.00001848,
-          "flops": 2.63831232
-        },
-        {
-          "threads": 32,
-          "time": 0.02044550,
-          "flops": 0.00238507
-        },
-        {
-          "threads": 32,
-          "time": 0.00001446,
-          "flops": 3.37142695
-        },
-        {
-          "threads": 40,
-          "time": 0.00574474,
-          "flops": 0.00848847
-        },
-        {
-          "threads": 40,
-          "time": 0.00001508,
-          "flops": 3.23324305
-        }
-      ]
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00016496,
+        "gflops": 48.58611734
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00016707,
+        "gflops": 47.97192584
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00015875,
+        "gflops": 50.48607600
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00019434,
+        "gflops": 41.24179534
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00016300,
+        "gflops": 49.17034228
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00332187,
+        "flops": 2.41272362,
+        "speedup": 1.46513646,
+        "efficienza": 0.73256823
+      },
+      {
+        "threads": 4,
+        "time": 0.00269526,
+        "flops": 2.97365472,
+        "speedup": 1.80576420,
+        "efficienza": 0.45144105
+      },
+      {
+        "threads": 8,
+        "time": 0.00196021,
+        "flops": 4.08873109,
+        "speedup": 2.48289896,
+        "efficienza": 0.31036237
+      },
+      {
+        "threads": 16,
+        "time": 0.00169920,
+        "flops": 4.71679335,
+        "speedup": 2.86429239,
+        "efficienza": 0.17901827
+      },
+      {
+        "threads": 32,
+        "time": 0.00201513,
+        "flops": 3.97730462,
+        "speedup": 2.41523478,
+        "efficienza": 0.07547609
+      },
+      {
+        "threads": 40,
+        "time": 0.00183556,
+        "flops": 4.36639854,
+        "speedup": 2.65151368,
+        "efficienza": 0.06628784
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00381699,
+        "flops": 2.09976199,
+        "speedup": 3.10349429,
+        "efficienza": 1.55174714
+      },
+      {
+        "threads": 4,
+        "time": 0.00234287,
+        "flops": 3.42092202,
+        "speedup": 5.05619781,
+        "efficienza": 1.26404945
+      },
+      {
+        "threads": 8,
+        "time": 0.00246528,
+        "flops": 3.25106352,
+        "speedup": 4.80514322,
+        "efficienza": 0.60064290
+      },
+      {
+        "threads": 16,
+        "time": 0.00283086,
+        "flops": 2.83121455,
+        "speedup": 4.18459722,
+        "efficienza": 0.26153733
+      },
+      {
+        "threads": 32,
+        "time": 0.00887166,
+        "flops": 0.90341220,
+        "speedup": 1.33526306,
+        "efficienza": 0.04172697
+      },
+      {
+        "threads": 40,
+        "time": 0.00771367,
+        "flops": 1.03903365,
+        "speedup": 1.53571453,
+        "efficienza": 0.03839286
+      }
+    ]
+  },
+  {
+    "matrix_name": "cavity10.mtx",
+    "serial": {
+      "time": 0.00008600,
+      "flops": 1.77597674
     },
-    {
-      "matrix_name": "mhd4800a.mtx",
-      "serial": {
-        "time": 0.00010300,
-        "flops": 1.98547573
-      },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00001322,
-          "gflops": 15.47397060
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00003731,
-          "gflops": 5.48091738
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00001635,
-          "gflops": 12.50636017
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00001594,
-          "gflops": 12.83283081
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00001434,
-          "gflops": 14.26506578
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00003686,
-          "gflops": 5.54752558
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00008900,
-          "gflops": 2.29779754
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00012900,
-          "gflops": 1.58530241
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00011400,
-          "gflops": 1.79389470
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00042301,
-          "flops": 0.48344614
-        },
-        {
-          "threads": 2,
-          "time": 0.00020029,
-          "flops": 1.02105017
-        },
-        {
-          "threads": 4,
-          "time": 0.00134136,
-          "flops": 0.15246030
-        },
-        {
-          "threads": 4,
-          "time": 0.00008919,
-          "flops": 2.29287965
-        },
-        {
-          "threads": 8,
-          "time": 0.00020010,
-          "flops": 1.02200419
-        },
-        {
-          "threads": 8,
-          "time": 0.00003923,
-          "flops": 5.21240997
-        },
-        {
-          "threads": 16,
-          "time": 0.00034361,
-          "flops": 0.59516341
-        },
-        {
-          "threads": 16,
-          "time": 0.00001982,
-          "flops": 10.32063912
-        },
-        {
-          "threads": 32,
-          "time": 0.01354961,
-          "flops": 0.01509298
-        },
-        {
-          "threads": 32,
-          "time": 0.00002574,
-          "flops": 7.94617131
-        },
-        {
-          "threads": 40,
-          "time": 0.00573464,
-          "flops": 0.03566116
-        },
-        {
-          "threads": 40,
-          "time": 0.00009687,
-          "flops": 2.11106970
-        }
-      ]
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
     },
-    {
-      "matrix_name": "mhda416.mtx",
-      "serial": {
-        "time": 0.00269000,
-        "flops": 0.00636580
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00001408,
+        "gflops": 10.84758433
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00001386,
+        "gflops": 11.02294971
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00005766,
-          "gflops": 0.29696170
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00003085,
-          "gflops": 0.55510890
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00001978,
-          "gflops": 0.86589806
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00001776,
-          "gflops": 0.96418921
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00002522,
-          "gflops": 0.67909262
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00002464,
-          "gflops": 0.69496749
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00008400,
-          "gflops": 0.20385714
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00010000,
-          "gflops": 0.17123999
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00008700,
-          "gflops": 0.19682759
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00016656,
-          "flops": 0.10280674
-        },
-        {
-          "threads": 2,
-          "time": 0.00002681,
-          "flops": 0.63873949
-        },
-        {
-          "threads": 4,
-          "time": 0.00056209,
-          "flops": 0.03046476
-        },
-        {
-          "threads": 4,
-          "time": 0.00002257,
-          "flops": 0.75870164
-        },
-        {
-          "threads": 8,
-          "time": 0.00012429,
-          "flops": 0.13777236
-        },
-        {
-          "threads": 8,
-          "time": 0.00002031,
-          "flops": 0.84292647
-        },
-        {
-          "threads": 16,
-          "time": 0.00064250,
-          "flops": 0.02665218
-        },
-        {
-          "threads": 16,
-          "time": 0.00000715,
-          "flops": 2.39598058
-        },
-        {
-          "threads": 32,
-          "time": 0.02239172,
-          "flops": 0.00076475
-        },
-        {
-          "threads": 32,
-          "time": 0.00006287,
-          "flops": 0.27238527
-        },
-        {
-          "threads": 40,
-          "time": 0.01157798,
-          "flops": 0.00147901
-        },
-        {
-          "threads": 40,
-          "time": 0.00002143,
-          "flops": 0.79898990
-        }
-      ]
-    },
-    {
-      "matrix_name": "ML_Laplace.mtx",
-      "serial": {
-        "time": 0.03280400,
-        "flops": 1.68820705
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00000851,
+        "gflops": 17.94337401
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00000819,
+        "gflops": 18.64428557
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00403888,
-          "gflops": 13.71170781
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00100720,
-          "gflops": 54.98405319
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00111251,
-          "gflops": 49.77918442
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00096339,
-          "gflops": 57.48432527
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00094768,
-          "gflops": 58.43738610
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00109222,
-          "gflops": 50.70383213
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00469900,
-          "gflops": 11.78547396
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00126000,
-          "gflops": 43.95233483
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00174800,
-          "gflops": 31.68188735
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.02395463,
-          "flops": 2.31186769
-        },
-        {
-          "threads": 2,
-          "time": 0.06300400,
-          "flops": 0.87899091
-        },
-        {
-          "threads": 4,
-          "time": 0.01649749,
-          "flops": 3.35687089
-        },
-        {
-          "threads": 4,
-          "time": 0.01550392,
-          "flops": 3.57199578
-        },
-        {
-          "threads": 8,
-          "time": 0.01134800,
-          "flops": 4.88014884
-        },
-        {
-          "threads": 8,
-          "time": 0.01249339,
-          "flops": 4.43273885
-        },
-        {
-          "threads": 16,
-          "time": 0.01248009,
-          "flops": 4.43746214
-        },
-        {
-          "threads": 16,
-          "time": 0.01077833,
-          "flops": 5.13808349
-        },
-        {
-          "threads": 32,
-          "time": 0.01903104,
-          "flops": 2.90997960
-        },
-        {
-          "threads": 32,
-          "time": 0.01239747,
-          "flops": 4.46703595
-        },
-        {
-          "threads": 40,
-          "time": 0.01923463,
-          "flops": 2.87917951
-        },
-        {
-          "threads": 40,
-          "time": 0.01235826,
-          "flops": 4.48120737
-        }
-      ]
-    },
-    {
-      "matrix_name": "nlpkkt80.mtx",
-      "serial": {
-        "time": 0.03459400,
-        "flops": 1.65951737
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00000806,
+        "gflops": 18.94022768
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00269514,
-          "gflops": 21.30109165
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00159094,
-          "gflops": 36.08507866
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00178838,
-          "gflops": 32.10123914
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00150022,
-          "gflops": 38.26717856
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00141155,
-          "gflops": 40.67107761
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00156371,
-          "gflops": 36.71350169
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00201800,
-          "gflops": 28.44863430
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00230500,
-          "gflops": 24.90643895
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00538100,
-          "gflops": 10.66889827
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.02668633,
-          "flops": 2.15126427
-        },
-        {
-          "threads": 2,
-          "time": 0.02642206,
-          "flops": 2.17278077
-        },
-        {
-          "threads": 4,
-          "time": 0.01599694,
-          "flops": 3.58877125
-        },
-        {
-          "threads": 4,
-          "time": 0.02104300,
-          "flops": 2.72819147
-        },
-        {
-          "threads": 8,
-          "time": 0.01528949,
-          "flops": 3.75482397
-        },
-        {
-          "threads": 8,
-          "time": 0.01521690,
-          "flops": 3.77273485
-        },
-        {
-          "threads": 16,
-          "time": 0.01470392,
-          "flops": 3.90435642
-        },
-        {
-          "threads": 16,
-          "time": 0.01330152,
-          "flops": 4.31599971
-        },
-        {
-          "threads": 32,
-          "time": 0.02223266,
-          "flops": 2.58220771
-        },
-        {
-          "threads": 32,
-          "time": 0.01622218,
-          "flops": 3.53894029
-        },
-        {
-          "threads": 40,
-          "time": 0.02010960,
-          "flops": 2.85482209
-        },
-        {
-          "threads": 40,
-          "time": 0.01584223,
-          "flops": 3.62381597
-        }
-      ]
-    },
-    {
-      "matrix_name": "olafu.mtx",
-      "serial": {
-        "time": 0.00116800,
-        "flops": 1.73828082
-      },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00009837,
-          "gflops": 20.63996418
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00008806,
-          "gflops": 23.05495812
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00006362,
-          "gflops": 31.91511374
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00005798,
-          "gflops": 35.01503766
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00005510,
-          "gflops": 36.84509093
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00009011,
-          "gflops": 22.53098180
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00017600,
-          "gflops": 11.53586355
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00021900,
-          "gflops": 9.27083068
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00017000,
-          "gflops": 11.94301079
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00153524,
-          "flops": 1.32247137
-        },
-        {
-          "threads": 2,
-          "time": 0.00087439,
-          "flops": 2.32198611
-        },
-        {
-          "threads": 4,
-          "time": 0.00073456,
-          "flops": 2.76400243
-        },
-        {
-          "threads": 4,
-          "time": 0.00076996,
-          "flops": 2.63691301
-        },
-        {
-          "threads": 8,
-          "time": 0.00062748,
-          "flops": 3.23568061
-        },
-        {
-          "threads": 8,
-          "time": 0.00048308,
-          "flops": 4.20289053
-        },
-        {
-          "threads": 16,
-          "time": 0.00109436,
-          "flops": 1.85525072
-        },
-        {
-          "threads": 16,
-          "time": 0.00038953,
-          "flops": 5.21224887
-        },
-        {
-          "threads": 32,
-          "time": 0.01709917,
-          "flops": 0.11873749
-        },
-        {
-          "threads": 32,
-          "time": 0.00039947,
-          "flops": 5.08256643
-        },
-        {
-          "threads": 40,
-          "time": 0.00792641,
-          "flops": 0.25614518
-        },
-        {
-          "threads": 40,
-          "time": 0.00036156,
-          "flops": 5.61540534
-        }
-      ]
-    },
-    {
-      "matrix_name": "olm1000.mtx",
-      "serial": {
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00002214,
+        "gflops": 6.89730838
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
         "time": 0.00001600,
-        "flops": 0.49950000
+        "gflops": 9.54587394
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00006851,
+        "flops": 2.22943018,
+        "speedup": 1.25532622,
+        "efficienza": 0.62766311
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "threads": 4,
+        "time": 0.00007620,
+        "flops": 2.00438631,
+        "speedup": 1.12861068,
+        "efficienza": 0.28215267
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00005754,
-          "gflops": 0.13890433
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00003322,
-          "gflops": 0.24060692
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00003149,
-          "gflops": 0.25381096
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00003091,
-          "gflops": 0.25854037
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00003171,
-          "gflops": 0.25201817
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00003107,
-          "gflops": 0.25720904
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00008700,
-          "gflops": 0.09186207
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00009700,
-          "gflops": 0.08239174
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00008500,
-          "gflops": 0.09402352
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00015963,
-          "flops": 0.05006575
-        },
-        {
-          "threads": 2,
-          "time": 0.00003513,
-          "flops": 0.22751777
-        },
-        {
-          "threads": 4,
-          "time": 0.00105845,
-          "flops": 0.00755066
-        },
-        {
-          "threads": 4,
-          "time": 0.00000717,
-          "flops": 1.11399015
-        },
-        {
-          "threads": 8,
-          "time": 0.00014607,
-          "flops": 0.05471313
-        },
-        {
-          "threads": 8,
-          "time": 0.00000570,
-          "flops": 1.40115024
-        },
-        {
-          "threads": 16,
-          "time": 0.00031800,
-          "flops": 0.02513240
-        },
-        {
-          "threads": 16,
-          "time": 0.00000619,
-          "flops": 1.29028225
-        },
-        {
-          "threads": 32,
-          "time": 0.01105014,
-          "flops": 0.00072325
-        },
-        {
-          "threads": 32,
-          "time": 0.00001874,
-          "flops": 0.42644460
-        },
-        {
-          "threads": 40,
-          "time": 0.00528890,
-          "flops": 0.00151109
-        },
-        {
-          "threads": 40,
-          "time": 0.00003306,
-          "flops": 0.24172632
-        }
-      ]
+      {
+        "threads": 8,
+        "time": 0.00004077,
+        "flops": 3.74588878,
+        "speedup": 2.10919923,
+        "efficienza": 0.26364990
+      },
+      {
+        "threads": 16,
+        "time": 0.00001774,
+        "flops": 8.61169868,
+        "speedup": 4.84899293,
+        "efficienza": 0.30306206
+      },
+      {
+        "threads": 32,
+        "time": 0.00002391,
+        "flops": 6.38803715,
+        "speedup": 3.59691486,
+        "efficienza": 0.11240359
+      },
+      {
+        "threads": 40,
+        "time": 0.00009485,
+        "flops": 1.61032279,
+        "speedup": 0.90672516,
+        "efficienza": 0.02266813
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00034475,
+        "flops": 0.44302349,
+        "speedup": 1.21536031,
+        "efficienza": 0.60768015
+      },
+      {
+        "threads": 4,
+        "time": 0.00176558,
+        "flops": 0.08650624,
+        "speedup": 0.23731529,
+        "efficienza": 0.05932882
+      },
+      {
+        "threads": 8,
+        "time": 0.00032136,
+        "flops": 0.47526788,
+        "speedup": 1.30381736,
+        "efficienza": 0.16297717
+      },
+      {
+        "threads": 16,
+        "time": 0.00082525,
+        "flops": 0.18507613,
+        "speedup": 0.50772518,
+        "efficienza": 0.03173282
+      },
+      {
+        "threads": 32,
+        "time": 0.01835853,
+        "flops": 0.00831951,
+        "speedup": 0.02282318,
+        "efficienza": 0.00071322
+      },
+      {
+        "threads": 40,
+        "time": 0.00898470,
+        "flops": 0.01699934,
+        "speedup": 0.04663483,
+        "efficienza": 0.00116587
+      }
+    ]
+  },
+  {
+    "matrix_name": "cop20k_A.mtx",
+    "serial": {
+      "time": 0.00547400,
+      "flops": 0.95883486
     },
-    {
-      "matrix_name": "PR02R.mtx",
-      "serial": {
-        "time": 0.01066400,
-        "flops": 1.53509677
-      },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00092486,
-          "gflops": 17.70019324
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00038275,
-          "gflops": 42.76991754
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00038810,
-          "gflops": 42.18098305
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00038022,
-          "gflops": 43.05428432
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00035434,
-          "gflops": 46.19985267
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00044845,
-          "gflops": 36.50427895
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00138300,
-          "gflops": 11.83678335
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00059100,
-          "gflops": 27.69927222
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00092200,
-          "gflops": 17.75517502
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00940053,
-          "flops": 1.74141994
-        },
-        {
-          "threads": 2,
-          "time": 0.00712184,
-          "flops": 2.29860080
-        },
-        {
-          "threads": 4,
-          "time": 0.00672966,
-          "flops": 2.43255454
-        },
-        {
-          "threads": 4,
-          "time": 0.00557078,
-          "flops": 2.93859713
-        },
-        {
-          "threads": 8,
-          "time": 0.00516336,
-          "flops": 3.17047061
-        },
-        {
-          "threads": 8,
-          "time": 0.00418411,
-          "flops": 3.91248422
-        },
-        {
-          "threads": 16,
-          "time": 0.00555580,
-          "flops": 2.94651873
-        },
-        {
-          "threads": 16,
-          "time": 0.00352993,
-          "flops": 4.63756918
-        },
-        {
-          "threads": 32,
-          "time": 0.01120758,
-          "flops": 1.46064236
-        },
-        {
-          "threads": 32,
-          "time": 0.00436006,
-          "flops": 3.75459429
-        },
-        {
-          "threads": 40,
-          "time": 0.01067535,
-          "flops": 1.53346420
-        },
-        {
-          "threads": 40,
-          "time": 0.00412470,
-          "flops": 3.96884136
-        }
-      ]
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
     },
-    {
-      "matrix_name": "raefsky2.mtx",
-      "serial": {
-        "time": 0.00036300,
-        "flops": 1.62135537
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00025830,
+        "gflops": 20.31970824
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00020074,
+        "gflops": 26.14708659
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00003619,
-          "gflops": 16.26193505
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00004326,
-          "gflops": 13.60373380
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00001715,
-          "gflops": 34.31389823
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00001782,
-          "gflops": 33.02019623
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00002240,
-          "gflops": 26.27464335
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00004246,
-          "gflops": 13.86002194
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00011800,
-          "gflops": 4.98772866
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00013900,
-          "gflops": 4.23418673
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00011400,
-          "gflops": 5.16273674
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00058380,
-          "flops": 1.00814697
-        },
-        {
-          "threads": 2,
-          "time": 0.00246316,
-          "flops": 0.23894148
-        },
-        {
-          "threads": 4,
-          "time": 0.00025903,
-          "flops": 2.27213709
-        },
-        {
-          "threads": 4,
-          "time": 0.00015388,
-          "flops": 3.82479614
-        },
-        {
-          "threads": 8,
-          "time": 0.00024369,
-          "flops": 2.41512661
-        },
-        {
-          "threads": 8,
-          "time": 0.00008906,
-          "flops": 6.60879598
-        },
-        {
-          "threads": 16,
-          "time": 0.00079433,
-          "flops": 0.74093955
-        },
-        {
-          "threads": 16,
-          "time": 0.00006128,
-          "flops": 9.60352710
-        },
-        {
-          "threads": 32,
-          "time": 0.02022216,
-          "flops": 0.02910432
-        },
-        {
-          "threads": 32,
-          "time": 0.00005822,
-          "flops": 10.10995229
-        },
-        {
-          "threads": 40,
-          "time": 0.00884508,
-          "flops": 0.06654003
-        },
-        {
-          "threads": 40,
-          "time": 0.00007130,
-          "flops": 8.25459079
-        }
-      ]
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00022912,
+        "gflops": 22.90791654
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00020736,
+        "gflops": 25.31183395
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00020422,
+        "gflops": 25.70051405
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00022118,
+        "gflops": 23.72984443
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00012100,
+        "gflops": 43.37737026
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00366940,
+        "flops": 1.43038853,
+        "speedup": 1.49179863,
+        "efficienza": 0.74589932
+      },
+      {
+        "threads": 4,
+        "time": 0.00228977,
+        "flops": 2.29222732,
+        "speedup": 2.39063829,
+        "efficienza": 0.59765957
+      },
+      {
+        "threads": 8,
+        "time": 0.00177915,
+        "flops": 2.95010340,
+        "speedup": 3.07675862,
+        "efficienza": 0.38459483
+      },
+      {
+        "threads": 16,
+        "time": 0.00145147,
+        "flops": 3.61609174,
+        "speedup": 3.77133948,
+        "efficienza": 0.23570872
+      },
+      {
+        "threads": 32,
+        "time": 0.00151736,
+        "flops": 3.45908112,
+        "speedup": 3.60758800,
+        "efficienza": 0.11273712
+      },
+      {
+        "threads": 40,
+        "time": 0.00136725,
+        "flops": 3.83885111,
+        "speedup": 4.00366245,
+        "efficienza": 0.10009156
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00551742,
+        "flops": 0.95128905,
+        "speedup": 1.69354492,
+        "efficienza": 0.84677246
+      },
+      {
+        "threads": 4,
+        "time": 0.00326575,
+        "flops": 1.60718580,
+        "speedup": 2.86121380,
+        "efficienza": 0.71530345
+      },
+      {
+        "threads": 8,
+        "time": 0.00339377,
+        "flops": 1.54655617,
+        "speedup": 2.75327709,
+        "efficienza": 0.34415964
+      },
+      {
+        "threads": 16,
+        "time": 0.00321181,
+        "flops": 1.63417680,
+        "speedup": 2.90926488,
+        "efficienza": 0.18182906
+      },
+      {
+        "threads": 32,
+        "time": 0.00735301,
+        "flops": 0.71381166,
+        "speedup": 1.27077265,
+        "efficienza": 0.03971165
+      },
+      {
+        "threads": 40,
+        "time": 0.00820546,
+        "flops": 0.63965518,
+        "speedup": 1.13875461,
+        "efficienza": 0.02846887
+      }
+    ]
+  },
+  {
+    "matrix_name": "Cube_Coup_dt0.mtx",
+    "serial": {
+      "time": 0.18402400,
+      "flops": 1.38249515
     },
-    {
-      "matrix_name": "rdist2.mtx",
-      "serial": {
-        "time": 0.00006600,
-        "flops": 1.72527273
-      },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00002867,
-          "gflops": 3.97140034
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00004106,
-          "gflops": 2.77347996
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00001434,
-          "gflops": 7.94280068
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00001238,
-          "gflops": 9.19476677
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00001638,
-          "gflops": 6.94995060
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00004138,
-          "gflops": 2.75203023
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00009100,
-          "gflops": 1.25129668
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00010600,
-          "gflops": 1.07422635
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00010400,
-          "gflops": 1.09488455
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00043766,
-          "flops": 0.26017628
-        },
-        {
-          "threads": 2,
-          "time": 0.00006294,
-          "flops": 1.80909965
-        },
-        {
-          "threads": 4,
-          "time": 0.00147346,
-          "flops": 0.07727948
-        },
-        {
-          "threads": 4,
-          "time": 0.00004728,
-          "flops": 2.40817467
-        },
-        {
-          "threads": 8,
-          "time": 0.00019625,
-          "flops": 0.58021865
-        },
-        {
-          "threads": 8,
-          "time": 0.00001903,
-          "flops": 5.98486632
-        },
-        {
-          "threads": 16,
-          "time": 0.00034971,
-          "flops": 0.32560693
-        },
-        {
-          "threads": 16,
-          "time": 0.00002512,
-          "flops": 4.53281803
-        },
-        {
-          "threads": 32,
-          "time": 0.01508183,
-          "flops": 0.00755001
-        },
-        {
-          "threads": 32,
-          "time": 0.00004241,
-          "flops": 2.68486740
-        },
-        {
-          "threads": 40,
-          "time": 0.00778282,
-          "flops": 0.01463068
-        },
-        {
-          "threads": 40,
-          "time": 0.00001739,
-          "flops": 6.54829398
-        }
-      ]
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
     },
-    {
-      "matrix_name": "roadNet-PA.mtx",
-      "serial": {
-        "time": 0.01140500,
-        "flops": 0.54077966
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.01669037,
+        "gflops": 15.24305888
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00444989,
+        "gflops": 57.17273194
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00020086,
-          "gflops": 30.70531077
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00160538,
-          "gflops": 3.84183611
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00187581,
-          "gflops": 3.28796531
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00164016,
-          "gflops": 3.76036000
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00159850,
-          "gflops": 3.85837189
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00187962,
-          "gflops": 3.28130416
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00031300,
-          "gflops": 19.70476697
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00261900,
-          "gflops": 2.35494144
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00496300,
-          "gflops": 1.24271453
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.01210785,
-          "flops": 0.50938796
-        },
-        {
-          "threads": 2,
-          "time": 0.01689899,
-          "flops": 0.36496808
-        },
-        {
-          "threads": 4,
-          "time": 0.00397201,
-          "flops": 1.55276465
-        },
-        {
-          "threads": 4,
-          "time": 0.00363769,
-          "flops": 1.69546749
-        },
-        {
-          "threads": 8,
-          "time": 0.00344572,
-          "flops": 1.78992677
-        },
-        {
-          "threads": 8,
-          "time": 0.00239527,
-          "flops": 2.57490053
-        },
-        {
-          "threads": 16,
-          "time": 0.00395348,
-          "flops": 1.56004158
-        },
-        {
-          "threads": 16,
-          "time": 0.00218505,
-          "flops": 2.82263447
-        },
-        {
-          "threads": 32,
-          "time": 0.01123301,
-          "flops": 0.54905945
-        },
-        {
-          "threads": 32,
-          "time": 0.00211746,
-          "flops": 2.91273400
-        },
-        {
-          "threads": 40,
-          "time": 0.02342084,
-          "flops": 0.26333772
-        },
-        {
-          "threads": 40,
-          "time": 0.00992215,
-          "flops": 0.62159821
-        }
-      ]
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00459043,
+        "gflops": 55.42229558
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00445658,
+        "gflops": 57.08694080
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00428141,
+        "gflops": 59.42257287
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00446410,
+        "gflops": 56.99076942
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00413300,
+        "gflops": 61.55632365
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.10883688,
+        "flops": 2.33755582,
+        "speedup": 1.69082388,
+        "efficienza": 0.84541194
+      },
+      {
+        "threads": 4,
+        "time": 0.08733084,
+        "flops": 2.91320081,
+        "speedup": 2.10720508,
+        "efficienza": 0.52680127
+      },
+      {
+        "threads": 8,
+        "time": 0.06570616,
+        "flops": 3.87196993,
+        "speedup": 2.80071140,
+        "efficienza": 0.35008892
+      },
+      {
+        "threads": 16,
+        "time": 0.06680068,
+        "flops": 3.80852847,
+        "speedup": 2.75482229,
+        "efficienza": 0.17217639
+      },
+      {
+        "threads": 32,
+        "time": 0.07898889,
+        "flops": 3.22086166,
+        "speedup": 2.32974536,
+        "efficienza": 0.07280454
+      },
+      {
+        "threads": 40,
+        "time": 0.07417662,
+        "flops": 3.42981776,
+        "speedup": 2.48088954,
+        "efficienza": 0.06202224
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.22710823,
+        "flops": 1.12022488,
+        "speedup": 1.58947566,
+        "efficienza": 0.79473783
+      },
+      {
+        "threads": 4,
+        "time": 0.07395021,
+        "flops": 3.44031862,
+        "speedup": 4.88143299,
+        "efficienza": 1.22035825
+      },
+      {
+        "threads": 8,
+        "time": 0.06301158,
+        "flops": 4.03754846,
+        "speedup": 5.72883633,
+        "efficienza": 0.71610454
+      },
+      {
+        "threads": 16,
+        "time": 0.05901220,
+        "flops": 4.31118093,
+        "speedup": 6.11709063,
+        "efficienza": 0.38231816
+      },
+      {
+        "threads": 32,
+        "time": 0.07617833,
+        "flops": 3.33969365,
+        "speedup": 4.73865725,
+        "efficienza": 0.14808304
+      },
+      {
+        "threads": 40,
+        "time": 0.08986264,
+        "flops": 2.83112402,
+        "speedup": 4.01705299,
+        "efficienza": 0.10042632
+      }
+    ]
+  },
+  {
+    "matrix_name": "dc1.mtx",
+    "serial": {
+      "time": 0.00123300,
+      "flops": 1.24314031
     },
-    {
-      "matrix_name": "thermal1.mtx",
-      "serial": {
-        "time": 0.00122200,
-        "flops": 0.94019313
-      },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00004563,
-          "gflops": 25.17785493
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00013206,
-          "gflops": 8.69969104
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00016499,
-          "gflops": 6.96346422
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00014054,
-          "gflops": 8.17477812
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00013155,
-          "gflops": 8.73354985
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00016237,
-          "gflops": 7.07600020
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00011300,
-          "gflops": 10.16739806
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00030600,
-          "gflops": 3.75462743
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00046300,
-          "gflops": 2.48145987
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00136062,
-          "flops": 0.84440498
-        },
-        {
-          "threads": 2,
-          "time": 0.00083629,
-          "flops": 1.37381844
-        },
-        {
-          "threads": 4,
-          "time": 0.00063342,
-          "flops": 1.81382981
-        },
-        {
-          "threads": 4,
-          "time": 0.00047397,
-          "flops": 2.42401570
-        },
-        {
-          "threads": 8,
-          "time": 0.00041958,
-          "flops": 2.73823944
-        },
-        {
-          "threads": 8,
-          "time": 0.00023821,
-          "flops": 4.82309964
-        },
-        {
-          "threads": 16,
-          "time": 0.00096298,
-          "flops": 1.19308155
-        },
-        {
-          "threads": 16,
-          "time": 0.00016496,
-          "flops": 6.96468600
-        },
-        {
-          "threads": 32,
-          "time": 0.01307555,
-          "flops": 0.08786750
-        },
-        {
-          "threads": 32,
-          "time": 0.00019111,
-          "flops": 6.01180618
-        },
-        {
-          "threads": 40,
-          "time": 0.00536295,
-          "flops": 0.21423214
-        },
-        {
-          "threads": 40,
-          "time": 0.00018220,
-          "flops": 6.30569141
-        }
-      ]
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
     },
-    {
-      "matrix_name": "thermal2.mtx",
-      "serial": {
-        "time": 0.02173000,
-        "flops": 0.78972048
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00649293,
+        "gflops": 0.23607099
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00031440,
+        "gflops": 4.87529250
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00067606,
-          "gflops": 25.38313627
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00182371,
-          "gflops": 9.40972356
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00212134,
-          "gflops": 8.08950567
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00185094,
-          "gflops": 9.27128255
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00180426,
-          "gflops": 9.51119244
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00211904,
-          "gflops": 8.09830162
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00055800,
-          "gflops": 30.75380684
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00291900,
-          "gflops": 5.87893983
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00562400,
-          "gflops": 3.05132017
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.01782179,
-          "flops": 0.96290154
-        },
-        {
-          "threads": 2,
-          "time": 0.01371750,
-          "flops": 1.25100244
-        },
-        {
-          "threads": 4,
-          "time": 0.00862263,
-          "flops": 1.99018374
-        },
-        {
-          "threads": 4,
-          "time": 0.00822794,
-          "flops": 2.08565203
-        },
-        {
-          "threads": 8,
-          "time": 0.00719375,
-          "flops": 2.38549233
-        },
-        {
-          "threads": 8,
-          "time": 0.00551111,
-          "flops": 3.11382668
-        },
-        {
-          "threads": 16,
-          "time": 0.00733710,
-          "flops": 2.33888340
-        },
-        {
-          "threads": 16,
-          "time": 0.00556919,
-          "flops": 3.08134771
-        },
-        {
-          "threads": 32,
-          "time": 0.02012135,
-          "flops": 0.85285676
-        },
-        {
-          "threads": 32,
-          "time": 0.00547708,
-          "flops": 3.13316999
-        },
-        {
-          "threads": 40,
-          "time": 0.00776439,
-          "flops": 2.21017193
-        },
-        {
-          "threads": 40,
-          "time": 0.00563616,
-          "flops": 3.04473504
-        }
-      ]
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00031024,
+        "gflops": 4.94066494
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00030909,
+        "gflops": 4.95907953
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00032451,
+        "gflops": 4.72337516
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00036160,
+        "gflops": 4.23891572
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00988300,
+        "gflops": 0.15509379
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00084435,
+        "flops": 1.81535327,
+        "speedup": 1.46029637,
+        "efficienza": 0.73014818
+      },
+      {
+        "threads": 4,
+        "time": 0.00087310,
+        "flops": 1.75557436,
+        "speedup": 1.41220935,
+        "efficienza": 0.35305234
+      },
+      {
+        "threads": 8,
+        "time": 0.00045724,
+        "flops": 3.35229207,
+        "speedup": 2.69663211,
+        "efficienza": 0.33707901
+      },
+      {
+        "threads": 16,
+        "time": 0.00044965,
+        "flops": 3.40883467,
+        "speedup": 2.74211579,
+        "efficienza": 0.17138224
+      },
+      {
+        "threads": 32,
+        "time": 0.00046051,
+        "flops": 3.32843831,
+        "speedup": 2.67744380,
+        "efficienza": 0.08367012
+      },
+      {
+        "threads": 40,
+        "time": 0.00074594,
+        "flops": 2.05485002,
+        "speedup": 1.65295100,
+        "efficienza": 0.04132378
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00745849,
+        "flops": 0.20550970,
+        "speedup": 1.87196072,
+        "efficienza": 0.93598036
+      },
+      {
+        "threads": 4,
+        "time": 0.00745018,
+        "flops": 0.20573889,
+        "speedup": 1.87404841,
+        "efficienza": 0.46851210
+      },
+      {
+        "threads": 8,
+        "time": 0.00798711,
+        "flops": 0.19190816,
+        "speedup": 1.74806607,
+        "efficienza": 0.21850826
+      },
+      {
+        "threads": 16,
+        "time": 0.00673527,
+        "flops": 0.22757702,
+        "speedup": 2.07296901,
+        "efficienza": 0.12956056
+      },
+      {
+        "threads": 32,
+        "time": 0.01202125,
+        "flops": 0.12750691,
+        "speedup": 1.16144358,
+        "efficienza": 0.03629511
+      },
+      {
+        "threads": 40,
+        "time": 0.01253325,
+        "flops": 0.12229809,
+        "speedup": 1.11399716,
+        "efficienza": 0.02784993
+      }
+    ]
+  },
+  {
+    "matrix_name": "FEM_3D_thermal1.mtx",
+    "serial": {
+      "time": 0.00042700,
+      "flops": 2.01751756
     },
-    {
-      "matrix_name": "thermomech_TK.mtx",
-      "serial": {
-        "time": 0.00168300,
-        "flops": 0.84558289
-      },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
-      },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00005834,
-          "gflops": 24.39515692
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00016058,
-          "gflops": 8.86256951
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00019264,
-          "gflops": 7.38743715
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00017251,
-          "gflops": 8.24937352
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00016022,
-          "gflops": 8.88203969
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00020170,
-          "gflops": 7.05574705
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00013000,
-          "gflops": 10.94704612
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00035800,
-          "gflops": 3.97518414
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00054800,
-          "gflops": 2.59692709
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00227654,
-          "flops": 0.62512117
-        },
-        {
-          "threads": 2,
-          "time": 0.00106278,
-          "flops": 1.33905668
-        },
-        {
-          "threads": 4,
-          "time": 0.00094265,
-          "flops": 1.50970046
-        },
-        {
-          "threads": 4,
-          "time": 0.00070056,
-          "flops": 2.03140671
-        },
-        {
-          "threads": 8,
-          "time": 0.00062276,
-          "flops": 2.28517894
-        },
-        {
-          "threads": 8,
-          "time": 0.00041964,
-          "flops": 3.39128591
-        },
-        {
-          "threads": 16,
-          "time": 0.00112906,
-          "flops": 1.26043872
-        },
-        {
-          "threads": 16,
-          "time": 0.00036781,
-          "flops": 3.86917031
-        },
-        {
-          "threads": 32,
-          "time": 0.01099524,
-          "flops": 0.12943022
-        },
-        {
-          "threads": 32,
-          "time": 0.00031276,
-          "flops": 4.55022938
-        },
-        {
-          "threads": 40,
-          "time": 0.00588878,
-          "flops": 0.24166563
-        },
-        {
-          "threads": 40,
-          "time": 0.00028056,
-          "flops": 5.07234086
-        }
-      ]
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
     },
-    {
-      "matrix_name": "webbase-1M.mtx",
-      "serial": {
-        "time": 0.00821000,
-        "flops": 0.75652521
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00003059,
+        "gflops": 28.16030311
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00002861,
+        "gflops": 30.11325374
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00043875,
-          "gflops": 14.15622486
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00148883,
-          "gflops": 4.17177476
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00170237,
-          "gflops": 3.64848933
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00151862,
-          "gflops": 4.08993399
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00147770,
-          "gflops": 4.20321365
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00174285,
-          "gflops": 3.56374837
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00106900,
-          "gflops": 5.81016967
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00254100,
-          "gflops": 2.44434158
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00454900,
-          "gflops": 1.36537087
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.01599806,
-          "flops": 0.38823915
-        },
-        {
-          "threads": 2,
-          "time": 0.01796769,
-          "flops": 0.34567999
-        },
-        {
-          "threads": 4,
-          "time": 0.01138934,
-          "flops": 0.54534063
-        },
-        {
-          "threads": 4,
-          "time": 0.00301017,
-          "flops": 2.06336392
-        },
-        {
-          "threads": 8,
-          "time": 0.01001397,
-          "flops": 0.62024096
-        },
-        {
-          "threads": 8,
-          "time": 0.00271649,
-          "flops": 2.28643457
-        },
-        {
-          "threads": 16,
-          "time": 0.01080026,
-          "flops": 0.57508541
-        },
-        {
-          "threads": 16,
-          "time": 0.00258736,
-          "flops": 2.40054690
-        },
-        {
-          "threads": 32,
-          "time": 0.01282719,
-          "flops": 0.48421131
-        },
-        {
-          "threads": 32,
-          "time": 0.00217526,
-          "flops": 2.85533024
-        },
-        {
-          "threads": 40,
-          "time": 0.01303458,
-          "flops": 0.47650744
-        },
-        {
-          "threads": 40,
-          "time": 0.00205673,
-          "flops": 3.01987858
-        }
-      ]
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00004070,
+        "gflops": 21.16450344
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00003888,
+        "gflops": 22.15740538
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00003510,
+        "gflops": 24.54079319
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00003888,
+        "gflops": 22.15740538
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00002700,
+        "gflops": 31.90666446
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00034209,
+        "flops": 2.51827671,
+        "speedup": 1.24820560,
+        "efficienza": 0.62410280
+      },
+      {
+        "threads": 4,
+        "time": 0.00020052,
+        "flops": 4.29614421,
+        "speedup": 2.12942097,
+        "efficienza": 0.53235524
+      },
+      {
+        "threads": 8,
+        "time": 0.00011001,
+        "flops": 7.83114576,
+        "speedup": 3.88157501,
+        "efficienza": 0.48519688
+      },
+      {
+        "threads": 16,
+        "time": 0.00008931,
+        "flops": 9.64589017,
+        "speedup": 4.78106874,
+        "efficienza": 0.29881680
+      },
+      {
+        "threads": 32,
+        "time": 0.00007295,
+        "flops": 11.80970695,
+        "speedup": 5.85358321,
+        "efficienza": 0.18292448
+      },
+      {
+        "threads": 40,
+        "time": 0.00007236,
+        "flops": 11.90470015,
+        "speedup": 5.90066742,
+        "efficienza": 0.14751669
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00073746,
+        "flops": 1.16817647,
+        "speedup": 1.47398410,
+        "efficienza": 0.73699205
+      },
+      {
+        "threads": 4,
+        "time": 0.00099568,
+        "flops": 0.86521593,
+        "speedup": 1.09171393,
+        "efficienza": 0.27292848
+      },
+      {
+        "threads": 8,
+        "time": 0.00030718,
+        "flops": 2.80447957,
+        "speedup": 3.53864198,
+        "efficienza": 0.44233025
+      },
+      {
+        "threads": 16,
+        "time": 0.00127161,
+        "flops": 0.67746980,
+        "speedup": 0.85481924,
+        "efficienza": 0.05342620
+      },
+      {
+        "threads": 32,
+        "time": 0.02165390,
+        "flops": 0.03978407,
+        "speedup": 0.05019882,
+        "efficienza": 0.00156871
+      },
+      {
+        "threads": 40,
+        "time": 0.00562182,
+        "flops": 0.15323857,
+        "speedup": 0.19335368,
+        "efficienza": 0.00483384
+      }
+    ]
+  },
+  {
+    "matrix_name": "lung2.mtx",
+    "serial": {
+      "time": 0.00067700,
+      "flops": 1.45513737
     },
-    {
-      "matrix_name": "west2021.mtx",
-      "serial": {
-        "time": 0.00002100,
-        "flops": 0.70028571
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00002845,
+        "gflops": 34.62907627
       },
-      "cuda": {
-        "time": 0.00000000,
-        "flops": 0.00000000
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00014480,
+        "gflops": 6.80336964
       },
-      "cuda_csr": [
-        {
-          "kernel_name": "kernel0_threads",
-          "time": 0.00005517,
-          "gflops": 0.26656756
-        },
-        {
-          "kernel_name": "kernel1_warps",
-          "time": 0.00006160,
-          "gflops": 0.23873375
-        },
-        {
-          "kernel_name": "kernel2_warps_shmem",
-          "time": 0.00003245,
-          "gflops": 0.45321742
-        },
-        {
-          "kernel_name": "kernel3_warps_shmem_ridpar",
-          "time": 0.00002736,
-          "gflops": 0.53749997
-        },
-        {
-          "kernel_name": "kernel4_cachel2",
-          "time": 0.00002662,
-          "gflops": 0.55235877
-        },
-        {
-          "kernel_name": "kernel5_texture",
-          "time": 0.00003072,
-          "gflops": 0.47871095
-        }
-      ],
-      "cuda_hll": [
-        {
-          "kernel_name": "hll_v1",
-          "time": 0.00009200,
-          "gflops": 0.15984782
-        },
-        {
-          "kernel_name": "hll_v2",
-          "time": 0.00012000,
-          "gflops": 0.12255000
-        },
-        {
-          "kernel_name": "hll_v3_shared",
-          "time": 0.00009700,
-          "gflops": 0.15160823
-        }
-      ],
-      "openmp": [
-        {
-          "threads": 2,
-          "time": 0.00022200,
-          "flops": 0.06624204
-        },
-        {
-          "threads": 2,
-          "time": 0.00002752,
-          "flops": 0.53437726
-        },
-        {
-          "threads": 4,
-          "time": 0.00142791,
-          "flops": 0.01029899
-        },
-        {
-          "threads": 4,
-          "time": 0.00001779,
-          "flops": 0.82650862
-        },
-        {
-          "threads": 8,
-          "time": 0.00016852,
-          "flops": 0.08726764
-        },
-        {
-          "threads": 8,
-          "time": 0.00000800,
-          "flops": 1.83850354
-        },
-        {
-          "threads": 16,
-          "time": 0.00080683,
-          "flops": 0.01822686
-        },
-        {
-          "threads": 16,
-          "time": 0.00000835,
-          "flops": 1.76203172
-        },
-        {
-          "threads": 32,
-          "time": 0.01684324,
-          "flops": 0.00087311
-        },
-        {
-          "threads": 32,
-          "time": 0.00001160,
-          "flops": 1.26744369
-        },
-        {
-          "threads": 40,
-          "time": 0.00571929,
-          "flops": 0.00257130
-        },
-        {
-          "threads": 40,
-          "time": 0.00005194,
-          "flops": 0.28311865
-        }
-      ]
-    }
-  ]
-  
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00017485,
+        "gflops": 5.63419612
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00015702,
+        "gflops": 6.27374166
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00015008,
+        "gflops": 6.56401923
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00016771,
+        "gflops": 5.87392616
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00004800,
+        "gflops": 20.52349927
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00048582,
+        "flops": 2.02774686,
+        "speedup": 1.39350889,
+        "efficienza": 0.69675444
+      },
+      {
+        "threads": 4,
+        "time": 0.00030116,
+        "flops": 3.27108224,
+        "speedup": 2.24795425,
+        "efficienza": 0.56198856
+      },
+      {
+        "threads": 8,
+        "time": 0.00017129,
+        "flops": 5.75118942,
+        "speedup": 3.95233435,
+        "efficienza": 0.49404179
+      },
+      {
+        "threads": 16,
+        "time": 0.00011816,
+        "flops": 8.33752245,
+        "speedup": 5.72971502,
+        "efficienza": 0.35810719
+      },
+      {
+        "threads": 32,
+        "time": 0.00014803,
+        "flops": 6.65483766,
+        "speedup": 4.57333980,
+        "efficienza": 0.14291687
+      },
+      {
+        "threads": 40,
+        "time": 0.00015323,
+        "flops": 6.42911797,
+        "speedup": 4.41822064,
+        "efficienza": 0.11045552
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00121163,
+        "flops": 0.81306185,
+        "speedup": 1.41297565,
+        "efficienza": 0.70648783
+      },
+      {
+        "threads": 4,
+        "time": 0.00068697,
+        "flops": 1.43402658,
+        "speedup": 2.49211625,
+        "efficienza": 0.62302906
+      },
+      {
+        "threads": 8,
+        "time": 0.00047661,
+        "flops": 2.06696434,
+        "speedup": 3.59206413,
+        "efficienza": 0.44900802
+      },
+      {
+        "threads": 16,
+        "time": 0.00053370,
+        "flops": 1.84584280,
+        "speedup": 3.20778911,
+        "efficienza": 0.20048682
+      },
+      {
+        "threads": 32,
+        "time": 0.01952505,
+        "flops": 0.05045456,
+        "speedup": 0.08768222,
+        "efficienza": 0.00274007
+      },
+      {
+        "threads": 40,
+        "time": 0.01096971,
+        "flops": 0.08980437,
+        "speedup": 0.15606610,
+        "efficienza": 0.00390165
+      }
+    ]
+  },
+  {
+    "matrix_name": "mac_econ_fwd500.mtx",
+    "serial": {
+      "time": 0.00217000,
+      "flops": 1.17363041
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00008240,
+        "gflops": 30.90749663
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00026998,
+        "gflops": 9.43306970
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00032918,
+        "gflops": 7.73663909
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00028605,
+        "gflops": 8.90332341
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00027347,
+        "gflops": 9.31275534
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00031267,
+        "gflops": 8.14520657
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00014400,
+        "gflops": 17.68595771
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00169669,
+        "flops": 1.50102648,
+        "speedup": 1.27896011,
+        "efficienza": 0.63948005
+      },
+      {
+        "threads": 4,
+        "time": 0.00105938,
+        "flops": 2.40402924,
+        "speedup": 2.04836992,
+        "efficienza": 0.51209248
+      },
+      {
+        "threads": 8,
+        "time": 0.00071924,
+        "flops": 3.54091129,
+        "speedup": 3.01705822,
+        "efficienza": 0.37713228
+      },
+      {
+        "threads": 16,
+        "time": 0.00059890,
+        "flops": 4.25240944,
+        "speedup": 3.62329519,
+        "efficienza": 0.22645595
+      },
+      {
+        "threads": 32,
+        "time": 0.00067246,
+        "flops": 3.78726061,
+        "speedup": 3.22696188,
+        "efficienza": 0.10084256
+      },
+      {
+        "threads": 40,
+        "time": 0.01193644,
+        "flops": 0.21336154,
+        "speedup": 0.18179619,
+        "efficienza": 0.00454490
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00573388,
+        "flops": 0.44416317,
+        "speedup": 2.02219116,
+        "efficienza": 1.01109558
+      },
+      {
+        "threads": 4,
+        "time": 0.00289721,
+        "flops": 0.87904489,
+        "speedup": 4.00212560,
+        "efficienza": 1.00053140
+      },
+      {
+        "threads": 8,
+        "time": 0.00251994,
+        "flops": 1.01065155,
+        "speedup": 4.60130594,
+        "efficienza": 0.57516324
+      },
+      {
+        "threads": 16,
+        "time": 0.00321662,
+        "flops": 0.79175524,
+        "speedup": 3.60471230,
+        "efficienza": 0.22529452
+      },
+      {
+        "threads": 32,
+        "time": 0.01334931,
+        "flops": 0.19077973,
+        "speedup": 0.86858416,
+        "efficienza": 0.02714325
+      },
+      {
+        "threads": 40,
+        "time": 0.02458986,
+        "flops": 0.10357025,
+        "speedup": 0.47153584,
+        "efficienza": 0.01178840
+      }
+    ]
+  },
+  {
+    "matrix_name": "mcfe.mtx",
+    "serial": {
+      "time": 0.00003700,
+      "flops": 1.31794595
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00002435,
+        "gflops": 2.00246380
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00000922,
+        "gflops": 5.29123220
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00000614,
+        "gflops": 7.93684830
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00000550,
+        "gflops": 8.85973764
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00000534,
+        "gflops": 9.12499944
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00000941,
+        "gflops": 5.18324800
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00001600,
+        "gflops": 3.04774966
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00003161,
+        "flops": 1.54247091,
+        "speedup": 1.17035977,
+        "efficienza": 0.58517988
+      },
+      {
+        "threads": 4,
+        "time": 0.00003360,
+        "flops": 1.45113758,
+        "speedup": 1.10106002,
+        "efficienza": 0.27526500
+      },
+      {
+        "threads": 8,
+        "time": 0.00002260,
+        "flops": 2.15770491,
+        "speedup": 1.63717254,
+        "efficienza": 0.20464657
+      },
+      {
+        "threads": 16,
+        "time": 0.00000886,
+        "flops": 5.50693588,
+        "speedup": 4.17842317,
+        "efficienza": 0.26115145
+      },
+      {
+        "threads": 32,
+        "time": 0.00003104,
+        "flops": 1.57090835,
+        "speedup": 1.19193686,
+        "efficienza": 0.03724803
+      },
+      {
+        "threads": 40,
+        "time": 0.01140494,
+        "flops": 0.00427569,
+        "speedup": 0.00324421,
+        "efficienza": 0.00008111
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00020204,
+        "flops": 0.24135458,
+        "speedup": 0.65332633,
+        "efficienza": 0.32666317
+      },
+      {
+        "threads": 4,
+        "time": 0.00131534,
+        "flops": 0.03707338,
+        "speedup": 0.10035450,
+        "efficienza": 0.02508862
+      },
+      {
+        "threads": 8,
+        "time": 0.00026427,
+        "flops": 0.18452617,
+        "speedup": 0.49949664,
+        "efficienza": 0.06243708
+      },
+      {
+        "threads": 16,
+        "time": 0.00057306,
+        "flops": 0.08509419,
+        "speedup": 0.23034274,
+        "efficienza": 0.01439642
+      },
+      {
+        "threads": 32,
+        "time": 0.01706525,
+        "flops": 0.00285750,
+        "speedup": 0.00773502,
+        "efficienza": 0.00024172
+      },
+      {
+        "threads": 40,
+        "time": 0.01842027,
+        "flops": 0.00264730,
+        "speedup": 0.00716602,
+        "efficienza": 0.00017915
+      }
+    ]
+  },
+  {
+    "matrix_name": "mhd4800a.mtx",
+    "serial": {
+      "time": 0.00010300,
+      "flops": 1.98547573
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00001046,
+        "gflops": 19.54357743
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00001744,
+        "gflops": 11.72614605
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00001338,
+        "gflops": 15.28887407
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00001216,
+        "gflops": 16.81776240
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00001133,
+        "gflops": 18.05296570
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00001936,
+        "gflops": 10.56322270
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00001600,
+        "gflops": 12.78149858
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00012848,
+        "flops": 1.59178028,
+        "speedup": 0.80171228,
+        "efficienza": 0.40085614
+      },
+      {
+        "threads": 4,
+        "time": 0.00007703,
+        "flops": 2.65476008,
+        "speedup": 1.33709017,
+        "efficienza": 0.33427254
+      },
+      {
+        "threads": 8,
+        "time": 0.00004009,
+        "flops": 5.10133694,
+        "speedup": 2.56932727,
+        "efficienza": 0.32116591
+      },
+      {
+        "threads": 16,
+        "time": 0.00002781,
+        "flops": 7.35417044,
+        "speedup": 3.70398405,
+        "efficienza": 0.23149900
+      },
+      {
+        "threads": 32,
+        "time": 0.00002342,
+        "flops": 8.73082038,
+        "speedup": 4.39734430,
+        "efficienza": 0.13741701
+      },
+      {
+        "threads": 40,
+        "time": 0.01135992,
+        "flops": 0.01800224,
+        "speedup": 0.00906696,
+        "efficienza": 0.00022667
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00031173,
+        "flops": 0.65603129,
+        "speedup": 1.28637361,
+        "efficienza": 0.64318680
+      },
+      {
+        "threads": 4,
+        "time": 0.00092460,
+        "flops": 0.22118132,
+        "speedup": 0.43370158,
+        "efficienza": 0.10842539
+      },
+      {
+        "threads": 8,
+        "time": 0.00020486,
+        "flops": 0.99825202,
+        "speedup": 1.95741432,
+        "efficienza": 0.24467679
+      },
+      {
+        "threads": 16,
+        "time": 0.00109679,
+        "flops": 0.18645618,
+        "speedup": 0.36561107,
+        "efficienza": 0.02285069
+      },
+      {
+        "threads": 32,
+        "time": 0.02249528,
+        "flops": 0.00909097,
+        "speedup": 0.01782596,
+        "efficienza": 0.00055706
+      },
+      {
+        "threads": 40,
+        "time": 0.02268227,
+        "flops": 0.00901603,
+        "speedup": 0.01767901,
+        "efficienza": 0.00044198
+      }
+    ]
+  },
+  {
+    "matrix_name": "mhda416.mtx",
+    "serial": {
+      "time": 0.00001900,
+      "flops": 0.90126316
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00001901,
+        "gflops": 0.90088380
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00001024,
+        "gflops": 1.67226564
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00000547,
+        "gflops": 3.12938577
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00000429,
+        "gflops": 3.99347003
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00000768,
+        "gflops": 2.22968758
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00000970,
+        "gflops": 1.76608890
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00001600,
+        "gflops": 1.07024988
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00002136,
+        "flops": 0.80172473,
+        "speedup": 0.88955676,
+        "efficienza": 0.44477838
+      },
+      {
+        "threads": 4,
+        "time": 0.00001009,
+        "flops": 1.69791809,
+        "speedup": 1.88393154,
+        "efficienza": 0.47098289
+      },
+      {
+        "threads": 8,
+        "time": 0.00000715,
+        "flops": 2.39660519,
+        "speedup": 2.65916249,
+        "efficienza": 0.33239531
+      },
+      {
+        "threads": 16,
+        "time": 0.00000703,
+        "flops": 2.43646127,
+        "speedup": 2.70338497,
+        "efficienza": 0.16896156
+      },
+      {
+        "threads": 32,
+        "time": 0.01386114,
+        "flops": 0.00123540,
+        "speedup": 0.00137074,
+        "efficienza": 0.00004284
+      },
+      {
+        "threads": 40,
+        "time": 0.01146766,
+        "flops": 0.00149324,
+        "speedup": 0.00165683,
+        "efficienza": 0.00004142
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00011391,
+        "flops": 0.15033404,
+        "speedup": 0.54430685,
+        "efficienza": 0.27215342
+      },
+      {
+        "threads": 4,
+        "time": 0.00102752,
+        "flops": 0.01666529,
+        "speedup": 0.06033917,
+        "efficienza": 0.01508479
+      },
+      {
+        "threads": 8,
+        "time": 0.00012177,
+        "flops": 0.14062205,
+        "speedup": 0.50914314,
+        "efficienza": 0.06364289
+      },
+      {
+        "threads": 16,
+        "time": 0.00029381,
+        "flops": 0.05828341,
+        "speedup": 0.21102379,
+        "efficienza": 0.01318899
+      },
+      {
+        "threads": 32,
+        "time": 0.02296444,
+        "flops": 0.00074567,
+        "speedup": 0.00269983,
+        "efficienza": 0.00008437
+      },
+      {
+        "threads": 40,
+        "time": 0.02639528,
+        "flops": 0.00064875,
+        "speedup": 0.00234890,
+        "efficienza": 0.00005872
+      }
+    ]
+  },
+  {
+    "matrix_name": "ML_Laplace.mtx",
+    "serial": {
+      "time": 0.03386700,
+      "flops": 1.63521847
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00398269,
+        "gflops": 13.90516652
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00100147,
+        "gflops": 55.29854439
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00111338,
+        "gflops": 49.74055333
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00099194,
+        "gflops": 55.83015420
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00098848,
+        "gflops": 56.02535310
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00100566,
+        "gflops": 55.06803851
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00091000,
+        "gflops": 60.85707726
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.02408655,
+        "flops": 2.29920643,
+        "speedup": 1.40605459,
+        "efficienza": 0.70302729
+      },
+      {
+        "threads": 4,
+        "time": 0.01956367,
+        "flops": 2.83075371,
+        "speedup": 1.73111652,
+        "efficienza": 0.43277913
+      },
+      {
+        "threads": 8,
+        "time": 0.01444775,
+        "flops": 3.83311817,
+        "speedup": 2.34410156,
+        "efficienza": 0.29301270
+      },
+      {
+        "threads": 16,
+        "time": 0.01255460,
+        "flops": 4.41112889,
+        "speedup": 2.69757770,
+        "efficienza": 0.16859861
+      },
+      {
+        "threads": 32,
+        "time": 0.02200109,
+        "flops": 2.51714600,
+        "speedup": 1.53933315,
+        "efficienza": 0.04810416
+      },
+      {
+        "threads": 40,
+        "time": 0.02251196,
+        "flops": 2.46002310,
+        "speedup": 1.50440026,
+        "efficienza": 0.03761001
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.02714828,
+        "flops": 2.03990615,
+        "speedup": 3.61131530,
+        "efficienza": 1.80565765
+      },
+      {
+        "threads": 4,
+        "time": 0.01961649,
+        "flops": 2.82313274,
+        "speedup": 4.99788799,
+        "efficienza": 1.24947200
+      },
+      {
+        "threads": 8,
+        "time": 0.01448641,
+        "flops": 3.82289051,
+        "speedup": 6.76779320,
+        "efficienza": 0.84597415
+      },
+      {
+        "threads": 16,
+        "time": 0.01316857,
+        "flops": 4.20546284,
+        "speedup": 7.44507401,
+        "efficienza": 0.46531713
+      },
+      {
+        "threads": 32,
+        "time": 0.04128025,
+        "flops": 1.34156021,
+        "speedup": 2.37500970,
+        "efficienza": 0.07421905
+      },
+      {
+        "threads": 40,
+        "time": 0.03260177,
+        "flops": 1.69867901,
+        "speedup": 3.00722927,
+        "efficienza": 0.07518073
+      }
+    ]
+  },
+  {
+    "matrix_name": "nlpkkt80.mtx",
+    "serial": {
+      "time": 0.03508700,
+      "flops": 1.63619985
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00305427,
+        "gflops": 18.79640751
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00158637,
+        "gflops": 36.18917004
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00158742,
+        "gflops": 36.16509589
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00146054,
+        "gflops": 39.30682087
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00138832,
+        "gflops": 41.35166530
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00162205,
+        "gflops": 35.39312080
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00100900,
+        "gflops": 56.89726860
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.06924273,
+        "flops": 0.82910282,
+        "speedup": 0.50672466,
+        "efficienza": 0.25336233
+      },
+      {
+        "threads": 4,
+        "time": 0.01926730,
+        "flops": 2.97962577,
+        "speedup": 1.82106469,
+        "efficienza": 0.45526617
+      },
+      {
+        "threads": 8,
+        "time": 0.01452339,
+        "flops": 3.95288977,
+        "speedup": 2.41589667,
+        "efficienza": 0.30198708
+      },
+      {
+        "threads": 16,
+        "time": 0.01254860,
+        "flops": 4.57496013,
+        "speedup": 2.79608884,
+        "efficienza": 0.17475555
+      },
+      {
+        "threads": 32,
+        "time": 0.01506937,
+        "flops": 3.80967134,
+        "speedup": 2.32836554,
+        "efficienza": 0.07276142
+      },
+      {
+        "threads": 40,
+        "time": 0.01980236,
+        "flops": 2.89911554,
+        "speedup": 1.77185907,
+        "efficienza": 0.04429648
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.12000307,
+        "flops": 0.47839897,
+        "speedup": 0.57447698,
+        "efficienza": 0.28723849
+      },
+      {
+        "threads": 4,
+        "time": 0.01827631,
+        "flops": 3.14118867,
+        "speedup": 3.77204111,
+        "efficienza": 0.94301028
+      },
+      {
+        "threads": 8,
+        "time": 0.01359115,
+        "flops": 4.22402306,
+        "speedup": 5.07234372,
+        "efficienza": 0.63404297
+      },
+      {
+        "threads": 16,
+        "time": 0.01081806,
+        "flops": 5.30680515,
+        "speedup": 6.37258353,
+        "efficienza": 0.39828647
+      },
+      {
+        "threads": 32,
+        "time": 0.03576720,
+        "flops": 1.60508354,
+        "speedup": 1.92743631,
+        "efficienza": 0.06023238
+      },
+      {
+        "threads": 40,
+        "time": 0.03436574,
+        "flops": 1.67054026,
+        "speedup": 2.00603886,
+        "efficienza": 0.05015097
+      }
+    ]
+  },
+  {
+    "matrix_name": "olafu.mtx",
+    "serial": {
+      "time": 0.00165700,
+      "flops": 1.22529390
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00007322,
+        "gflops": 27.73043983
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00005318,
+        "gflops": 38.17523964
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00005158,
+        "gflops": 39.35933332
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00004362,
+        "gflops": 46.54970183
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00004774,
+        "gflops": 42.52496580
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00005530,
+        "gflops": 36.71715794
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00006200,
+        "gflops": 32.74696818
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00101615,
+        "flops": 1.99803765,
+        "speedup": 1.63065991,
+        "efficienza": 0.81532996
+      },
+      {
+        "threads": 4,
+        "time": 0.00073151,
+        "flops": 2.77549188,
+        "speedup": 2.26516419,
+        "efficienza": 0.56629105
+      },
+      {
+        "threads": 8,
+        "time": 0.00050834,
+        "flops": 3.99398878,
+        "speedup": 3.25961695,
+        "efficienza": 0.40745212
+      },
+      {
+        "threads": 16,
+        "time": 0.00039690,
+        "flops": 5.11540810,
+        "speedup": 4.17484171,
+        "efficienza": 0.26092761
+      },
+      {
+        "threads": 32,
+        "time": 0.01200707,
+        "flops": 0.16909297,
+        "speedup": 0.13800197,
+        "efficienza": 0.00431256
+      },
+      {
+        "threads": 40,
+        "time": 0.01194077,
+        "flops": 0.17003190,
+        "speedup": 0.13876826,
+        "efficienza": 0.00346921
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00143098,
+        "flops": 1.41882910,
+        "speedup": 2.38718000,
+        "efficienza": 1.19359000
+      },
+      {
+        "threads": 4,
+        "time": 0.00070510,
+        "flops": 2.87947001,
+        "speedup": 4.84470838,
+        "efficienza": 1.21117710
+      },
+      {
+        "threads": 8,
+        "time": 0.00058475,
+        "flops": 3.47210278,
+        "speedup": 5.84181303,
+        "efficienza": 0.73022663
+      },
+      {
+        "threads": 16,
+        "time": 0.00153126,
+        "flops": 1.32590729,
+        "speedup": 2.23083905,
+        "efficienza": 0.13942744
+      },
+      {
+        "threads": 32,
+        "time": 0.02374725,
+        "flops": 0.08549672,
+        "speedup": 0.14384824,
+        "efficienza": 0.00449526
+      },
+      {
+        "threads": 40,
+        "time": 0.02349714,
+        "flops": 0.08640676,
+        "speedup": 0.14537938,
+        "efficienza": 0.00363448
+      }
+    ]
+  },
+  {
+    "matrix_name": "olm1000.mtx",
+    "serial": {
+      "time": 0.00001500,
+      "flops": 0.53280000
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00002544,
+        "gflops": 0.31415092
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00001222,
+        "gflops": 0.65379577
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00001254,
+        "gflops": 0.63711734
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00000861,
+        "gflops": 0.92843857
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00001635,
+        "gflops": 0.48874756
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00000989,
+        "gflops": 0.80825243
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00001200,
+        "gflops": 0.66599998
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00000811,
+        "flops": 0.98517245,
+        "speedup": 1.84904740,
+        "efficienza": 0.92452370
+      },
+      {
+        "threads": 4,
+        "time": 0.00000798,
+        "flops": 1.00190831,
+        "speedup": 1.88045854,
+        "efficienza": 0.47011463
+      },
+      {
+        "threads": 8,
+        "time": 0.00000631,
+        "flops": 1.26577840,
+        "speedup": 2.37571021,
+        "efficienza": 0.29696378
+      },
+      {
+        "threads": 16,
+        "time": 0.00000742,
+        "flops": 1.07636810,
+        "speedup": 2.02021039,
+        "efficienza": 0.12626315
+      },
+      {
+        "threads": 32,
+        "time": 0.01161342,
+        "flops": 0.00068817,
+        "speedup": 0.00129161,
+        "efficienza": 0.00004036
+      },
+      {
+        "threads": 40,
+        "time": 0.01220890,
+        "flops": 0.00065460,
+        "speedup": 0.00122861,
+        "efficienza": 0.00003072
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00041407,
+        "flops": 0.01930123,
+        "speedup": 0.07245205,
+        "efficienza": 0.03622603
+      },
+      {
+        "threads": 4,
+        "time": 0.00112359,
+        "flops": 0.00711293,
+        "speedup": 0.02670018,
+        "efficienza": 0.00667504
+      },
+      {
+        "threads": 8,
+        "time": 0.00014626,
+        "flops": 0.05464084,
+        "speedup": 0.20510828,
+        "efficienza": 0.02563853
+      },
+      {
+        "threads": 16,
+        "time": 0.00110218,
+        "flops": 0.00725110,
+        "speedup": 0.02721886,
+        "efficienza": 0.00170118
+      },
+      {
+        "threads": 32,
+        "time": 0.03446305,
+        "flops": 0.00023190,
+        "speedup": 0.00087050,
+        "efficienza": 0.00002720
+      },
+      {
+        "threads": 40,
+        "time": 0.02434589,
+        "flops": 0.00032827,
+        "speedup": 0.00123224,
+        "efficienza": 0.00003081
+      }
+    ]
+  },
+  {
+    "matrix_name": "PR02R.mtx",
+    "serial": {
+      "time": 0.01087300,
+      "flops": 1.50558926
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00097862,
+        "gflops": 16.72784674
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00037891,
+        "gflops": 43.20335850
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00039722,
+        "gflops": 41.21251864
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00037693,
+        "gflops": 43.43076482
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00035811,
+        "gflops": 45.71271419
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00044838,
+        "gflops": 36.50949169
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00036200,
+        "gflops": 45.22174691
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00705728,
+        "flops": 2.31963038,
+        "speedup": 1.54067942,
+        "efficienza": 0.77033971
+      },
+      {
+        "threads": 4,
+        "time": 0.00579399,
+        "flops": 2.82538787,
+        "speedup": 1.87659938,
+        "efficienza": 0.46914985
+      },
+      {
+        "threads": 8,
+        "time": 0.00427908,
+        "flops": 3.82565113,
+        "speedup": 2.54096601,
+        "efficienza": 0.31762075
+      },
+      {
+        "threads": 16,
+        "time": 0.00364236,
+        "flops": 4.49440865,
+        "speedup": 2.98514925,
+        "efficienza": 0.18657183
+      },
+      {
+        "threads": 32,
+        "time": 0.02003717,
+        "flops": 0.81699525,
+        "speedup": 0.54264153,
+        "efficienza": 0.01695755
+      },
+      {
+        "threads": 40,
+        "time": 0.01463004,
+        "flops": 1.11894915,
+        "speedup": 0.74319682,
+        "efficienza": 0.01857992
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.01082120,
+        "flops": 1.51279598,
+        "speedup": 2.70607627,
+        "efficienza": 1.35303813
+      },
+      {
+        "threads": 4,
+        "time": 0.00556869,
+        "flops": 2.93969959,
+        "speedup": 5.25850903,
+        "efficienza": 1.31462726
+      },
+      {
+        "threads": 8,
+        "time": 0.00333902,
+        "flops": 4.90272362,
+        "speedup": 8.76994931,
+        "efficienza": 1.09624366
+      },
+      {
+        "threads": 16,
+        "time": 0.00423213,
+        "flops": 3.86809076,
+        "speedup": 6.91920707,
+        "efficienza": 0.43245044
+      },
+      {
+        "threads": 32,
+        "time": 0.02631974,
+        "flops": 0.62197704,
+        "speedup": 1.11258712,
+        "efficienza": 0.03476835
+      },
+      {
+        "threads": 40,
+        "time": 0.02854480,
+        "flops": 0.57349406,
+        "speedup": 1.02586117,
+        "efficienza": 0.02564653
+      }
+    ]
+  },
+  {
+    "matrix_name": "raefsky2.mtx",
+    "serial": {
+      "time": 0.00036500,
+      "flops": 1.61247123
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00003104,
+        "gflops": 18.96108077
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00002166,
+        "gflops": 27.16728202
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00001434,
+        "gflops": 41.05412607
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00001357,
+        "gflops": 43.37794743
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00001258,
+        "gflops": 46.79961572
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00002435,
+        "gflops": 24.16852749
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00002000,
+        "gflops": 29.42759807
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00027316,
+        "flops": 2.15463707,
+        "speedup": 1.33623287,
+        "efficienza": 0.66811644
+      },
+      {
+        "threads": 4,
+        "time": 0.00013527,
+        "flops": 4.35103412,
+        "speedup": 2.69836387,
+        "efficienza": 0.67459097
+      },
+      {
+        "threads": 8,
+        "time": 0.00008194,
+        "flops": 7.18271131,
+        "speedup": 4.45447408,
+        "efficienza": 0.55680926
+      },
+      {
+        "threads": 16,
+        "time": 0.00004490,
+        "flops": 13.10888023,
+        "speedup": 8.12968316,
+        "efficienza": 0.50810520
+      },
+      {
+        "threads": 32,
+        "time": 0.01151020,
+        "flops": 0.05113308,
+        "speedup": 0.03171100,
+        "efficienza": 0.00099097
+      },
+      {
+        "threads": 40,
+        "time": 0.01151064,
+        "flops": 0.05113111,
+        "speedup": 0.03170978,
+        "efficienza": 0.00079274
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00052885,
+        "flops": 1.11288997,
+        "speedup": 1.91169473,
+        "efficienza": 0.95584736
+      },
+      {
+        "threads": 4,
+        "time": 0.00072750,
+        "flops": 0.80900326,
+        "speedup": 1.38968570,
+        "efficienza": 0.34742142
+      },
+      {
+        "threads": 8,
+        "time": 0.00022342,
+        "flops": 2.63430605,
+        "speedup": 4.52514547,
+        "efficienza": 0.56564318
+      },
+      {
+        "threads": 16,
+        "time": 0.00034721,
+        "flops": 1.69509351,
+        "speedup": 2.91178951,
+        "efficienza": 0.18198684
+      },
+      {
+        "threads": 32,
+        "time": 0.02312210,
+        "flops": 0.02545409,
+        "speedup": 0.04372441,
+        "efficienza": 0.00136639
+      },
+      {
+        "threads": 40,
+        "time": 0.02871016,
+        "flops": 0.02049978,
+        "speedup": 0.03521401,
+        "efficienza": 0.00088035
+      }
+    ]
+  },
+  {
+    "matrix_name": "rdist2.mtx",
+    "serial": {
+      "time": 0.00006400,
+      "flops": 1.77918750
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00001110,
+        "gflops": 10.25468309
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00001421,
+        "gflops": 8.01435770
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00001005,
+        "gflops": 11.33240326
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00000915,
+        "gflops": 12.44186991
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00000861,
+        "gflops": 13.22815858
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00001306,
+        "gflops": 8.72150724
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00001700,
+        "gflops": 6.69811681
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00006062,
+        "flops": 1.87848317,
+        "speedup": 1.05580956,
+        "efficienza": 0.52790478
+      },
+      {
+        "threads": 4,
+        "time": 0.00004069,
+        "flops": 2.79849470,
+        "speedup": 1.57290600,
+        "efficienza": 0.39322650
+      },
+      {
+        "threads": 8,
+        "time": 0.00002572,
+        "flops": 4.42755922,
+        "speedup": 2.48852873,
+        "efficienza": 0.31106609
+      },
+      {
+        "threads": 16,
+        "time": 0.00001689,
+        "flops": 6.74043961,
+        "speedup": 3.78849312,
+        "efficienza": 0.23678082
+      },
+      {
+        "threads": 32,
+        "time": 0.01145301,
+        "flops": 0.00994219,
+        "speedup": 0.00558805,
+        "efficienza": 0.00017463
+      },
+      {
+        "threads": 40,
+        "time": 0.00576399,
+        "flops": 0.01975506,
+        "speedup": 0.01110341,
+        "efficienza": 0.00027759
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00039253,
+        "flops": 0.29008523,
+        "speedup": 1.31199191,
+        "efficienza": 0.65599596
+      },
+      {
+        "threads": 4,
+        "time": 0.00084211,
+        "flops": 0.13521767,
+        "speedup": 0.61155989,
+        "efficienza": 0.15288997
+      },
+      {
+        "threads": 8,
+        "time": 0.00018360,
+        "flops": 0.62020237,
+        "speedup": 2.80503933,
+        "efficienza": 0.35062992
+      },
+      {
+        "threads": 16,
+        "time": 0.00111776,
+        "flops": 0.10187123,
+        "speedup": 0.46074125,
+        "efficienza": 0.02879633
+      },
+      {
+        "threads": 32,
+        "time": 0.02298264,
+        "flops": 0.00495452,
+        "speedup": 0.02240822,
+        "efficienza": 0.00070026
+      },
+      {
+        "threads": 40,
+        "time": 0.02858597,
+        "flops": 0.00398335,
+        "speedup": 0.01801583,
+        "efficienza": 0.00045040
+      }
+    ]
+  },
+  {
+    "matrix_name": "roadNet-PA.mtx",
+    "serial": {
+      "time": 0.01087400,
+      "flops": 0.56718705
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00018861,
+        "gflops": 32.70058299
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00159904,
+        "gflops": 3.85705896
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00189018,
+        "gflops": 3.26297218
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00163578,
+        "gflops": 3.77043770
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00160419,
+        "gflops": 3.84467178
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00187597,
+        "gflops": 3.28768496
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00022300,
+        "gflops": 27.65736199
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00808660,
+        "flops": 0.76269260,
+        "speedup": 1.34469325,
+        "efficienza": 0.67234662
+      },
+      {
+        "threads": 4,
+        "time": 0.00400974,
+        "flops": 1.53815136,
+        "speedup": 2.71189435,
+        "efficienza": 0.67797359
+      },
+      {
+        "threads": 8,
+        "time": 0.00283288,
+        "flops": 2.17714784,
+        "speedup": 3.83850060,
+        "efficienza": 0.47981257
+      },
+      {
+        "threads": 16,
+        "time": 0.00180826,
+        "flops": 3.41079159,
+        "speedup": 6.01352161,
+        "efficienza": 0.37584510
+      },
+      {
+        "threads": 32,
+        "time": 0.01806514,
+        "flops": 0.34140844,
+        "speedup": 0.60193272,
+        "efficienza": 0.01881040
+      },
+      {
+        "threads": 40,
+        "time": 0.01336269,
+        "flops": 0.46155321,
+        "speedup": 0.81375837,
+        "efficienza": 0.02034396
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.02235543,
+        "flops": 0.27588787,
+        "speedup": 0.49348190,
+        "efficienza": 0.24674095
+      },
+      {
+        "threads": 4,
+        "time": 0.00422994,
+        "flops": 1.45807881,
+        "speedup": 2.60807223,
+        "efficienza": 0.65201806
+      },
+      {
+        "threads": 8,
+        "time": 0.00347562,
+        "flops": 1.77452885,
+        "speedup": 3.17410787,
+        "efficienza": 0.39676348
+      },
+      {
+        "threads": 16,
+        "time": 0.00305993,
+        "flops": 2.01559925,
+        "speedup": 3.60531158,
+        "efficienza": 0.22533197
+      },
+      {
+        "threads": 32,
+        "time": 0.02463736,
+        "flops": 0.25033490,
+        "speedup": 0.44777518,
+        "efficienza": 0.01399297
+      },
+      {
+        "threads": 40,
+        "time": 0.02718635,
+        "flops": 0.22686355,
+        "speedup": 0.40579186,
+        "efficienza": 0.01014480
+      }
+    ]
+  },
+  {
+    "matrix_name": "thermal1.mtx",
+    "serial": {
+      "time": 0.00138400,
+      "flops": 0.83014162
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00005030,
+        "gflops": 22.83945484
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00012800,
+        "gflops": 8.97590525
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00015478,
+        "gflops": 7.42270483
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00013488,
+        "gflops": 8.51805960
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00013459,
+        "gflops": 8.53628727
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00014810,
+        "gflops": 7.75791350
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00005200,
+        "gflops": 22.09453716
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00091555,
+        "flops": 1.25489393,
+        "speedup": 1.51166247,
+        "efficienza": 0.75583123
+      },
+      {
+        "threads": 4,
+        "time": 0.00038085,
+        "flops": 3.01672316,
+        "speedup": 3.63398617,
+        "efficienza": 0.90849654
+      },
+      {
+        "threads": 8,
+        "time": 0.00027024,
+        "flops": 4.25150918,
+        "speedup": 5.12142638,
+        "efficienza": 0.64017830
+      },
+      {
+        "threads": 16,
+        "time": 0.00016205,
+        "flops": 7.08988024,
+        "speedup": 8.54056715,
+        "efficienza": 0.53378545
+      },
+      {
+        "threads": 32,
+        "time": 0.01172898,
+        "flops": 0.09795532,
+        "speedup": 0.11799833,
+        "efficienza": 0.00368745
+      },
+      {
+        "threads": 40,
+        "time": 0.01745669,
+        "flops": 0.06581521,
+        "speedup": 0.07928191,
+        "efficienza": 0.00198205
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00157373,
+        "flops": 0.73005731,
+        "speedup": 1.28738403,
+        "efficienza": 0.64369201
+      },
+      {
+        "threads": 4,
+        "time": 0.00061338,
+        "flops": 1.87310505,
+        "speedup": 3.30303593,
+        "efficienza": 0.82575898
+      },
+      {
+        "threads": 8,
+        "time": 0.00096707,
+        "flops": 1.18803638,
+        "speedup": 2.09498494,
+        "efficienza": 0.26187312
+      },
+      {
+        "threads": 16,
+        "time": 0.00101315,
+        "flops": 1.13400805,
+        "speedup": 1.99971130,
+        "efficienza": 0.12498196
+      },
+      {
+        "threads": 32,
+        "time": 0.02942326,
+        "flops": 0.03904788,
+        "speedup": 0.06885709,
+        "efficienza": 0.00215178
+      },
+      {
+        "threads": 40,
+        "time": 0.01818672,
+        "flops": 0.06317334,
+        "speedup": 0.11139994,
+        "efficienza": 0.00278500
+      }
+    ]
+  },
+  {
+    "matrix_name": "thermal2.mtx",
+    "serial": {
+      "time": 0.02254000,
+      "flops": 0.76134099
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00066842,
+        "gflops": 25.67357030
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00180323,
+        "gflops": 9.51659350
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00210698,
+        "gflops": 8.14466996
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00183974,
+        "gflops": 9.32772472
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00180842,
+        "gflops": 9.48931278
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00211594,
+        "gflops": 8.11018101
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00043500,
+        "gflops": 39.44971280
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.01517936,
+        "flops": 1.13052363,
+        "speedup": 1.48491102,
+        "efficienza": 0.74245551
+      },
+      {
+        "threads": 4,
+        "time": 0.00923273,
+        "flops": 1.85867260,
+        "speedup": 2.44131423,
+        "efficienza": 0.61032856
+      },
+      {
+        "threads": 8,
+        "time": 0.00644443,
+        "flops": 2.66286000,
+        "speedup": 3.49759178,
+        "efficienza": 0.43719897
+      },
+      {
+        "threads": 16,
+        "time": 0.00663517,
+        "flops": 2.58631422,
+        "speedup": 3.39705105,
+        "efficienza": 0.21231569
+      },
+      {
+        "threads": 32,
+        "time": 0.01552220,
+        "flops": 1.10555391,
+        "speedup": 1.45211399,
+        "efficienza": 0.04537856
+      },
+      {
+        "threads": 40,
+        "time": 0.01688648,
+        "flops": 1.01623447,
+        "speedup": 1.33479541,
+        "efficienza": 0.03336989
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.01966253,
+        "flops": 0.87275756,
+        "speedup": 1.59119871,
+        "efficienza": 0.79559935
+      },
+      {
+        "threads": 4,
+        "time": 0.01018446,
+        "flops": 1.68498192,
+        "speedup": 3.07203416,
+        "efficienza": 0.76800854
+      },
+      {
+        "threads": 8,
+        "time": 0.00696175,
+        "flops": 2.46498612,
+        "speedup": 4.49412631,
+        "efficienza": 0.56176579
+      },
+      {
+        "threads": 16,
+        "time": 0.00649585,
+        "flops": 2.64178292,
+        "speedup": 4.81645962,
+        "efficienza": 0.30102873
+      },
+      {
+        "threads": 32,
+        "time": 0.02723180,
+        "flops": 0.63016859,
+        "speedup": 1.14891406,
+        "efficienza": 0.03590356
+      },
+      {
+        "threads": 40,
+        "time": 0.03402144,
+        "flops": 0.50440626,
+        "speedup": 0.91962605,
+        "efficienza": 0.02299065
+      }
+    ]
+  },
+  {
+    "matrix_name": "thermomech_TK.mtx",
+    "serial": {
+      "time": 0.00162000,
+      "flops": 0.87846667
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00005808,
+        "gflops": 24.50268570
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00013107,
+        "gflops": 10.85751253
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00017136,
+        "gflops": 8.30483160
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00014800,
+        "gflops": 9.61564823
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00013747,
+        "gflops": 10.35204140
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00015280,
+        "gflops": 9.31358643
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00005500,
+        "gflops": 25.87483445
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00105774,
+        "flops": 1.34542630,
+        "speedup": 1.53156215,
+        "efficienza": 0.76578107
+      },
+      {
+        "threads": 4,
+        "time": 0.00061663,
+        "flops": 2.30787868,
+        "speedup": 2.62716705,
+        "efficienza": 0.65679176
+      },
+      {
+        "threads": 8,
+        "time": 0.00035460,
+        "flops": 4.01324522,
+        "speedup": 4.56846614,
+        "efficienza": 0.57105827
+      },
+      {
+        "threads": 16,
+        "time": 0.00030960,
+        "flops": 4.59664822,
+        "speedup": 5.23258126,
+        "efficienza": 0.32703633
+      },
+      {
+        "threads": 32,
+        "time": 0.01166762,
+        "flops": 0.12197143,
+        "speedup": 0.13884583,
+        "efficienza": 0.00433893
+      },
+      {
+        "threads": 40,
+        "time": 0.01165650,
+        "flops": 0.12208774,
+        "speedup": 0.13897823,
+        "efficienza": 0.00347446
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00238490,
+        "flops": 0.59671956,
+        "speedup": 1.15057274,
+        "efficienza": 0.57528637
+      },
+      {
+        "threads": 4,
+        "time": 0.00086525,
+        "flops": 1.64475096,
+        "speedup": 3.17134839,
+        "efficienza": 0.79283710
+      },
+      {
+        "threads": 8,
+        "time": 0.00055105,
+        "flops": 2.58256611,
+        "speedup": 4.97960911,
+        "efficienza": 0.62245114
+      },
+      {
+        "threads": 16,
+        "time": 0.00151548,
+        "flops": 0.93905283,
+        "speedup": 1.81064718,
+        "efficienza": 0.11316545
+      },
+      {
+        "threads": 32,
+        "time": 0.02329964,
+        "flops": 0.06107889,
+        "speedup": 0.11777007,
+        "efficienza": 0.00368031
+      },
+      {
+        "threads": 40,
+        "time": 0.02932127,
+        "flops": 0.04853527,
+        "speedup": 0.09358393,
+        "efficienza": 0.00233960
+      }
+    ]
+  },
+  {
+    "matrix_name": "webbase-1M.mtx",
+    "serial": {
+      "time": 0.00802200,
+      "flops": 0.77425480
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00053942,
+        "gflops": 11.51426677
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00148438,
+        "gflops": 4.18427559
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00170019,
+        "gflops": 3.65315894
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00151238,
+        "gflops": 4.10680842
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00148218,
+        "gflops": 4.19050905
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00174080,
+        "gflops": 3.56794097
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00068000,
+        "gflops": 9.13392867
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00501365,
+        "flops": 1.23883312,
+        "speedup": 1.60003286,
+        "efficienza": 0.80001643
+      },
+      {
+        "threads": 4,
+        "time": 0.00384518,
+        "flops": 1.61528618,
+        "speedup": 2.08624626,
+        "efficienza": 0.52156157
+      },
+      {
+        "threads": 8,
+        "time": 0.00319986,
+        "flops": 1.94104380,
+        "speedup": 2.50698323,
+        "efficienza": 0.31337290
+      },
+      {
+        "threads": 16,
+        "time": 0.00305237,
+        "flops": 2.03483547,
+        "speedup": 2.62812122,
+        "efficienza": 0.16425758
+      },
+      {
+        "threads": 32,
+        "time": 0.01196860,
+        "flops": 0.51894720,
+        "speedup": 0.67025377,
+        "efficienza": 0.02094543
+      },
+      {
+        "threads": 40,
+        "time": 0.01209352,
+        "flops": 0.51358665,
+        "speedup": 0.66333028,
+        "efficienza": 0.01658326
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.01433854,
+        "flops": 0.43317325,
+        "speedup": 1.96888945,
+        "efficienza": 0.98444473
+      },
+      {
+        "threads": 4,
+        "time": 0.01093659,
+        "flops": 0.56791679,
+        "speedup": 2.58133523,
+        "efficienza": 0.64533381
+      },
+      {
+        "threads": 8,
+        "time": 0.00945133,
+        "flops": 0.65716415,
+        "speedup": 2.98698858,
+        "efficienza": 0.37337357
+      },
+      {
+        "threads": 16,
+        "time": 0.01006804,
+        "flops": 0.61690987,
+        "speedup": 2.80402199,
+        "efficienza": 0.17525137
+      },
+      {
+        "threads": 32,
+        "time": 0.02954104,
+        "flops": 0.21025230,
+        "speedup": 0.95565350,
+        "efficienza": 0.02986417
+      },
+      {
+        "threads": 40,
+        "time": 0.02650615,
+        "flops": 0.23432571,
+        "speedup": 1.06507367,
+        "efficienza": 0.02662684
+      }
+    ]
+  },
+  {
+    "matrix_name": "west2021.mtx",
+    "serial": {
+      "time": 0.00003000,
+      "flops": 0.49020000
+    },
+    "cuda": {
+      "time": 0.00000000,
+      "flops": 0.00000000
+    },
+    "cuda_csr": [
+      {
+        "kernel_name": "kernel0_threads",
+        "time": 0.00000573,
+        "gflops": 2.56738831
+      },
+      {
+        "kernel_name": "kernel1_warps",
+        "time": 0.00001616,
+        "gflops": 0.91002475
+      },
+      {
+        "kernel_name": "kernel2_warps_shmem",
+        "time": 0.00001638,
+        "gflops": 0.89758293
+      },
+      {
+        "kernel_name": "kernel3_warps_shmem_ridpar",
+        "time": 0.00001418,
+        "gflops": 1.03738712
+      },
+      {
+        "kernel_name": "kernel4_warps_cachel2",
+        "time": 0.00001206,
+        "gflops": 1.21899861
+      },
+      {
+        "kernel_name": "kernel5_texture",
+        "time": 0.00001360,
+        "gflops": 1.08132347
+      }
+    ],
+    "cuda_hll": [
+      {
+        "kernel_name": "hll_column_basic",
+        "time": 0.00001600,
+        "gflops": 0.91912490
+      }
+    ],
+    "openmp_csr": [
+      {
+        "threads": 2,
+        "time": 0.00002275,
+        "flops": 0.64652680,
+        "speedup": 1.31890412,
+        "efficienza": 0.65945206
+      },
+      {
+        "threads": 4,
+        "time": 0.00001187,
+        "flops": 1.23846645,
+        "speedup": 2.52645135,
+        "efficienza": 0.63161284
+      },
+      {
+        "threads": 8,
+        "time": 0.00000790,
+        "flops": 1.86065484,
+        "speedup": 3.79570550,
+        "efficienza": 0.47446319
+      },
+      {
+        "threads": 16,
+        "time": 0.00000811,
+        "flops": 1.81395144,
+        "speedup": 3.70043133,
+        "efficienza": 0.23127696
+      },
+      {
+        "threads": 32,
+        "time": 0.01146761,
+        "flops": 0.00128239,
+        "speedup": 0.00261606,
+        "efficienza": 0.00008175
+      },
+      {
+        "threads": 40,
+        "time": 0.01149235,
+        "flops": 0.00127963,
+        "speedup": 0.00261043,
+        "efficienza": 0.00006526
+      }
+    ],
+    "openmp_hll": [
+      {
+        "threads": 2,
+        "time": 0.00021065,
+        "flops": 0.06981409,
+        "speedup": 0.50321597,
+        "efficienza": 0.25160799
+      },
+      {
+        "threads": 4,
+        "time": 0.00145825,
+        "flops": 0.01008466,
+        "speedup": 0.07268968,
+        "efficienza": 0.01817242
+      },
+      {
+        "threads": 8,
+        "time": 0.00028891,
+        "flops": 0.05090220,
+        "speedup": 0.36690011,
+        "efficienza": 0.04586251
+      },
+      {
+        "threads": 16,
+        "time": 0.00089318,
+        "flops": 0.01646482,
+        "speedup": 0.11867749,
+        "efficienza": 0.00741734
+      },
+      {
+        "threads": 32,
+        "time": 0.02296356,
+        "flops": 0.00064041,
+        "speedup": 0.00461601,
+        "efficienza": 0.00014425
+      },
+      {
+        "threads": 40,
+        "time": 0.02300008,
+        "flops": 0.00063939,
+        "speedup": 0.00460868,
+        "efficienza": 0.00011522
+      }
+    ]
+  }
+]

@@ -221,7 +221,7 @@ int main() {
         strcpy(results[i].cuda_hll[idx_hll].kernel_name, "hll_v1");
         results[i].cuda_hll[idx_hll].time   = r_v1.seconds;
         results[i].cuda_hll[idx_hll].gflops = v1_gflops;
-
+        
         
         // v2 kernel row major, un warp per riga.
         struct matrixPerformance r_v2 = parallel_hll_cuda_v2(hll, x, hll_cuda_k2);
@@ -230,7 +230,8 @@ int main() {
         strcpy(results[i].cuda_hll[idx_hll].kernel_name, "hll_v2");
         results[i].cuda_hll[idx_hll].time   = r_v2.seconds;
         results[i].cuda_hll[idx_hll].gflops = v2_gflops;
-                    
+        */
+        
         // v3 kernel column-major, un thread per riga (accessi coalescenti op)
         memset(cuda_hll, 0, csr->M * sizeof(double));
         struct matrixPerformance r_hll_col = parallel_hll_column_cuda(hll_column, x, cuda_hll);
@@ -244,24 +245,27 @@ int main() {
         strcpy(results[i].cuda_hll[idx_hll_col].kernel_name, "hll_column_basic");
         results[i].cuda_hll[idx_hll_col].time   = r_hll_col.seconds;
         results[i].cuda_hll[idx_hll_col].gflops = gflops_hll_col;
-        */
+        
+        
+        /*
         struct matrixPerformance r_v3 = parallel_hll_cuda_v3(hll, x, hll_cuda_k2);
         double v3_gflops = (2.0 * csr->NZ)/(r_v3.seconds * 1e9);
-        int idx_hll = results[i].num_cuda_hll++;
+        idx_hll = results[i].num_cuda_hll++;
         strcpy(results[i].cuda_hll[idx_hll].kernel_name, "hll_v3");
         results[i].cuda_hll[idx_hll].time   = r_v3.seconds;
         results[i].cuda_hll[idx_hll].gflops = v3_gflops;
-        double norm_cuda_vs_serial = compute_norm(serial_csr, hll_cuda_k2, csr->M);
-        printf("Norma L2 (CSR seriale vs CUDA HLL column) = %.4f\n\n", norm_cuda_vs_serial);
+        //double norm_cuda_vs_serial = compute_norm(serial_csr, hll_cuda_k2, csr->M);
+        //printf("Norma L2 (CSR seriale vs CUDA HLL column) = %.4f\n\n", norm_cuda_vs_serial);
         printf("[CUDA HLL Column] %s | GFLOPS: %.5f\n", matrix_filenames[i], v3_gflops);
-        
+        */
         
         /*
          * ===========================================================
          *             4) CHIAMATE OPENMP
          * ===========================================================
          */
-        results[i].num_openmp = 0;
+        results[i].num_openmp_csr = 0;
+        results[i].num_openmp_hll = 0;
 
         for (int j = 0; j < (sizeof(thread_counts) / sizeof(int)); j++) {
             int n_threads = thread_counts[j];
@@ -276,14 +280,16 @@ int main() {
 
             double omp_time_hll  = end_time - start_time;
             double omp_flops_hll = (2.0 * csr->NZ)/(omp_time_hll * 1e9);
-            int idx_omp = results[i].num_openmp++;
-            results[i].openmp_results[idx_omp].threads = n_threads;
-            results[i].openmp_results[idx_omp].time    = omp_time_hll;
-            results[i].openmp_results[idx_omp].flops   = omp_flops_hll;
-            //results[i].openmp_results[idx_omp].speedup = time_hll_serial/omp_time_hll;
-            double speedupHLL= time_hll_serial/omp_time_hll;
-            printf("speedup HLL %.6f \n", speedupHLL);
-            printf("efficienza HLL %.6f \n", speedupHLL/n_threads);
+            int idx_omp = results[i].num_openmp_hll++;
+            results[i].openmp_hll[idx_omp].threads = n_threads;
+            results[i].openmp_hll[idx_omp].time    = omp_time_hll;
+            results[i].openmp_hll[idx_omp].flops   = omp_flops_hll;
+            results[i].openmp_hll[idx_omp].speedup = time_hll_serial/omp_time_hll;
+            results[i].openmp_hll[idx_omp].efficienza = (time_hll_serial/omp_time_hll)/n_threads;
+            //double speedupHLL= time_hll_serial/omp_time_hll;
+            //printf("speedup HLL %.6f \n", speedupHLL);
+            //printf("efficienza HLL %.6f \n", speedupHLL/n_threads);
+        
 
             // CSR OpenMP
             if (csr->M < n_threads) continue;
@@ -303,14 +309,15 @@ int main() {
 
             double omp_time_csr  = t_end - t_start;
             double omp_flops_csr = (2.0 * csr->NZ)/(omp_time_csr * 1e9);
-            idx_omp = results[i].num_openmp++;
-            results[i].openmp_results[idx_omp].threads = n_threads;
-            results[i].openmp_results[idx_omp].time    = omp_time_csr;
-            results[i].openmp_results[idx_omp].flops   = omp_flops_csr;
-            //results[i].openmp_results[idx_omp].speedup = time_csr_serial/omp_time_csr;
-            double speedupCSR= time_csr_serial/omp_time_csr;
-            printf("speedup CSR %.6f\n", speedupCSR);
-            printf("efficienza CSR %.6f\n", speedupCSR/n_threads);
+            idx_omp = results[i].num_openmp_csr++;
+            results[i].openmp_csr[idx_omp].threads = n_threads;
+            results[i].openmp_csr[idx_omp].time    = omp_time_csr;
+            results[i].openmp_csr[idx_omp].flops   = omp_flops_csr;
+            results[i].openmp_csr[idx_omp].speedup = time_csr_serial/omp_time_csr;
+            results[i].openmp_csr[idx_omp].efficienza = (time_csr_serial/omp_time_csr)/n_threads;
+            //double speedupCSR= time_csr_serial/omp_time_csr;
+            //printf("speedup CSR %.6f\n", speedupCSR);
+            //printf("efficienza CSR %.6f\n", speedupCSR/n_threads);
         }
 
         // Deallocazioni finali

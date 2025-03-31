@@ -2,16 +2,12 @@ import matplotlib.pyplot as plt
 import json
 import numpy as np
 
-import matplotlib.pyplot as plt
-import json
-import numpy as np
-
 def plot_gflops_from_json(json_file):
     # Carica i dati dal file JSON
     with open(json_file, "r") as f:
         data = json.load(f)
 
-    categories = ['serial', 'cuda_csr', 'cuda_hll', 'openmp']
+    categories = ['serial', 'cuda_csr', 'cuda_hll', 'openmp_csr', 'openmp_hll']
     
     for category in categories:
         matrix_names = []
@@ -27,8 +23,10 @@ def plot_gflops_from_json(json_file):
                 gflops_data.append([kernel['gflops'] for kernel in matrix['cuda_csr']])
             elif category == 'cuda_hll':
                 gflops_data.append([kernel['gflops'] for kernel in matrix['cuda_hll']])
-            elif category == 'openmp':
-                gflops_data.append([item['flops'] for item in matrix['openmp']])
+            elif category == 'openmp_csr':
+                gflops_data.append([item['flops'] for item in matrix['openmp_csr']])
+            elif category == 'openmp_hll':
+                gflops_data.append([item['flops'] for item in matrix['openmp_hll']])
 
         # Crea un grafico con barre multiple
         num_matrices = len(matrix_names)  # Numero di matrici
@@ -60,6 +58,7 @@ def plot_gflops_from_json(json_file):
 
 # Esegui la funzione passando il tuo file JSON
 plot_gflops_from_json("results.json")
+
 
 
 def plot_gflops_from_json2(json_file):

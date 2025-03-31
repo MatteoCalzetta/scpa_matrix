@@ -3,7 +3,8 @@
 
 #define MAX_CUDA_CSR_KERNELS 10
 #define MAX_CUDA_HLL_KERNELS 10
-#define MAX_OPENMP_RESULTS   50
+#define MAX_OPENMP_CSR       50
+#define MAX_OPENMP_HLL       50
 
 // Struttura generica di performance
 typedef struct {
@@ -11,11 +12,13 @@ typedef struct {
     double flops;
 } PerfRecord;
 
-// Struttura per risultati openmp
+// Struttura per risultati OpenMP
 typedef struct {
     int threads;
     double time;
     double flops;
+    double speedup;
+    double efficienza;
 } OpenMPPerf;
 
 // Kernel CSR
@@ -34,7 +37,7 @@ typedef struct {
 
 // Struttura principale
 typedef struct {
-    char matrix_name[256];  // nome della matrice
+    char matrix_name[256];  // Nome della matrice
 
     // Sezione "serial" (un record con time e flops)
     PerfRecord serial;
@@ -42,17 +45,22 @@ typedef struct {
     // Sezione "cuda" (un record se ne vuoi uno generico)
     PerfRecord cuda;
 
-    // Se vuoi salvare TUTTI i kernel CSR
+    // Kernel CUDA CSR
     CudaCSRKernelPerf cuda_csr[MAX_CUDA_CSR_KERNELS];
     int num_cuda_csr;
 
-    // Se vuoi salvare TUTTI i kernel HLL
+    // Kernel CUDA HLL
     CudaHLLKernelPerf cuda_hll[MAX_CUDA_HLL_KERNELS];
     int num_cuda_hll;
 
-    // Sezione "openmp"
-    OpenMPPerf openmp_results[MAX_OPENMP_RESULTS];
-    int num_openmp;
+    // OpenMP CSR
+    OpenMPPerf openmp_csr[MAX_OPENMP_CSR];
+    int num_openmp_csr;
+
+    // OpenMP HLL
+    OpenMPPerf openmp_hll[MAX_OPENMP_HLL];
+    int num_openmp_hll;
+
 } MatrixResult;
 
 // Funzione di scrittura JSON
