@@ -15,7 +15,7 @@
 #define WARP_SIZE 32
 
 //k5
-double spmv_csr_gpu_texture(CSRMatrix *csr, const double *x, double *y) {
+double spmv_csr_warps_texture(CSRMatrix *csr, const double *x, double *y) {
     int M = csr->M;
     int NZ = csr->NZ;
 
