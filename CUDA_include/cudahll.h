@@ -13,6 +13,7 @@ void calculate_nz_stats(const int *nz_per_row, int start_row, int end_row, int *
 
 struct matrixPerformance parallel_hll_cuda_v1(HLLMatrix *hllMatrixHost, double *x_h);
 struct matrixPerformance parallel_hll_cuda_v2(HLLMatrix *hllMatrixHost, double *x_h, double *y_h);
+struct matrixPerformance parallel_hll_cuda_v3(HLLMatrix *hllMatrixHost, double *x_h, double *y_h);
 struct matrixPerformance parallel_hll_column_cuda(const HLLMatrix *hll, const double *x_h, double *y_h);
 
 #ifdef __cplusplus

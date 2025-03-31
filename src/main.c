@@ -213,6 +213,7 @@ int main() {
          */
         results[i].num_cuda_hll = 0;
 
+        /*
         // v1: kernel row major, un thread per riga.
         struct matrixPerformance r_v1 = parallel_hll_cuda_v1(hll, x);
         double v1_gflops = (2.0 * csr->NZ)/(r_v1.seconds * 1e9);
@@ -220,7 +221,8 @@ int main() {
         strcpy(results[i].cuda_hll[idx_hll].kernel_name, "hll_v1");
         results[i].cuda_hll[idx_hll].time   = r_v1.seconds;
         results[i].cuda_hll[idx_hll].gflops = v1_gflops;
-        /*
+
+        
         // v2 kernel row major, un warp per riga.
         struct matrixPerformance r_v2 = parallel_hll_cuda_v2(hll, x, hll_cuda_k2);
         double v2_gflops = (2.0 * csr->NZ)/(r_v2.seconds * 1e9);
@@ -243,6 +245,16 @@ int main() {
         results[i].cuda_hll[idx_hll_col].time   = r_hll_col.seconds;
         results[i].cuda_hll[idx_hll_col].gflops = gflops_hll_col;
         */
+        struct matrixPerformance r_v3 = parallel_hll_cuda_v3(hll, x, hll_cuda_k2);
+        double v3_gflops = (2.0 * csr->NZ)/(r_v3.seconds * 1e9);
+        int idx_hll = results[i].num_cuda_hll++;
+        strcpy(results[i].cuda_hll[idx_hll].kernel_name, "hll_v3");
+        results[i].cuda_hll[idx_hll].time   = r_v3.seconds;
+        results[i].cuda_hll[idx_hll].gflops = v3_gflops;
+        double norm_cuda_vs_serial = compute_norm(serial_csr, hll_cuda_k2, csr->M);
+        printf("Norma L2 (CSR seriale vs CUDA HLL column) = %.4f\n\n", norm_cuda_vs_serial);
+        printf("[CUDA HLL Column] %s | GFLOPS: %.5f\n", matrix_filenames[i], v3_gflops);
+        
         
         /*
          * ===========================================================
