@@ -7,6 +7,7 @@
 #include <helper_timer.h>
 #include "../include/matrix.h"
 #include "../CUDA_include/hll_kernel0.cuh"
+#include "../CUDA_include/hll_kernel1.cuh"
 #include "../CUDA_include/hll_kernel2.cuh"
 #include "../CUDA_include/hll_kernel3.cuh"
 
