@@ -126,12 +126,4 @@ void hll_matvec_openmp(HLLMatrix *hll_matrix, double *x, double *y, int num_thre
         }
     }
 
-    // Stampa il numero totale di thread usati
-    #pragma omp parallel
-    {
-        #pragma omp single
-        {
-            printf("Total threads used: %d\n", omp_get_num_threads());
-        }
-    }
 }

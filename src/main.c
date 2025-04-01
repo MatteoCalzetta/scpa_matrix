@@ -137,6 +137,8 @@ int main() {
         double flops_hll_serial = (2.0 * csr->NZ)/(time_hll_serial * 1e9);
         printf("[SERIAL HLL] %s | Tempo: %.5f s | GFLOPS: %.5f\n",
                matrix_filenames[i], time_hll_serial, flops_hll_serial);
+        results[i].serial_hll.time = time_hll_serial;
+        results[i].serial_hll.flops = flops_hll_serial;
 
         double norm_hll_vs_csr = compute_norm(serial_csr, serial_hll, csr->M);
         printf("Norma L2 (CSR vs HLL) = %.4f\n\n", norm_hll_vs_csr);

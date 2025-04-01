@@ -42,6 +42,9 @@ typedef struct {
     // Sezione "serial" (un record con time e flops)
     PerfRecord serial;
 
+    // Sezione "serial" (un record con time e flops)
+    PerfRecord serial_hll;
+
     // Sezione "cuda" (un record se ne vuoi uno generico)
     PerfRecord cuda;
 

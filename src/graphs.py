@@ -2,12 +2,12 @@ import matplotlib.pyplot as plt
 import json
 import numpy as np
 
-def plot_gflops_from_json(json_file):
+def plot_gflops_and_metrics_from_json(json_file):
     # Carica i dati dal file JSON
     with open(json_file, "r") as f:
         data = json.load(f)
 
-    categories = ['serial', 'cuda_csr', 'cuda_hll', 'openmp_csr', 'openmp_hll']
+    categories = ['serial_csr', 'serial_hll', 'cuda_csr', 'cuda_hll', 'openmp_csr', 'openmp_hll']
     
     for category in categories:
         matrix_names = []
@@ -17,145 +17,90 @@ def plot_gflops_from_json(json_file):
         for matrix in data:
             matrix_names.append(matrix['matrix_name'])
 
-            if category == 'serial':
-                gflops_data.append([matrix['serial']['flops']])
-            elif category == 'cuda_csr':
-                gflops_data.append([kernel['gflops'] for kernel in matrix['cuda_csr']])
-            elif category == 'cuda_hll':
-                gflops_data.append([kernel['gflops'] for kernel in matrix['cuda_hll']])
-            elif category == 'openmp_csr':
-                gflops_data.append([item['flops'] for item in matrix['openmp_csr']])
-            elif category == 'openmp_hll':
-                gflops_data.append([item['flops'] for item in matrix['openmp_hll']])
+            if category in ['serial_csr', 'serial_hll']:
+                gflops_data.append([matrix[category]['flops']])
+            elif category in ['cuda_csr', 'cuda_hll']:
+                gflops_data.append([kernel['gflops'] for kernel in matrix[category]])
+            elif category in ['openmp_csr', 'openmp_hll']:
+                gflops_data.append([item['flops'] for item in matrix[category]])
 
-        # Crea un grafico con barre multiple
-        num_matrices = len(matrix_names)  # Numero di matrici
-        max_kernels = max(len(kernels) for kernels in gflops_data)  # Numero massimo di kernel per matrice
-        
+        # Numero massimo di kernel/thread
+        num_matrices = len(matrix_names)
+        max_kernels = max(len(kernels) for kernels in gflops_data) if gflops_data else 1  
+
         # Larghezza delle barre e posizioni
         width = 0.15
         x = np.arange(num_matrices)
 
-        # Creazione della figura e degli assi
+        # Creazione della figura
         fig, ax = plt.subplots(figsize=(12, 8))
 
-        # Posizionamento delle barre per ciascun kernel
+        # Assegna le etichette della leggenda
+        if category in ['serial_csr', 'serial_hll']:
+            legend_labels = ["Seriale"]
+        elif category in ['cuda_csr', 'cuda_hll']:
+            legend_labels = [f'Kernel {i+1}' for i in range(max_kernels)]
+        elif category in ['openmp_csr', 'openmp_hll']:
+            thread_counts = [2, 4, 8, 16, 32, 40]
+            legend_labels = [f"{t} thread" for t in thread_counts[:max_kernels]]
+
+        # Posizionamento delle barre
         for i in range(max_kernels):
             kernel_gflops = [gflops[i] if i < len(gflops) else 0 for gflops in gflops_data]
-            ax.bar(x + i * width, kernel_gflops, width, label=f'Kernel {i + 1}')
+            ax.bar(x + i * width, kernel_gflops, width, label=legend_labels[i])
         
         # Etichette e titolo
         ax.set_title(f'GFLOPS per {category.upper()}', fontsize=16)
         ax.set_xlabel('Matrice', fontsize=14)
         ax.set_ylabel('GFLOPS', fontsize=14)
-        ax.set_xticks(x + (max_kernels - 1) * width / 2)  # Centra le etichette delle matrici
+        ax.set_xticks(x + (max_kernels - 1) * width / 2)
         ax.set_xticklabels(matrix_names, fontsize=12, rotation=45, ha="right")
-        ax.legend(title='Kernels', fontsize=10)
+        ax.legend(title='Configurazione', fontsize=10)
 
         # Layout e visualizzazione
         plt.tight_layout()
         plt.show()
 
-# Esegui la funzione passando il tuo file JSON
-plot_gflops_from_json("results.json")
-
-
-
-def plot_gflops_from_json2(json_file):
-    with open("results.json", "r") as f:
-        data = json.load(f)
+    # -------- PLOTTING SPEEDUP & EFFICIENCY --------
     
-    categories = {"serial": [], "cuda_csr": [], "cuda_hll": [], "openmp": []}
-    gflops_values = {"serial": [], "cuda_csr": [], "cuda_hll": [], "openmp": []}
-    matrix_names = []
-    
-    for matrix in data:
-        matrix_names.append(matrix["matrix_name"])
-        
-        # Serial
-        categories["serial"].append("serial")
-        gflops_values["serial"].append(matrix["serial"].get("flops", 0))
-        
-        # CUDA CSR
-        for kernel in matrix.get("cuda_csr", []):
-            categories["cuda_csr"].append(kernel["kernel_name"])
-            gflops_values["cuda_csr"].append(kernel["gflops"])
-        
-        # CUDA HLL
-        for kernel in matrix.get("cuda_hll", []):
-            categories["cuda_hll"].append(kernel["kernel_name"])
-            gflops_values["cuda_hll"].append(kernel["gflops"])
-        
-        # OpenMP
-        for kernel in matrix.get("openmp", []):
-            categories["openmp"].append(f"openmp_{kernel['threads']}t")
-            gflops_values["openmp"].append(kernel["flops"])
-    
-    titles = {"serial": "Serial", "cuda_csr": "CUDA CSR", "cuda_hll": "CUDA HLL", "openmp": "OpenMP"}
-    
-    for key in ["serial", "cuda_csr", "cuda_hll", "openmp"]:
-        plt.figure(figsize=(12, 6))
-        x_pos = np.arange(len(categories[key]))
-        plt.bar(x_pos, gflops_values[key], color='blue')
-        plt.xticks(x_pos, categories[key], rotation=90)
-        plt.xlabel("Categoria")
-        plt.ylabel("GFLOPS")
-        plt.title(titles[key])
-        plt.grid(axis='y', linestyle='--', alpha=0.7)
-        plt.show()
-
-
-
-def plot_gflops_from_json3(json_file):
-    # Carica i dati dal file JSON
-    with open("results.json", "r") as f:
-        data = json.load(f)
-
-    categories = ['serial', 'cuda_csr', 'cuda_hll', 'openmp']
-    
-    for category in categories:
+    def plot_metric(metric_name, category):
         matrix_names = []
-        gflops_data = []
-        
-        # Crea una lista per i grafici
+        metric_data = []
+
         for matrix in data:
             matrix_names.append(matrix['matrix_name'])
-            
-            if category == 'serial':
-                gflops_data.append([matrix['serial']['flops']])
-            elif category == 'cuda_csr':
-                gflops_data.append([kernel['gflops'] for kernel in matrix['cuda_csr']])
-            elif category == 'cuda_hll':
-                gflops_data.append([kernel['gflops'] for kernel in matrix['cuda_hll']])
-            elif category == 'openmp':
-                gflops_data.append([item['flops'] for item in matrix['openmp']])
-        
-        # Definisci il numero di kernel per ogni matrice
-        num_kernels = max(len(gflops) for gflops in gflops_data)  # Trova il massimo numero di kernel
+            metric_data.append([item[metric_name] for item in matrix[category]])
 
-        # Crea il grafico
-        fig, ax = plt.subplots(figsize=(12, 8))  # Imposta la dimensione del grafico
-        x = np.arange(len(matrix_names))  # Posizioni delle barre
+        num_matrices = len(matrix_names)
+        num_threads = max(len(metric) for metric in metric_data)
 
-        # Per ogni matrice, crea una barra per ciascun kernel
-        width = 0.15  # Larghezza di ogni barra per il kernel
-        offset = (num_kernels - 1) * width / 2  # Per centrare le barre per ogni matrice
+        width = 0.15
+        x = np.arange(num_matrices)
 
-        for i, gflops in enumerate(gflops_data):
-            ax.bar(x + (i - (len(gflops) - 1) / 2) * width, gflops, width, label=matrix_names[i])
-        
-        # Etichette e titolo
-        ax.set_title(f'GFLOPS per {category.upper()}', fontsize=16)
+        fig, ax = plt.subplots(figsize=(12, 8))
+
+        thread_counts = [2, 4, 8, 16, 32, 40]
+        legend_labels = [f"{t} thread" for t in thread_counts[:num_threads]]
+
+        for i in range(num_threads):
+            thread_values = [values[i] if i < len(values) else 0 for values in metric_data]
+            ax.bar(x + i * width, thread_values, width, label=legend_labels[i])
+
+        ax.set_title(f'{metric_name.capitalize()} per {category.upper()}', fontsize=16)
         ax.set_xlabel('Matrice', fontsize=14)
-        ax.set_ylabel('GFLOPS', fontsize=14)
-        ax.set_xticks(x)
+        ax.set_ylabel(metric_name.capitalize(), fontsize=14)
+        ax.set_xticks(x + (num_threads - 1) * width / 2)
         ax.set_xticklabels(matrix_names, fontsize=12, rotation=45, ha="right")
-        ax.legend(title='Kernels', fontsize=10)
+        ax.legend(title='Thread', fontsize=10)
 
-        # Visualizza il grafico
-        plt.tight_layout()  # Impedisce che le etichette si sovrappongano
+        plt.tight_layout()
         plt.show()
 
-# Esegui la funzione passando il tuo file JSON
-plot_gflops_from_json("results.json")
+    # Plotta Speedup ed Efficienza per OpenMP
+    plot_metric("speedup", "openmp_csr")
+    plot_metric("efficienza", "openmp_csr")
+    plot_metric("speedup", "openmp_hll")
+    plot_metric("efficienza", "openmp_hll")
 
+# Esegui la funzione
+plot_gflops_and_metrics_from_json("results.json")

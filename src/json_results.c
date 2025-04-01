@@ -17,10 +17,16 @@ void write_results_to_json(const char* filename, MatrixResult *results, int num_
         // Nome matrice
         fprintf(fp, "    \"matrix_name\": \"%s\",\n", results[i].matrix_name);
 
-        // Sezione "serial"
-        fprintf(fp, "    \"serial\": {\n");
+        // Sezione "serial_csr"
+        fprintf(fp, "    \"serial_csr\": {\n");
         fprintf(fp, "      \"time\": %.8f,\n", results[i].serial.time);
         fprintf(fp, "      \"flops\": %.8f\n", results[i].serial.flops);
+        fprintf(fp, "    },\n");
+
+        // Sezione "serial_hll"
+        fprintf(fp, "    \"serial_hll\": {\n");
+        fprintf(fp, "      \"time\": %.8f,\n", results[i].serial_hll.time);
+        fprintf(fp, "      \"flops\": %.8f\n", results[i].serial_hll.flops);
         fprintf(fp, "    },\n");
 
         // Sezione "cuda"
