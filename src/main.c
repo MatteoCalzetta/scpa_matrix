@@ -82,6 +82,9 @@ int main() {
             continue;
         }
 
+        results[i].nz = csr->NZ;
+
+
         // Converte in HLL
         HLLMatrix *hll = convert_csr_to_hll(csr);
         HLLMatrix *hll_column = convert_csr_to_hll_column_major(csr);

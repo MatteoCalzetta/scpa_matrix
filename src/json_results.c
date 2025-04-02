@@ -16,6 +16,7 @@ void write_results_to_json(const char* filename, MatrixResult *results, int num_
 
         // Nome matrice
         fprintf(fp, "    \"matrix_name\": \"%s\",\n", results[i].matrix_name);
+        fprintf(fp, "      \"NZ\": %d,\n", results[i].nz);
 
         // Sezione "serial_csr"
         fprintf(fp, "    \"serial_csr\": {\n");
