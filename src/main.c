@@ -299,19 +299,18 @@ int main() {
 
             // CSR OpenMP
             if (csr->M < n_threads) continue;
-            int *row_partition = (int *)malloc((n_threads + 1) * sizeof(int));
-            if (!row_partition) {
-                printf("Errore alloc row_partition\n");
-                free_csr(csr);
-                continue;
-            }
-            balance_load(csr, n_threads, row_partition);
+            int actual_threads;
+            int *row_partition = balance_load(csr, n_threads, &actual_threads);
+
 
             memset(omp_csr, 0, csr->M * sizeof(double));
             double t_start = omp_get_wtime();
-            csr_matvec_openmp(csr, x, omp_csr, n_threads, row_partition);
+            csr_matvec_openmp(csr, x, omp_csr, actual_threads, row_partition);
             double t_end   = omp_get_wtime();
             free(row_partition);
+
+            double norm_cuda_vs_serial = compute_norm(serial_csr, omp_csr, csr->M);
+            printf("Norma L2 (CSR seriale vs CUDA HLL column) = %.4f\n\n", norm_cuda_vs_serial);
 
             double omp_time_csr  = t_end - t_start;
             double omp_flops_csr = (2.0 * csr->NZ)/(omp_time_csr * 1e9);

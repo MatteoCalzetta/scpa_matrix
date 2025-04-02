@@ -4,38 +4,72 @@
 #include "../include/hll_matrix.h"
 #include "../include/openMP_prim.h"
 
-/*void balance_load(CSRMatrix *csr, int num_threads, int *thr_partition) {
-    int *row_nnz = (int *)malloc(csr->M * sizeof(int));
+
+int* balance_load(CSRMatrix *csr, int num_threads, int *actual_threads) {
+    // 1) Alloca l’array di partizioni con dimensione massima di (num_threads+1)
+    int *thr_partition = malloc((num_threads + 1) * sizeof(int));
+    if (!thr_partition) {
+        // Se l’alloc fallisce, impostiamo actual_threads a 0 e ritorniamo NULL
+        *actual_threads = 0;
+        return NULL;
+    }
+
+    // 2) Conta i non-zero per riga e calcola il totale
+    int *row_nnz = malloc(csr->M * sizeof(int));
+    if (!row_nnz) {
+        free(thr_partition);
+        *actual_threads = 0;
+        return NULL;
+    }
+
     double total_nnz = 0.0;
-    
-    // 1️⃣ Conta i non-zero per riga e calcola il totale
     for (int i = 0; i < csr->M; i++) {
         row_nnz[i] = csr->IRP[i + 1] - csr->IRP[i];
         total_nnz += row_nnz[i];
     }
-    
+
     double target_workload = total_nnz / num_threads;
     double current_workload = 0.0;
+
+    // 3) Esegui il partizionamento
     int thread_id = 0;
-    thr_partition[0] = 0;
-    
-    // 2️⃣ Partiziona le righe in base al numero di non-zero per ottenere workload equilibrati
+    thr_partition[0] = 0;  // La prima partizione parte dalla riga 0
+
     for (int i = 0; i < csr->M; i++) {
         current_workload += row_nnz[i];
         if (current_workload >= target_workload && thread_id < num_threads - 1) {
-            thr_partition[++thread_id] = i + 1;  // Il thread successivo partirà dalla riga successiva
+            thread_id++;
+            thr_partition[thread_id] = i + 1; // La prossima partizione inizierà dalla prossima riga
             current_workload = 0.0;
         }
     }
-    
-    // 3️⃣ Assicurati che l'ultimo thread prenda tutte le righe rimanenti
-    thr_partition[num_threads] = csr->M;
-    
-    free(row_nnz);
-}
-*/
 
-void balance_load(CSRMatrix *csr, int num_threads, int *thr_partition) {
+    // 4) L’ultima partizione arriva fino all’ultima riga
+    thread_id++;
+    thr_partition[thread_id] = csr->M;
+
+    // thread_id = numero di partizioni create; e’ anche il numero di thread usati
+    *actual_threads = thread_id;
+
+    // 5) Se usiamo meno thread di quelli richiesti, ridimensioniamo thr_partition
+    if (*actual_threads < num_threads) {
+        int needed_size = *actual_threads + 1; // +1 per l’ultima entry
+        int *temp = realloc(thr_partition, needed_size * sizeof(int));
+        if (temp != NULL) {
+            thr_partition = temp;
+        }
+    }
+
+    // 6) Libera risorse temporanee
+    free(row_nnz);
+
+    // Restituisce il puntatore (eventualmente spostato) al chiamante
+    return thr_partition;
+}
+
+
+
+/*void balance_load(CSRMatrix *csr, int num_threads, int *thr_partition) {
     int total_rows = csr->M;
     int base = total_rows / num_threads;      // Numero di righe base per ogni thread
     int rem = total_rows % num_threads;         // Righe rimanenti da distribuire
@@ -51,7 +85,7 @@ void balance_load(CSRMatrix *csr, int num_threads, int *thr_partition) {
         start += base + extra;
         thr_partition[i + 1] = start;
     }
-}
+}*/
 
 void csr_matvec_openmp(CSRMatrix *csr, double *x, double *y, int num_threads, int *row_partition) {
     #pragma omp parallel num_threads(num_threads)
