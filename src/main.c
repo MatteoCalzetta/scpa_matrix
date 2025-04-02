@@ -112,6 +112,7 @@ int main() {
         // Salviamo il nome
         snprintf(results[i].matrix_name, sizeof(results[i].matrix_name),
                  "%s", matrix_filenames[i]);
+        results[i].nz = csr->NZ;
 
         /*
          * ===========================================================

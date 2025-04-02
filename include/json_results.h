@@ -38,6 +38,7 @@ typedef struct {
 // Struttura principale
 typedef struct {
     char matrix_name[256];  // Nome della matrice
+    int nz;                 // Numero di elementi non nulli
 
     // Sezione "serial" (un record con time e flops)
     PerfRecord serial;
