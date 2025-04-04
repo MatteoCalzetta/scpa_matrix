@@ -100,14 +100,12 @@ matrixPerformance parallel_hll_cuda_v2(HLLMatrix *hllMatrixHost, double *x_h, do
     // Lancia il kernel
     sdkResetTimer(&timer);
     sdkStartTimer(&timer);
-    printf("Prima di chiamare il kernel\n");
     matvec_Hll_cuda_warp<<<gridDim, blockDim>>>(d_hll_matrix, d_x, d_y, M);
     cudaError_t err = cudaGetLastError();
     if(err != cudaSuccess) {
         printf("Errore nel lancio del kernel: %s\n", cudaGetErrorString(err));
     }
     cudaDeviceSynchronize();
-    printf("Dopo aver chiamato il kernel\n");
     sdkStopTimer(&timer);
 
     matrixPerformance node = {0};
@@ -301,7 +299,6 @@ matrixPerformance parallel_hll_cuda_v3(HLLMatrix *hllMatrixHost, double *x_h, do
 
     sdkResetTimer(&timer);
     sdkStartTimer(&timer);
-    printf("Prima di chiamare il kernel (shared memory)...\n");
     matvec_Hll_cuda_warp_shared<<<gridDim, blockDim, sharedSize>>>(
         d_hll_matrix, d_x, d_y, M
     );
@@ -310,7 +307,6 @@ matrixPerformance parallel_hll_cuda_v3(HLLMatrix *hllMatrixHost, double *x_h, do
         printf("Errore nel lancio del kernel: %s\n", cudaGetErrorString(err));
     }
     cudaDeviceSynchronize();
-    printf("Dopo aver chiamato il kernel (shared memory)\n");
     sdkStopTimer(&timer);
     matrixPerformance node = {0};
     node.seconds = sdkGetTimerValue(&timer) / 1000.0f; // ms -> s

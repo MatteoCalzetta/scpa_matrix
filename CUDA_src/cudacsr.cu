@@ -219,8 +219,6 @@ double spmv_csr_warps_shmem_ridpar(CSRMatrix *csr, double *x, double *y) {
     cudaEventSynchronize(stop);
     cudaEventElapsedTime(&elapsedTime, start, stop);
 
-    printf("Tempo di esecuzione: %.10f ms\n", elapsedTime);
-
     // Risultato da GPU a CPU
     cudaMemcpyAsync(y, d_y, M * sizeof(double), cudaMemcpyDeviceToHost, stream);
 
@@ -290,8 +288,6 @@ double spmv_csr_warps_shmem(CSRMatrix *csr, double *x, double *y) {
     cudaEventSynchronize(stop);
     cudaEventElapsedTime(&elapsedTime, start, stop);
 
-    printf("Tempo di esecuzione: %.10f ms\n", elapsedTime);
-
     // Risultato da GPU a CPU
     cudaMemcpyAsync(y, d_y, M * sizeof(double), cudaMemcpyDeviceToHost, stream);
 
@@ -357,8 +353,6 @@ double spmv_csr_warps(CSRMatrix *h_mat, double *h_x, double *h_y) {
     cudaEventSynchronize(stop);
     cudaEventElapsedTime(&elapsedTime, start, stop);
 
-    printf("Tempo di esecuzione: %.10f ms\n", elapsedTime);
-
     // Risultato da GPU a CPU
     cudaMemcpyAsync(h_y, d_y, M * sizeof(double), cudaMemcpyDeviceToHost, stream);
 
@@ -420,8 +414,6 @@ double spmv_csr_threads(CSRMatrix *h_mat, double *h_x, double *h_y) {
     cudaEventRecord(stop, stream);
     cudaEventSynchronize(stop);
     cudaEventElapsedTime(&elapsedTime, start, stop);
-
-    printf("Tempo di esecuzione: %.10f ms\n", elapsedTime);
     
     cudaMemcpyAsync(h_y, d_y, M * sizeof(double), cudaMemcpyDeviceToHost, stream);
 

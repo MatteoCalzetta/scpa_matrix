@@ -123,25 +123,23 @@ int main() {
         results[i].serial.time  = time_csr_serial;
         results[i].serial.flops = flops_csr_serial;
 
-        printf("[SERIAL CSR] %s | Tempo: %.5f s | GFLOPS: %.5f\n",
-               matrix_filenames[i], time_csr_serial, flops_csr_serial);
+        //printf("[SERIAL CSR] %s | Tempo: %.5f s | GFLOPS: %.5f\n", matrix_filenames[i], time_csr_serial, flops_csr_serial);
 
         double *y = (double *)calloc(csr->M, sizeof(double));
         spmv_serial_hll_column(hll_column, x, y);
         double norm_hll_col_vs_csr = compute_norm(serial_csr, y, csr->M);
-        printf("Norma L2 (CSR vs HLL_column) = %.4f\n\n", norm_hll_col_vs_csr);
+        //printf("Norma L2 (CSR vs HLL_column) = %.4f\n\n", norm_hll_col_vs_csr);
 
 
 
         double time_hll_serial = matvec_Hll_serial(hll, x, serial_hll);
         double flops_hll_serial = (2.0 * csr->NZ)/(time_hll_serial * 1e9);
-        printf("[SERIAL HLL] %s | Tempo: %.5f s | GFLOPS: %.5f\n",
-               matrix_filenames[i], time_hll_serial, flops_hll_serial);
+        //printf("[SERIAL HLL] %s | Tempo: %.5f s | GFLOPS: %.5f\n", matrix_filenames[i], time_hll_serial, flops_hll_serial);
         results[i].serial_hll.time = time_hll_serial;
         results[i].serial_hll.flops = flops_hll_serial;
 
         double norm_hll_vs_csr = compute_norm(serial_csr, serial_hll, csr->M);
-        printf("Norma L2 (CSR vs HLL) = %.4f\n\n", norm_hll_vs_csr);
+        //printf("Norma L2 (CSR vs HLL) = %.4f\n\n", norm_hll_vs_csr);
 
         /*
          * ===========================================================
@@ -238,10 +236,10 @@ int main() {
         memset(cuda_hll, 0, csr->M * sizeof(double));
         struct matrixPerformance r_hll_col = parallel_hll_column_cuda(hll_column, x, cuda_hll);
         double gflops_hll_col = (2.0 * csr->NZ) / (r_hll_col.seconds * 1e9);
-        printf("[CUDA HLL Column] %s | GFLOPS: %.5f\n", matrix_filenames[i], gflops_hll_col);
+        //printf("[CUDA HLL Column] %s | GFLOPS: %.5f\n", matrix_filenames[i], gflops_hll_col);
 
-        double norm_cuda_vs_serial = compute_norm(serial_csr, cuda_hll, csr->M);
-        printf("Norma L2 (CSR seriale vs CUDA HLL column) = %.4f\n\n", norm_cuda_vs_serial);
+        //double norm_cuda_vs_serial = compute_norm(serial_csr, cuda_hll, csr->M);
+        //printf("Norma L2 (CSR seriale vs CUDA HLL column) = %.4f\n\n", norm_cuda_vs_serial);
 
         int idx_hll_col = results[i].num_cuda_hll++;
         strcpy(results[i].cuda_hll[idx_hll_col].kernel_name, "hll_column_basic");
@@ -258,7 +256,7 @@ int main() {
         results[i].cuda_hll[idx_hll].gflops = v3_gflops;
         //double norm_cuda_vs_serial = compute_norm(serial_csr, hll_cuda_k2, csr->M);
         //printf("Norma L2 (CSR seriale vs CUDA HLL column) = %.4f\n\n", norm_cuda_vs_serial);
-        printf("[CUDA HLL Column] %s | GFLOPS: %.5f\n", matrix_filenames[i], v3_gflops);
+        //printf("[CUDA HLL Column] %s | GFLOPS: %.5f\n", matrix_filenames[i], v3_gflops);
         */
         
         /*
@@ -302,7 +300,7 @@ int main() {
             free(row_partition);
 
             double norm_cuda_vs_serial = compute_norm(serial_csr, omp_csr, csr->M);
-            printf("Norma L2 (CSR seriale vs CUDA HLL column) = %.4f\n\n", norm_cuda_vs_serial);
+            //printf("Norma L2 (CSR seriale vs CUDA HLL column) = %.4f\n\n", norm_cuda_vs_serial);
 
             double omp_time_csr  = t_end - t_start;
             double omp_flops_csr = (2.0 * csr->NZ)/(omp_time_csr * 1e9);
