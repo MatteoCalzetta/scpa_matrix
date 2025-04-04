@@ -6,15 +6,12 @@
 
 
 int* balance_load(CSRMatrix *csr, int num_threads, int *actual_threads) {
-    // 1) Alloca l’array di partizioni con dimensione massima di (num_threads+1)
     int *thr_partition = malloc((num_threads + 1) * sizeof(int));
     if (!thr_partition) {
-        // Se l’alloc fallisce, impostiamo actual_threads a 0 e ritorniamo NULL
         *actual_threads = 0;
         return NULL;
     }
 
-    // 2) Conta i non-zero per riga e calcola il totale
     int *row_nnz = malloc(csr->M * sizeof(int));
     if (!row_nnz) {
         free(thr_partition);
@@ -31,7 +28,6 @@ int* balance_load(CSRMatrix *csr, int num_threads, int *actual_threads) {
     double target_workload = total_nnz / num_threads;
     double current_workload = 0.0;
 
-    // 3) Esegui il partizionamento
     int thread_id = 0;
     thr_partition[0] = 0;  // La prima partizione parte dalla riga 0
 
@@ -39,19 +35,17 @@ int* balance_load(CSRMatrix *csr, int num_threads, int *actual_threads) {
         current_workload += row_nnz[i];
         if (current_workload >= target_workload && thread_id < num_threads - 1) {
             thread_id++;
-            thr_partition[thread_id] = i + 1; // La prossima partizione inizierà dalla prossima riga
+            thr_partition[thread_id] = i + 1; 
             current_workload = 0.0;
         }
     }
 
-    // 4) L’ultima partizione arriva fino all’ultima riga
     thread_id++;
     thr_partition[thread_id] = csr->M;
 
     // thread_id = numero di partizioni create; e’ anche il numero di thread usati
     *actual_threads = thread_id;
 
-    // 5) Se usiamo meno thread di quelli richiesti, ridimensioniamo thr_partition
     if (*actual_threads < num_threads) {
         int needed_size = *actual_threads + 1; // +1 per l’ultima entry
         int *temp = realloc(thr_partition, needed_size * sizeof(int));
@@ -60,32 +54,12 @@ int* balance_load(CSRMatrix *csr, int num_threads, int *actual_threads) {
         }
     }
 
-    // 6) Libera risorse temporanee
     free(row_nnz);
 
-    // Restituisce il puntatore (eventualmente spostato) al chiamante
+    // Restituisce il puntatore
     return thr_partition;
 }
 
-
-
-/*void balance_load(CSRMatrix *csr, int num_threads, int *thr_partition) {
-    int total_rows = csr->M;
-    int base = total_rows / num_threads;      // Numero di righe base per ogni thread
-    int rem = total_rows % num_threads;         // Righe rimanenti da distribuire
-
-    // Inizializza il primo boundary a 0
-    thr_partition[0] = 0;
-    int start = 0;
-    
-    // Per ogni thread, calcola il boundary finale della sua porzione
-    for (int i = 0; i < num_threads; i++) {
-        // Ogni thread prende "base" righe, e se ci sono rimanenze, i primi 'rem' thread ne prendono una in più
-        int extra = (i < rem) ? 1 : 0;
-        start += base + extra;
-        thr_partition[i + 1] = start;
-    }
-}*/
 
 void csr_matvec_openmp(CSRMatrix *csr, double *x, double *y, int num_threads, int *row_partition) {
     #pragma omp parallel num_threads(num_threads)
@@ -104,8 +78,9 @@ void csr_matvec_openmp(CSRMatrix *csr, double *x, double *y, int num_threads, in
     }
 }
 
-//far funzionare anche quella commentata per confronto tempi, il nostro è molto rozzo ma le matrici sono abbastanza bilanciate quindi dovrebbe andare bene
 
+
+//prodotto SpMV con direttiva openMP guided
 /*
 void csr_matvec_openmp(CSRMatrix *csr, double *x, double *y, int num_threads, int *row_partition) {
     #pragma omp parallel for schedule(guided) num_threads(num_threads)
@@ -137,16 +112,14 @@ void hll_matvec_openmp(HLLMatrix *hll_matrix, double *x, double *y, int num_thre
     for (int blockID = 0; blockID < hll_matrix->num_blocks; blockID++) {
         int start_row = blockID * HackSize;
         int end_row = (blockID + 1) * HackSize;
-        if (end_row > hll_matrix->M) end_row = hll_matrix->M;  // Protezione extra
+        if (end_row > hll_matrix->M) end_row = hll_matrix->M;  
 
         int max_nz_per_row = hll_matrix->blocks[blockID].max_nz_per_row;
-        int row_offset = 0;  // Offset iniziale della riga
+        int row_offset = 0;  
 
-        // Iteriamo sulle righe del blocco
         for (int i = start_row; i < end_row; i++) {
             double sum = 0.0;
 
-            // Scorriamo gli elementi non nulli della riga
             for (int j = 0; j < max_nz_per_row; j++) {
                 int idx = row_offset + j;
                 if (hll_matrix->blocks[blockID].JA[idx] != -1) { // Salta il padding

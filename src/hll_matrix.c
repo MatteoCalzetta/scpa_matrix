@@ -135,37 +135,6 @@ void free_hll_matrix(HLLMatrix *hll_matrix) {
     free(hll_matrix);
 }
 
-/*
-void convert_block_to_column_major(HLLBlock *block, int rows_in_block) {
-    int total_elements = rows_in_block * block->max_nz_per_row;
-    int *new_JA = (int *)malloc(total_elements * sizeof(int));
-    double *new_AS = (double *)malloc(total_elements * sizeof(double));
-    if (new_JA == NULL || new_AS == NULL) {
-        fprintf(stderr, "Errore di allocazione durante la conversione a column-major\n");
-        free(new_JA);
-        free(new_AS);
-        exit(EXIT_FAILURE);
-    }
-    
-    // In row-major, l'elemento alla riga r e colonna c si trova a:
-    //    index_row = r * block->max_nz_per_row + c
-    // In column-major, lo stesso elemento si trova a:
-    //    index_col = c * rows_in_block + r
-    for (int c = 0; c < block->max_nz_per_row; c++) {
-        for (int r = 0; r < rows_in_block; r++) {
-            int index_row = r * block->max_nz_per_row + c;
-            int index_col = c * rows_in_block + r;
-            new_JA[index_col] = block->JA[index_row];
-            new_AS[index_col] = block->AS[index_row];
-        }
-    }
-    
-    // Libera gli array originali e sostituiscili con quelli convertiti
-    free(block->JA);
-    free(block->AS);
-    block->JA = new_JA;
-    block->AS = new_AS;
-}*/
 
 HLLMatrix *convert_csr_to_hll_column_major(const CSRMatrix *csr) {
     int M = csr->M;

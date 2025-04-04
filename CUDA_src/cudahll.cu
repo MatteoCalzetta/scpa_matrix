@@ -38,10 +38,7 @@ matrixPerformance parallel_hll_cuda_v2(HLLMatrix *hllMatrixHost, double *x_h, do
     cudaDeviceReset();
     size_t free_mem, total_mem;
     cudaMemGetInfo(&free_mem, &total_mem);
-
-    // NOTA: y_h è passato dal main (deve essere allocato lì con dimensione M)
-
-    // Allocazione della struttura HLL sulla GPU
+    
     HLLMatrix *d_hll_matrix;
     cudaMalloc(&d_hll_matrix, sizeof(HLLMatrix));
     cudaMemcpy(d_hll_matrix, hllMatrixHost, sizeof(HLLMatrix), cudaMemcpyHostToDevice);
@@ -50,7 +47,7 @@ matrixPerformance parallel_hll_cuda_v2(HLLMatrix *hllMatrixHost, double *x_h, do
     cudaMalloc(&d_blocks, hllMatrixHost->num_blocks * sizeof(HLLBlock));
     cudaMemcpy(&d_hll_matrix->blocks, &d_blocks, sizeof(HLLBlock *), cudaMemcpyHostToDevice);
 
-    // Trasferimento di ciascun blocco sulla GPU
+    
     for (int i = 0; i < hllMatrixHost->num_blocks; i++) {
         HLLBlock *block = &hllMatrixHost->blocks[i];
 
@@ -77,21 +74,16 @@ matrixPerformance parallel_hll_cuda_v2(HLLMatrix *hllMatrixHost, double *x_h, do
         cudaMemcpy(&d_blocks[i], &d_block, sizeof(HLLBlock), cudaMemcpyHostToDevice);
     }
 
-    // Timer per misurare le prestazioni
     StopWatchInterface* timer = nullptr;
     sdkCreateTimer(&timer);
 
-    // Trasferimento del vettore x sulla GPU
     cudaMalloc((void **)&d_x, hllMatrixHost->N * sizeof(double));
     cudaMemcpy(d_x, x_h, hllMatrixHost->N * sizeof(double), cudaMemcpyHostToDevice);
 
-    // Alloca il vettore y sulla GPU (il risultato verrà copiato in y_h passato dal main)
     cudaMalloc((void **)&d_y, M * sizeof(double));
     cudaMemset(d_y, 0, M * sizeof(double));
 
-    // Configurazione dinamica del kernel:
-    // Se M >= 1024, usiamo 32 warps per blocco (32x32=1024 thread per blocco)
-    // Altrimenti, calcoliamo il numero necessario per coprire M righe.
+    
     int warps_per_block;
     if (M >= 1024) {
         warps_per_block = 32;
@@ -100,10 +92,8 @@ matrixPerformance parallel_hll_cuda_v2(HLLMatrix *hllMatrixHost, double *x_h, do
         if (warps_per_block < 1)
             warps_per_block = 1;
     }
-    // Configura il blocco 2D: blockDim.x = WARP_SIZE (32 thread per warp),
-    // blockDim.y = warps_per_block (numero di righe per blocco)
+   
     dim3 blockDim(WARP_SIZE, warps_per_block);
-    // Ogni blocco elabora warps_per_block righe, quindi il numero di blocchi necessari è:
     int grid_x = (M + warps_per_block - 1) / warps_per_block;
     dim3 gridDim(grid_x);
 
@@ -123,10 +113,8 @@ matrixPerformance parallel_hll_cuda_v2(HLLMatrix *hllMatrixHost, double *x_h, do
     matrixPerformance node = {0};
     node.seconds = sdkGetTimerValue(&timer) / 1000.0f; // ms -> s
 
-    // Copia il risultato dal device all'area y_h passata dal main
     cudaMemcpy(y_h, d_y, M * sizeof(double), cudaMemcpyDeviceToHost);
 
-    // Pulizia: libera la memoria allocata per i blocchi trasferiti
     for (int i = 0; i < hllMatrixHost->num_blocks; i++) {
         HLLBlock temp_block;
         cudaMemcpy(&temp_block, &d_blocks[i], sizeof(HLLBlock), cudaMemcpyDeviceToHost);
@@ -140,7 +128,6 @@ matrixPerformance parallel_hll_cuda_v2(HLLMatrix *hllMatrixHost, double *x_h, do
 
     sdkDeleteTimer(&timer);
     
-    // Ora y_h contiene il vettore risultato, gestito dal main
     return node;
 }
 
@@ -248,17 +235,16 @@ matrixPerformance parallel_hll_cuda_v3(HLLMatrix *hllMatrixHost, double *x_h, do
     double *d_y;
     double *d_x;
     int M = hllMatrixHost->M;
-    // (Opzionale) Reset del device
+
     cudaDeviceReset();
-    // Per debug: controlla la memoria disponibile
+
     size_t free_mem, total_mem;
     cudaMemGetInfo(&free_mem, &total_mem);
-    // NOTA: y_h è allocato dal main (dimensione M)
-    // 1) Allocazione della struttura HLL sulla GPU
+    
     HLLMatrix *d_hll_matrix;
     cudaMalloc(&d_hll_matrix, sizeof(HLLMatrix));
     cudaMemcpy(d_hll_matrix, hllMatrixHost, sizeof(HLLMatrix), cudaMemcpyHostToDevice);
-    // 2) Allocazione e copia dei blocchi
+
     HLLBlock *d_blocks;
     cudaMalloc(&d_blocks, hllMatrixHost->num_blocks * sizeof(HLLBlock));
     cudaMemcpy(&d_hll_matrix->blocks, &d_blocks, sizeof(HLLBlock *), cudaMemcpyHostToDevice);
@@ -272,30 +258,30 @@ matrixPerformance parallel_hll_cuda_v3(HLLMatrix *hllMatrixHost, double *x_h, do
         // Dimensioni array JA e AS del blocco
         size_t JA_size = block->max_nz_per_row * rows_in_block * sizeof(int);
         size_t AS_size = block->max_nz_per_row * rows_in_block * sizeof(double);
-        // Alloca e copia device
+        
+        // Alloca e copia nel device
         int *d_JA;
         double *d_AS;
         cudaMalloc(&d_JA, JA_size);
         cudaMemcpy(d_JA, block->JA, JA_size, cudaMemcpyHostToDevice);
         cudaMalloc(&d_AS, AS_size);
         cudaMemcpy(d_AS, block->AS, AS_size, cudaMemcpyHostToDevice);
-        // Prepara un HLLBlock "device" temporaneo per scriverlo nell’array d_blocks
+
         HLLBlock d_block = *block;  // copia di tutti i campi
         d_block.JA = d_JA;          // ma con i puntatori device
         d_block.AS = d_AS;
         cudaMemcpy(&d_blocks[i], &d_block, sizeof(HLLBlock), cudaMemcpyHostToDevice);
     }
-    // 3) Timer per misurare le prestazioni
+   
     StopWatchInterface* timer = nullptr;
     sdkCreateTimer(&timer);
-    // 4) Copia del vettore x sulla GPU
+   
     cudaMalloc((void **)&d_x, hllMatrixHost->N * sizeof(double));
     cudaMemcpy(d_x, x_h, hllMatrixHost->N * sizeof(double), cudaMemcpyHostToDevice);
-    // 5) Alloca il vettore y sulla GPU
+
     cudaMalloc((void **)&d_y, M * sizeof(double));
     cudaMemset(d_y, 0, M * sizeof(double));
-    // 6) Configurazione del kernel
-    // Calcolo del numero di warps per blocco
+    
     int warps_per_block;
     if (M >= 1024) {
         warps_per_block = 32;  // 32 warps => 32*32=1024 threads
@@ -305,15 +291,14 @@ matrixPerformance parallel_hll_cuda_v3(HLLMatrix *hllMatrixHost, double *x_h, do
             warps_per_block = 1;
         }
     }
-    // blockDim.x = 32 (un warp ha 32 lane), blockDim.y = numero di warps per blocco
+   
     dim3 blockDim(WARP_SIZE, warps_per_block);
-    // Ogni blocco processa warps_per_block righe; quante righe totali? M.
+
     int grid_x = (M + warps_per_block - 1) / warps_per_block;
     dim3 gridDim(grid_x);
-    // *Allocazione della shared memory*:
-    // Per ogni warp servono 32 * sizeof(double), e abbiamo "warps_per_block" warps.
+    
     size_t sharedSize = warps_per_block * WARP_SIZE * sizeof(double);
-    // 7) Lancio del kernel con sharedSize
+
     sdkResetTimer(&timer);
     sdkStartTimer(&timer);
     printf("Prima di chiamare il kernel (shared memory)...\n");
@@ -329,9 +314,9 @@ matrixPerformance parallel_hll_cuda_v3(HLLMatrix *hllMatrixHost, double *x_h, do
     sdkStopTimer(&timer);
     matrixPerformance node = {0};
     node.seconds = sdkGetTimerValue(&timer) / 1000.0f; // ms -> s
-    // 8) Copia il risultato dal device all'area y_h passata dal main
+   
     cudaMemcpy(y_h, d_y, M * sizeof(double), cudaMemcpyDeviceToHost);
-    // 9) Pulizia: libera la memoria allocata per i blocchi trasferiti
+
     for (int i = 0; i < hllMatrixHost->num_blocks; i++) {
         HLLBlock temp_block;
         cudaMemcpy(&temp_block, &d_blocks[i], sizeof(HLLBlock), cudaMemcpyDeviceToHost);
@@ -343,7 +328,7 @@ matrixPerformance parallel_hll_cuda_v3(HLLMatrix *hllMatrixHost, double *x_h, do
     cudaFree(d_x);
     cudaFree(d_y);
     sdkDeleteTimer(&timer);
-    // y_h contiene il risultato
+
     return node;
 }
 

@@ -84,13 +84,9 @@ int main() {
 
         results[i].nz = csr->NZ;
 
-
         // Converte in HLL
         HLLMatrix *hll = convert_csr_to_hll(csr);
         HLLMatrix *hll_column = convert_csr_to_hll_column_major(csr);
-
-
-
 
         // Alloca vettori
         double *x          = (double *)malloc(csr->N * sizeof(double));
@@ -291,11 +287,7 @@ int main() {
             results[i].openmp_hll[idx_omp].time    = omp_time_hll;
             results[i].openmp_hll[idx_omp].flops   = omp_flops_hll;
             results[i].openmp_hll[idx_omp].speedup = time_hll_serial/omp_time_hll;
-            results[i].openmp_hll[idx_omp].efficienza = (time_hll_serial/omp_time_hll)/n_threads;
-            //double speedupHLL= time_hll_serial/omp_time_hll;
-            //printf("speedup HLL %.6f \n", speedupHLL);
-            //printf("efficienza HLL %.6f \n", speedupHLL/n_threads);
-        
+            results[i].openmp_hll[idx_omp].efficienza = (time_hll_serial/omp_time_hll)/n_threads;        
 
             // CSR OpenMP
             if (csr->M < n_threads) continue;
@@ -320,9 +312,7 @@ int main() {
             results[i].openmp_csr[idx_omp].flops   = omp_flops_csr;
             results[i].openmp_csr[idx_omp].speedup = time_csr_serial/omp_time_csr;
             results[i].openmp_csr[idx_omp].efficienza = (time_csr_serial/omp_time_csr)/n_threads;
-            //double speedupCSR= time_csr_serial/omp_time_csr;
-            //printf("speedup CSR %.6f\n", speedupCSR);
-            //printf("efficienza CSR %.6f\n", speedupCSR/n_threads);
+         
         }
 
         // Deallocazioni finali

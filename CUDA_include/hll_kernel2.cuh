@@ -14,16 +14,12 @@
 __global__ void matvec_Hll_cuda_warp(const HLLMatrix *d_hll_matrix, 
                                      const double *d_x, 
                                      double *d_y, 
-                                     int M) {
-    // In una configurazione 2D dove blockDim.x = 32 (WARP_SIZE)
-    // e blockDim.y = number of warps per blocco,
-    // la hardware linearizza i thread in modo che le righe (threadIdx.y) 
-    // rimangano costanti all'interno di ogni warp.
-    int lane = threadIdx.x;       // indice della lane nel warp (0..31)
-    int warpIdInBlock = threadIdx.y;  // ogni warp è identificato dalla sua riga nel blocco
-    int global_row = blockIdx.x * blockDim.y + warpIdInBlock; // ogni warp processa una riga
+                                     int M) { 
+    
+    int lane = threadIdx.x;
+    int warpIdInBlock = threadIdx.y; 
+    int global_row = blockIdx.x * blockDim.y + warpIdInBlock; 
 
-    // Se la riga globale supera M, esci
     if (global_row >= M)
         return;
 
@@ -38,7 +34,7 @@ __global__ void matvec_Hll_cuda_warp(const HLLMatrix *d_hll_matrix,
     int row_offset = local_row * max_nz_per_row;
 
     double sum = 0.0;
-    // Ogni lane processa elementi della riga con stride WARP_SIZE
+
     for (int j = lane; j < max_nz_per_row; j += WARP_SIZE) {
         int idx = row_offset + j;
         int col = block->JA[idx];
